@@ -1,7 +1,7 @@
 -- phpMyAdmin SQL Dump
 -- version 5.2.1-1.el7.remi
 -- https://www.phpmyadmin.net/
---
+-- Authors: CS340 Group 101 Team Binary: Tavner Murphy and Patrick Lim
 -- Host: localhost
 -- Generation Time: May 02, 2024 at 08:17 PM
 -- Server version: 10.6.17-MariaDB-log
@@ -93,7 +93,7 @@ CREATE TABLE `Engagements` (
   `view` tinyint(1) NOT NULL DEFAULT 0,
   `user_id` int(11) NOT NULL,
   `movie_id` int(11) DEFAULT NULL,
-  `television_id` int(11) DEFAULT NULL
+  `television_id` int(11) DEFAULT NULL,
   CHECK ('rating' >= 0 and 'rating' <= 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
