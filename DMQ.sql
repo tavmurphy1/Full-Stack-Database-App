@@ -10,11 +10,19 @@ SELECT actor_id, actor_name FROM `Actors`;
 -- get all directors for browse directors page
 SELECT director_id, director_name FROM `Directors`;
 
--- 
+-- get all episodes and their corresponding television show name for browse episodes page
 SELECT episode_id, episode_title, episode_length, Televisions.television_title AS television_name
 	FROM Episodes
 		INNER JOIN Televisions
-        ON television_id_ep = Televisions.television_id
+        ON television_id_ep = Televisions.television_id;
+        
+-- get all Engagements and their corresponding user_id and movie or television show name for browse engagements page
+SELECT engagement_id, favorite, rating, view, user_id, Movies.movie_title AS movie_title, Televisions.television_title AS television_title
+	FROM Engagements
+		LEFT JOIN Movies
+        ON Engagements.movie_id = Movies.movie_id 
+		LEFT JOIN Televisions
+        ON Engagements.television_id = Televisions.television_id 
 
 -- Query for add a new character functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
