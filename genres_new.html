@@ -8,6 +8,13 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function addGenre() {
+
+    alert(`Genre was successfully added.`);
+    location.href="genres.html"
+}
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -23,32 +30,39 @@
         </nav>
     <main>
         <section>
-            <h2>Movies</h2>
+            <h2>New Genres</h2>
             <article>
-                <table id="movies">
+                <table id="addGenre">
+                    <caption>What genre are you adding?</caption>
                     <thead>
                         <tr>
-                            <th>movie_id</th>
-                            <th>movie_title</th>
-                            <th>movie_length</th>
-                            <th>movie_total_view</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>The Godfather</td>
-                            <td>175</td>
-                            <td>drama</td>
-                        </tr>
+                    <tr>
+                        <td><label for="name" >genre_name</label>
+                            <input
+                                type="text"
+                                placeholder="genre_name"
+                                required
+                                 
+                                id="name" />
+                        </td>
+    
+                        <td>
+                        <label for="submit"></label>
+                            <button
+                                type="submit"
+                                onClick="addGenre()"
+                                id="submit"
+                            >Add</button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 
             </article>
-
-            <nav>
-                <a href="movies_new.html">Add Movie</a>
-            </nav>
+            
         </section>
     </main>
     <footer>

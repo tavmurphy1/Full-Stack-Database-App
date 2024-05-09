@@ -8,6 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function deleteGenre() {
+        return confirm("Are you sure you want to delete?");
+    }
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -15,7 +20,8 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="movies.html">Movies</a>
-            <a href="television.html">Television</a>
+            <a href="televisions.html">Television</a>
+            <a href="episodes.html">Episodes</a>
             <a href="genres.html">Genres</a>
             <a href="actors.html">Actors</a>
             <a href="directors.html">Directors</a>
@@ -35,12 +41,30 @@
                         <tr>
                             <td>1</td>
                             <td>action</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>documentary</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>drama</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </article>
-        </section>
+        
             <nav>
-                <a href="genre_new.html">Add New Genre</a>
+                <a href="genres_new.html">Add New Genre</a>
             </nav>
         </section>
     </main>

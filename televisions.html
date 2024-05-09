@@ -8,6 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function deleteTelevision() {
+        return confirm("Are you sure you want to delete?");
+    }
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -23,23 +28,24 @@
         </nav>
     <main>
         <section>
-            <h2>Movies</h2>
+            <h2>Televisions</h2>
             <article>
-                <table id="movies">
+                <table id="television">
                     <thead>
                         <tr>
-                            <th>movie_id</th>
-                            <th>movie_title</th>
-                            <th>movie_length</th>
-                            <th>movie_total_view</th>
+                            <th>television_id</th>
+                            <th>television_title</th>
+                            <th>television_total_view</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>The Godfather</td>
-                            <td>175</td>
-                            <td>drama</td>
+                            <td>Planet Earth II</td>
+                            <td>0</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteTelevision();">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -47,7 +53,7 @@
             </article>
 
             <nav>
-                <a href="movies_new.html">Add Movie</a>
+                <a href="televisions_new.html">Add New Television Show</a>
             </nav>
         </section>
     </main>
