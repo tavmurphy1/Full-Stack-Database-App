@@ -41,16 +41,31 @@ VALUES (:actor_nameInput);
 
 -- add new director
 INSERT INTO `Directors` (`director_name`)
-VALUES (:genre_nameInput);
+VALUES (:director_nameInput);
+
+-- add new episode
+INSERT INTO `Episodes` (`episode_title`, `episode_length`, `television_id_ep`)
+VALUES (:episode_titleInput, :episode_lengthInput, :television_id_from_dropdown_Input,);
+
+-- add new engagement
+INSERT INTO `Enagements` (`favorite`, `rating`, `view`, `user_id`, `movie_id`, `television_id`)
+VALUES (:engagements_favorite_checkboxInput, :engagements_rating_from_dropdown_Input, :engagements_view_checkboxInput, 
+:engagements_user_idInput, :engagements_movie_title_from_dropdownInput, :engagements_television_title_from_dropdownInput);
 
 -- Query for delete a new character functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
 
 -- delete genre
-DELETE FROM `Genres` WHERE genre_id = :genre_ID_selected_from_browse_character_page
+DELETE FROM `Genres` WHERE genre_id = :genre_ID_selected_from_browse_genres_page
 
 -- delete actor
-DELETE FROM `Actors` WHERE actor_id = :actor_ID_selected_from_browse_character_page
+DELETE FROM `Actors` WHERE actor_id = :actor_ID_selected_from_browse_actors_page
 
 -- delete director
-DELETE FROM `Directors` WHERE director_id = :director_ID_selected_from_browse_character_page
+DELETE FROM `Directors` WHERE director_id = :director_ID_selected_from_browse_directors_page
+
+-- delete episode
+DELETE FROM `Episodes` WHERE episode_id = :episode_ID_selected_from_browse_episodes_page
+
+-- delete engagement
+DELETE FROM `Engagement` WHERE engagement_id = :engagement_ID_selected_from_browse_engagements_page
