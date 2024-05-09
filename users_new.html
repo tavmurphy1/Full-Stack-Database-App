@@ -9,10 +9,10 @@
     <script src='main.js'></script>
 </head>
 <script language="Javascript">
-    function addTelevision() {
+    function addUser() {
 
-    alert(`Television show was successfully added.`);
-    location.href="televisions.html"
+    alert(`TV episode was successfully added.`);
+    location.href="episodes.html"
 }
 </script>
 <body>
@@ -32,37 +32,55 @@
         </nav>
     <main>
         <section>
-            <h2>New Televisions</h2>
+            <h2>New User</h2>
             <article>
-                <table id="addTelevision">
-                    <caption>Which Television show are you adding?</caption>
+                <table id="addEpisode">
+                    <caption>Who are you adding?</caption>
                     <thead>
                         <tr>
                         </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td><label for="title" >television_title</label>
+                        <td><label for="name" >user_name</label>
                             <input
                                 type="text"
-                                placeholder="title"
+                                placeholder="name"
                                 required
                                  
-                                id="title" />
+                                id="name" />
                         </td>
-    
-                        <td>
-                        <label for="submit"></label>
-                            <button
-                                type="submit"
-                                onClick="addTelevision()"
-                                id="submit"
-                            >Add</button>
+                    </tr>
+                    <tr>
+                        <td><label for="email" >user_email</label>
+                            <input
+                                type="text"
+                                placeholder="email"
+                                required
+                                 
+                                id="email" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="country" >user_country</label>
+                            <input
+                                type="text"
+                                placeholder="country"
+                                required
+                             
+                                id="country" />
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                
+
+                <label for="submit"></label>
+                <button
+                    type="submit"
+                    onClick="addUser()"
+                    id="submit"
+                >Add</button>
+
             </article>
             
         </section>

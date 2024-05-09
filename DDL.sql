@@ -94,7 +94,7 @@ CREATE TABLE `Engagements` (
   `user_id` int(11) NOT NULL,
   `movie_id` int(11) DEFAULT NULL,
   `television_id` int(11) DEFAULT NULL,
-  CHECK ('rating' >= 0 and 'rating' <= 5)
+  CHECK ('rating' >= 0 and 'rating' <= 10)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
