@@ -8,6 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function deleteActor() {
+        return confirm("Are you sure you want to delete?");
+    }
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -15,7 +20,8 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="movies.html">Movies</a>
-            <a href="television.html">Television</a>
+            <a href="televisions.html">Television</a>
+            <a href="episodes.html">Episodes</a>
             <a href="genres.html">Genres</a>
             <a href="actors.html">Actors</a>
             <a href="directors.html">Directors</a>
@@ -34,15 +40,17 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>action</td>
+                            <td>David Attenborough</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteActor();">Delete</button>
+                            </td>
                     </tbody>
                 </table>
                 
             </article>
-        </section>
-         <section>
+        
             <nav>
-                <a href="actor_new.html">Add New Actor</a>
+                <a href="actors_new.html">Add New Actor</a>
             </nav>
         </section>
     </main>

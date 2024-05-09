@@ -8,6 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function deleteEpisode() {
+        return confirm("Are you sure you want to delete?");
+    }
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -15,33 +20,42 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="movies.html">Movies</a>
-            <a href="television.html">Television</a>
+            <a href="televisions.html">Television</a>
+            <a href="episodes.html">Episodes</a>
             <a href="genres.html">Genres</a>
             <a href="actors.html">Actors</a>
             <a href="directors.html">Directors</a>
         </nav>
     <main>
         <section>
-            <h2>Television</h2>
+            <h2>Episodes</h2>
             <article>
-                <table id="television">
+                <table id="episode">
                     <thead>
                         <tr>
-                            <th>television_id</th>
-                            <th>television_name</th>
-                            <th>television_directors</th>
-                            <th>television_actors</th>
+                            <th>episode_id</th>
+                            <th>episode_title</th>
+                            <th>episode_length</th>
+                            <th>television_id_ep</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>action</td>
+                            <td>Islands</td>
+                            <td>51</td>
+                            <td>1</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteTelevision();">Delete</button>
+                            </td>
                     </tbody>
                 </table>
                 
             </article>
-            
+
+            <nav>
+                <a href="episodes_new.html">Add new TV episode</a>
+            </nav>
         </section>
     </main>
     <footer>

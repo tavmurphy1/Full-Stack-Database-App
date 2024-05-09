@@ -9,10 +9,10 @@
     <script src='main.js'></script>
 </head>
 <script language="Javascript">
-    function addGenre() {
+    function addEpisode() {
 
-    alert(`Genre was successfully added.`);
-    location.href="genres.html"
+    alert(`TV episode was successfully added.`);
+    location.href="episodes.html"
 }
 </script>
 <body>
@@ -32,28 +32,44 @@
         <section>
             <h2>Genres</h2>
             <article>
-                <table id="addGenre">
-                    <caption>What genre are you adding?</caption>
+                <table id="addEpisode">
+                    <caption>Which TV episode are you adding?</caption>
                     <thead>
                         <tr>
                         </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td><label for="name" >genre_name</label>
+                        <td><label for="title" >episode_title</label>
                             <input
                                 type="text"
-                                placeholder="genre_name"
+                                placeholder="title"
                                 required
                                  
-                                id="name" />
+                                id="title" />
+                        </td>
+                        <td><label for="length" >episode_length</label>
+                            <input
+                                type="text"
+                                placeholder="length"
+                                required
+                                 
+                                id="length" />
+                        </td>
+                        <td><label for="television_id_ep" >television_id_ep</label>
+                            <input
+                                type="text"
+                                placeholder="television_id"
+                                required
+                                 
+                                id="television_id_ep" />
                         </td>
     
                         <td>
                         <label for="submit"></label>
                             <button
                                 type="submit"
-                                onClick="addGenre()"
+                                onClick="addEpisode()"
                                 id="submit"
                             >Add</button>
                         </td>
