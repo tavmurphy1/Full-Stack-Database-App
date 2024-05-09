@@ -8,6 +8,13 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function addGenre() {
+
+    alert(`Card was successfully added.`);
+    location.href="genres.html"
+}
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -24,24 +31,38 @@
         <section>
             <h2>Genres</h2>
             <article>
-                <table id="genres">
+                <table id="addDeck">
+                    <caption>What genre are you adding?</caption>
                     <thead>
                         <tr>
-                            <th>genre_id</th>
-                            <th>genre_name</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>action</td>
+                    <tr>
+                        <td><label for="name" >genre_name</label>
+                            <input
+                                type="text"
+                                placeholder="genre_name"
+                                required
+                                 
+                                id="name" />
+                        </td>
+    
+                        <td>
+                        <label for="submit"></label>
+                            <button
+                                type="submit"
+                                onClick="addGenre()"
+                                id="submit"
+                            >Add</button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
+                
             </article>
-        </section>
-            <nav>
-                <a href="genres_new.html">Add New Genre</a>
-            </nav>
+            
         </section>
     </main>
     <footer>
