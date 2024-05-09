@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Reelhouse</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<script language="Javascript">
+    function addEngagement() {
+
+    alert(`Engagement was successfully added.`);
+    location.href="engagements.html"
+}
+</script>
+<body>
+    <header>
+        <h1>Reelhouse</h1>
+    </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="engagments.html">Engagements</a>
+            <a href="movies.html">Movies</a>
+            <a href="televisions.html">Television</a>
+            <a href="episodes.html">Episodes</a>
+            <a href="genres.html">Genres</a>
+            <a href="actors.html">Actors</a>
+            <a href="directors.html">Directors</a>
+        </nav>
+    <main>
+        <section>
+            <h2>Add Engagement</h2>
+            <article>
+                <table id="addEngagement">
+                    <caption>Record a User Engagement Below</caption>
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <label for="favorite">Favorited?</label>>
+                                <input
+                                    name="favorite"
+                                    type="checkbox"
+                                    value="1">
+                        </td>
+                        <td>
+                            <label for="rating" >Rating</label>
+                            <select
+                                name="rating"
+                                required>
+                                <option value="0"></option>
+                                <option value="1"></option>
+                                <option value="2"></option>
+                                <option value="3"></option>
+                                <option value="4"></option>
+                                <option value="5"></option>
+                                <option value="6"></option>
+                                <option value="7"></option>
+                                <option value="8"></option>
+                                <option value="9"></option>
+                                <option value="10"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <label for="View">View?</label>>
+                                <input
+                                    name="View"
+                                    type = "checkbox"
+                                    value="1">
+                        </td>
+                        <td>
+                            <label for="user_id" >User_ID</label>
+                                <input
+                                    type="int"
+                                    placeholder="user_id"
+                                    required>
+                        </td>
+                        <td>
+                            <label for="favorite" >favorited?</label>
+                            <input
+                                type="checkbox"
+                                value="1">
+                        </td>
+                        <td>
+                            <label for="movie_id">Movie_ID</label>
+                            <input
+                                type="int"
+                                placeholder="movie_id">
+                            
+                        </td>
+                        <td>
+                            <label for="television_id">TV_ID</label>
+                            <input
+                                type="int"
+                                placeholder="television_id">
+                        </td>
+                        <td>
+                        <label for="submit"></label>
+                            <button
+                                type="submit"
+                                onClick="addEngagement()"
+                                id="submit"
+                            >Add</button>
+                        </td>
+                    
+                    </tr>
+                    </tbody>
+                </table>
+                
+            </article>
+            
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Patrick Lim and Tavner Murphy</p>
+    </footer>
+</body>
+</html>
