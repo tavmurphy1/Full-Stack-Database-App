@@ -15,6 +15,7 @@
         <nav>
             <a href="index.html">Home</a>
             <a href="engagements.html">Engagements</a>
+            <a href="users.html">Users</a>
             <a href="movies.html">Movies</a>
             <a href="televisions.html">Television</a>
             <a href="episodes.html">Episodes</a>
@@ -25,23 +26,63 @@
     <main>
         <section>
             <h2>
-                Engagements
+                Home
             </h2>
+                <article>
+                    <p>
+                        “Reelhouse” is a subscription-based movie and TV streaming service with 15 million
+                        members/users and a rotating, curated catalog of 100 movies. To provide a
+                        personalized user experience and to track the popularity of certain films, genres,
+                        directors, and actors in its catalog, a website with a DB backend will record its user
+                        data, the ‘engagements’ films receive from its users such as views for each film/show, 
+                        the ratings users give to each film, as well as the number of times a film was ‘favorited’. 
+                        Each movie and show will be associated with at least one genre, director, and actor.
+                    </p>
+                </article>
             <table id="engagements">
                 <thead>
                     <tr>
-                        <th>engagement_id</th>
-                        <th>user_id</th>
+                        <th>Table</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>action</td>
+                        <td>Engagements</td>
+                        <td>This table/entity records information about user engagement such as favorites, ratings, and views.</td>
+                    </tr>
+                    <tr>
+                        <td>Users</td>
+                        <td>This table/entity records information about Reelhouse's users.</td>
+                    </tr>
+                    <tr>
+                        <td>Movies</td>
+                        <td>This table/entity records information about movies in out catalog.</td>
+                    </tr>
+                    <tr>
+                        <td>Televisions</td>
+                        <td>This table/entity records information about TV shows in our catalog.</td>
+                    </tr>
+                    <tr>
+                        <td>Episodes</td>
+                        <td>This table/entity records information about TV episodes.</td>
+                    </tr>
+                    <tr>
+                        <td>Genres</td>
+                        <td>This table/entity records information about genres for movies and TV shows.</td>
+                    </tr>
+                    <tr>
+                        <td>Actors</td>
+                        <td>This table/entity records information about actors for movies and TV shows.</td>
+                    </tr>
+                    <tr>
+                        <td>Directors</td>
+                        <td>This table/entity records information about directors for movies and TV shows.</td>
+                    </tr>
                 </tbody>
-            <nav>
-                <a href="engagements_new.html">Add New Engagement</a>
-            </nav>
+            </table>
+        </section>
+
     </main>
     <footer>
         <p>&copy; 2024 Patrick Lim and Tavner Murphy</p>

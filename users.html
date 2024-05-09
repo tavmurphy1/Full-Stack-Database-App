@@ -8,6 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function deleteUsers() {
+        return confirm("Are you sure you want to delete?");
+    }
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -25,36 +30,36 @@
         </nav>
     <main>
         <section>
-            <h2>Engagments</h2>
+            <h2>Users</h2>
             <article>
-                <table id="engagements">
+                <table id="episode">
                     <thead>
                         <tr>
-                            <th>engagement_id</th>
-                            <th>favorited</th>
-                            <th>rating</th>
-                            <th>view</th>
                             <th>user_id</th>
-                            <th>movie_id</th>
-                            <th>television_id</t>
+                            <th>user_name</th>
+                            <th>user_email</th>
+                            <th>user_country</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>1</td>
-                            <td>12</td>
-                            <td>34</td>
-                            <td>NULL</td>
+                            <td>Jason Williams</td>
+                            <td>jwill@gmail.com</td>
+                            <td>United States</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteUsers();">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                
             </article>
+
             <nav>
-                <a href="engagements_new.html">Add New Engagement</a>
+                <a href="users_new.html">Add new user</a>
             </nav>
+        </section>
     </main>
     <footer>
         <p>&copy; 2024 Patrick Lim and Tavner Murphy</p>
