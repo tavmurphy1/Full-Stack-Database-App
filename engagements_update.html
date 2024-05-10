@@ -9,9 +9,9 @@
     <script src='main.js'></script>
 </head>
 <script language="Javascript">
-    function addEngagement() {
+    function updateEngagement() {
 
-    alert(`Engagement was successfully added.`);
+    alert(`Engagement was successfully updated.`);
     location.href="engagements.html"
 }
 </script>
@@ -32,10 +32,10 @@
         </nav>
     <main>
         <section>
-            <h2>New Engagement</h2>
+            <h2>Update Engagement</h2>
             <article>
-                <table id="addEngagement">
-                    <caption>Record a User Engagement Below</caption>
+                <table id="updateEngagement">
+                    <caption>Update a User Engagement Below</caption>
                     <thead>
                         <tr>
                         </tr>
@@ -82,7 +82,6 @@
                                     required>
                         </td>
                         <td>
-
                             <label for="movie_id">Movie_title</label>
                             <select
                                 name="television"
@@ -105,9 +104,9 @@
                         <label for="submit"></label>
                             <button
                                 type="submit"
-                                onClick="addEngagement()"
+                                onClick="updateEngagement()"
                                 id="submit"
-                            >Add</button>
+                            >Edit</button>
                         </td>
                     
                     </tr>

@@ -8,6 +8,17 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+<script language="Javascript">
+    function deleteEngagement() {
+        return confirm("Are you sure you want to delete?");
+    }
+    function updateEngagement() {
+        let edit = confirm("Are you sure you want to edit?");
+        if (edit == true) {location.href="engagements_update.html"}
+        else
+            {return};
+    }
+</script>
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -25,7 +36,7 @@
         </nav>
     <main>
         <section>
-            <h2>Engagments</h2>
+            <h2>Engagements</h2>
             <article>
                 <table id="engagements">
                     <thead>
@@ -35,8 +46,8 @@
                             <th>rating</th>
                             <th>view</th>
                             <th>user_id</th>
-                            <th>movie_id</th>
-                            <th>television_id</t>
+                            <th>movie_name</th>
+                            <th>television_name</t>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +56,15 @@
                             <td>0</td>
                             <td>8</td>
                             <td>1</td>
-                            <td>12</td>
-                            <td>34</td>
+                            <td>1</td>
+                            <td>The Godfather</td>
                             <td>NULL</td>
+                            <td>
+                                <button type="submit" onClick= "return updateEngagement();">Edit</button>
+                            </td>
+                            <td>
+                                <button type="submit" onClick= "return deleteEngagement();">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
