@@ -13,11 +13,6 @@ var db = require('./db-connector')
 /*
     ROUTES
 */
-app.get('/', function(req, res)
-    {
-        
-
-    });
 
 /*
     LISTENER
