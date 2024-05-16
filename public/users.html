@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Reelhouse</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<script language="Javascript">
+    function deleteUsers() {
+        return confirm("Are you sure you want to delete?");
+    }
+</script>
+<body>
+    <header>
+        <h1>Reelhouse</h1>
+    </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="engagements.html">Engagements</a>
+            <a href="users.html">Users</a>
+            <a href="movies.html">Movies</a>
+            <a href="televisions.html">Television</a>
+            <a href="episodes.html">Episodes</a>
+            <a href="genres.html">Genres</a>
+            <a href="actors.html">Actors</a>
+            <a href="directors.html">Directors</a>
+            <a href="movies_genres.html">Movies/Genres</a>
+            <a href="movies_actors.html">Movies/Actors</a>
+            <a href="movies_directors.html">Movies/Directors</a>
+            <a href="televisions_genres.html">Televisions/Genres</a>
+            <a href="televisions_actors.html">Televisions/Actors</a>
+            <a href="televisions_directors.html">Televisions/Directors</a>
+        </nav>
+    <main>
+        <section>
+            <h2>Users</h2>
+            <article>
+                <table id="episode">
+                    <thead>
+                        <tr>
+                            <th>user_id</th>
+                            <th>user_name</th>
+                            <th>user_email</th>
+                            <th>user_country</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Jason Williams</td>
+                            <td>jwill@gmail.com</td>
+                            <td>United States</td>
+                            <td>
+                                <button type="submit" onClick= "return deleteUsers();">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </article>
+
+            <nav>
+                <a href="users_new.html">Add new user</a>
+            </nav>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Patrick Lim and Tavner Murphy</p>
+    </footer>
+</body>
+</html>
