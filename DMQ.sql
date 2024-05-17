@@ -194,8 +194,8 @@ VALUES (:movies_titleInput);
 
 -- add television's associated M:N relationships to genres, actors, directors
  INSERT INTO Televisions_Genres (television_id_tg, genre_id_tg) VALUES (:television_id_from_insert_autoincrement, :genre_id_from_checkboxInput)
- INSERT INTO Televisions_Actors (television_id_ta, actor_id_ma) VALUES (:television_id_from_insert_autoincrement, :actor_id_from_checkboxInput)
- INSERT INTO Televisions_Directors (television_id_td, director_id_md) VALUES (:television_id_from_insert_autoincrement, :director_id_from_checkboxInput);
+ INSERT INTO Televisions_Actors (television_id_ta, actor_id_ta) VALUES (:television_id_from_insert_autoincrement, :actor_id_from_checkboxInput)
+ INSERT INTO Televisions_Directors (television_id_td, director_id_td) VALUES (:television_id_from_insert_autoincrement, :director_id_from_checkboxInput);
 
 -- Queries for delete functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
