@@ -1,6 +1,8 @@
+-- Authors: CS340 Group 101: Patrick Lim and Tavner Murphy
+
 -- Queries for read functionality
 
--- get all genres for browse users page
+-- get all users for browse users page
 SELECT user_id, user_name, user_email, user_country FROM `Users`;
 
 -- get all genres for browse genres page
@@ -34,7 +36,7 @@ SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view)
     group by Movies.movie_id
     Order by Movies.movie_id;
 	
--- get  associated genres, actors, directors for browsw movies page
+-- get  associated genres, actors, directors for browse movies page
 SELECT  Genres.genre_name AS `genres(s)`
 	FROM Movies_Genres
 		INNER JOIN Genres
@@ -57,7 +59,88 @@ FROM Movies_Directors
         ON Directors.director_id = Movies_Directors.director_id_md
         INNER JOIN Movies
 		ON Movies.movie_id = Movies_Directors.movie_id_md
-	Order by Movies.movie_id
+	Order by Movies.movie_id;
+    
+-- get all Television shows for browse televisions page
+SELECT Televisions.television_id, television_title, sum(Engagements.view)
+	FROM Televisions
+		INNER JOIN Engagements
+        ON Engagements.television_id = Televisions.television_id
+    group by Televisions.television_id
+    Order by Televisions.television_id;
+	
+-- get  associated genres, actors, directors for browse televisions page
+SELECT  Genres.genre_name AS `genres(s)`
+	FROM Televisions_Genres
+		INNER JOIN Genres
+        ON Genres.genre_id = Televisions_Genres.genre_id_tg
+        INNER JOIN Televisions
+		ON Televisions.television_id = Televisions_Genres.television_id_tg
+	Order by Televisions.television_id;
+    
+SELECT Actors.actor_name AS `actor(s)`
+FROM Televisions_Actors
+		INNER JOIN Actors
+        ON Actors.actor_id = Televisions_Actors.actor_id_ta
+        INNER JOIN Televisions
+		ON Televisions.television_id = Televisions_Actors.television_id_ta
+	Order by Televisions.television_id;
+    
+SELECT Directors.director_name AS `director(s)`
+FROM Televisions_Directors
+		INNER JOIN Directors
+        ON Directors.director_id = Televisions_Directors.director_id_td
+        INNER JOIN Televisions
+		ON Televisions.television_id = Televisions_Directors.television_id_td
+	Order by Televisions.television_id;
+    
+-- get all movies and genres to browse Movies_Genres page
+SELECT movie_genre_id, Genres.genre_name as genre, Movies.movie_title as movie
+	FROM Movies_Genres
+		INNER JOIN Movies
+        ON movie_id_mg = Movies.movie_id
+		INNER JOIN Genres
+        ON genre_id_mg = Genres.genre_id;
+        
+-- get all movies and actors to browse Movies_Actors page
+SELECT movie_actor_id, Actors.actor_name as actor, Movies.movie_title as movie
+	FROM Movies_Actors
+		INNER JOIN Movies
+        ON movie_id_ma = Movies.movie_id
+		INNER JOIN Actors
+        ON actor_id_ma = Actors.actor_id;
+        
+-- get all movies and directors to browse Movies_Directors page
+SELECT movie_director_id, Directors.director_name as director, Movies.movie_title as movie
+	FROM Movies_Directors
+		INNER JOIN Movies
+        ON movie_id_md = Movies.movie_id
+		INNER JOIN Directors
+        ON director_id_md = Directors.director_id;
+        
+-- get all movies and genres to browse Televisions_Genres page
+SELECT television_genre_id, Genres.genre_name as genre, Televisions.television_title as television
+	FROM Televisions_Genres
+		INNER JOIN Televisions
+        ON television_id_tg = Televisions.television_id
+		INNER JOIN Genres
+        ON genre_id_tg = Genres.genre_id;
+        
+-- get all movies and actors to browse Televisions_Actors page
+SELECT television_actor_id, Actors.actor_name as actor, Televisions.television_title as television
+	FROM Televisions_Actors
+		INNER JOIN Televisions
+        ON television_id_ta = Televisions.television_id
+		INNER JOIN Actors
+        ON actor_id_ta = Actors.actor_id;
+        
+-- get all movies and directors to browse Televisions_Directors page
+SELECT television_director_id, Directors.director_name as director, Televisions.television_title as television
+	FROM Televisions_Directors
+		INNER JOIN Televisions
+        ON television_id_td = Televisions.television_id
+		INNER JOIN Directors
+        ON director_id_td = Directors.director_id;
 
 -- Queries for insert functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
@@ -104,6 +187,15 @@ VALUES (:movies_titleInput, :movies_lengthInput);
  INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES (:movie_id_from_insert, :genre_id_from_checkboxInput)
  INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES (:movie_id_from_dropdown_Input, :actor_id_from_checkboxInput)
  INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES (:movie_id_from_dropdown_Input, :director_id_from_checkboxInput);
+ 
+ -- add new television
+INSERT INTO `Televisions` (`television_title`)
+VALUES (:movies_titleInput);
+
+-- add television's associated M:N relationships to genres, actors, directors
+ INSERT INTO Televisions_Genres (television_id_tg, genre_id_tg) VALUES (:television_id_from_insert, :genre_id_from_checkboxInput)
+ INSERT INTO Televisions_Actors (television_id_ta, actor_id_ma) VALUES (:television_id_from_dropdown_Input, :actor_id_from_checkboxInput)
+ INSERT INTO Televisions_Directors (television_id_td, director_id_md) VALUES (:television_id_from_dropdown_Input, :director_id_from_checkboxInput);
 
 -- Queries for delete functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language

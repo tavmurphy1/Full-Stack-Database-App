@@ -8,11 +8,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
-<script language="Javascript">
-    function deleteUsers() {
-        return confirm("Are you sure you want to delete?");
-    }
-</script>
+
 <body>
     <header>
         <h1>Reelhouse</h1>
@@ -36,35 +32,26 @@
         </nav>
     <main>
         <section>
-            <h2>Users</h2>
+            <h2>Televisions_Genres</h2>
             <article>
-                <table id="episode">
+                <table id="televisions_genres">
                     <thead>
                         <tr>
-                            <th>user_id</th>
-                            <th>user_name</th>
-                            <th>user_email</th>
-                            <th>user_country</th>
+                            <th>television_genre_id</th>
+                            <th>genre</th>
+                            <th>television</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Jason Williams</td>
-                            <td>jwill@gmail.com</td>
-                            <td>United States</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteUsers();">Delete</button>
-                            </td>
+                            <td>documentary</td>
+                            <td>Planet Earth II</td>
                         </tr>
                     </tbody>
                 </table>
                 
             </article>
-
-            <nav>
-                <a href="users_new.html">Add new user</a>
-            </nav>
         </section>
     </main>
     <footer>

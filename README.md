@@ -2,5 +2,5 @@
 
 
 #google doc for collab and design:
-[
-https://docs.google.com/document/d/1Suwhw2YNnFy6imjKHD0yG2PcXMMRUO85oA0pjHRP_OI/edit](https://docs.google.com/document/d/1VtngGJrhVqzGO_ygBCCpczULNRwjfrBVTmm8xOSo63o/edit)
+
+https://docs.google.com/document/d/1kvokfhBfrQePmepJ3O89Nr6SYxfd7VxZpsQC6tOQoPU/edit

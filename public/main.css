@@ -6,6 +6,7 @@
   /* @import 'node_modules/modern-normalize/modern-normalize.css';  npm install modern-normalize  Resets elements for browser consistency.  https://www.npmjs.com/package/modern-normalize */         
   /* @import "component1.css";   Component-specific stylesheets, if any.   */
   /* @import url(//fonts.googleapis.com/css?family=Font+Name); Add fonts from a hosted services like Google Fonts.   */
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Teko:wght@600&family=Titillium+Web:wght@300;600;900&display=swap');
 
 
 /*   ----- Variables  -----  */
@@ -16,13 +17,13 @@
   
   /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
   body {       /* Can alternatively define in html {}. */
-    background-color:;
-    background-image:;
-    color:;
-    font-family:; /* Define with at least one font name and its related generic family name.*/
-    margin:;
+    background-color:#B9D9EB;
+    /* background-image:;
+     color:; */
+    font-family: "Lora", serif; /* Define with at least one font name and its related generic family name.*/
+    /*margin:;
     padding:;
-    max-width:;
+    max-width:;*/
   }
   
   /*  ----- Page layout blocks -----  */
@@ -42,8 +43,23 @@
   a:visited {}
   
   /*  ----- Navigation ----- Override text links for navigation only.  */
-  nav {}
-  nav a {}
+  nav {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+  }
+  nav a {
+    background-color:lightgrey;
+    border:1.5px solid black;
+    border-radius:5px 5px 0 0; 
+    color:black;
+    font-size:1.0em;
+    font-weight:bold;
+    margin-right:3px;
+    margin-bottom:3px;
+    padding: 3px 20px 5px 20px;
+    text-decoration:none;
+  }
   nav a:hover {}
   
   /*  -----  Typography  ----- */
@@ -93,10 +109,19 @@
   thead {}
   tbody {}
   tfoot {}
-  tr {border:1px solid black;}
+  tr {
+    border:1px solid black;
+    
+  }
     tr:nth-child(even) {}
-  th {border:1px solid black;}
-  td {border:1px solid black;}
+  th {
+    border:1px solid black;
+    padding: 4px ;
+  }
+  td {
+    border:1px solid black;
+    padding: 4px ;
+  }
     td:nth-child(1) {}
   colgroup {}
   data {}

@@ -1,11 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1-1.el7.remi
--- https://www.phpmyadmin.net/
 -- Authors: CS340 Group 101 Team Binary: Tavner Murphy and Patrick Lim
--- Host: localhost
--- Generation Time: May 02, 2024 at 08:17 PM
--- Server version: 10.6.17-MariaDB-log
--- PHP Version: 8.2.17
+-- Step 3 DDL
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,8 +24,9 @@ SET AUTOCOMMIT = 0;
 --
 
 CREATE TABLE `Actors` (
-  `actor_id` int(11) NOT NULL,
-  `actor_name` varchar(255) NOT NULL
+  `actor_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `actor_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`actor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -58,8 +53,9 @@ INSERT INTO `Actors` (`actor_id`, `actor_name`) VALUES
 --
 
 CREATE TABLE `Directors` (
-  `director_id` int(11) NOT NULL,
-  `director_name` varchar(255) NOT NULL
+  `director_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `director_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`director_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -83,18 +79,97 @@ INSERT INTO `Directors` (`director_id`, `director_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Movies`
+--
+
+CREATE TABLE `Movies` (
+  `movie_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `movie_title` varchar(255) NOT NULL,
+  `movie_length` int(11) NOT NULL,
+  `movie_total_view` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`movie_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `Movies`
+--
+
+INSERT INTO `Movies` (`movie_id`, `movie_title`, `movie_length`, `movie_total_view`) VALUES
+(1, 'The Godfather', 175, 1),
+(2, 'Pulp Fiction', 154, 1),
+(3, 'The Matrix', 136, 0),
+(4, 'Toy Story', 81, 0),
+(5, 'The Godfather Part II', 202, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Televisions`
+--
+
+CREATE TABLE `Televisions` (
+  `television_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `television_title` varchar(255) NOT NULL,
+  `television_total_view` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`television_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `Televisions`
+--
+
+INSERT INTO `Televisions` (`television_id`, `television_title`, `television_total_view`) VALUES
+(1, 'Planet Earth II', 0),
+(2, 'Band of Brothers', 0),
+(3, 'Chernobyl', 1),
+(4, 'The Last Dance', 0),
+(5, 'Arcane', 0),
+(6, 'Fallout', 0),
+(7, 'Westworld', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Users`
+--
+
+CREATE TABLE `Users` (
+  `user_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `user_name` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_country` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+--
+-- Dumping data for table `Users`
+--
+
+INSERT INTO `Users` (`user_id`, `user_name`, `user_email`, `user_country`) VALUES
+(1, 'Jason Williams', 'jwill@gmail.com', 'United States'),
+(2, 'Amanda Moore', 'amoore@gmail.com', 'United States'),
+(3, 'Sally Sosa', 'ssosa@gmail.com', 'Mexico'),
+(4, 'Michael Scott', 'mscott@gmail.com', 'Canada'),
+(5, 'Linus Graves', 'lgraves@gmail.com', 'France');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Engagements`
 --
 
 CREATE TABLE `Engagements` (
-  `engagement_id` int(11) NOT NULL,
+  `engagement_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `favorite` tinyint(1) NOT NULL DEFAULT 0,
-  `rating` int(11) DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL CHECK (`rating` >= 0 and `rating` <= 10),
   `view` tinyint(1) NOT NULL DEFAULT 0,
   `user_id` int(11) NOT NULL,
   `movie_id` int(11) DEFAULT NULL,
   `television_id` int(11) DEFAULT NULL,
-  CHECK ('rating' >= 0 and 'rating' <= 10)
+  PRIMARY KEY (`engagement_id`),
+  FOREIGN KEY (`movie_id`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`television_id`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -119,10 +194,12 @@ INSERT INTO `Engagements` (`engagement_id`, `favorite`, `rating`, `view`, `user_
 --
 
 CREATE TABLE `Episodes` (
-  `episode_id` int(11) NOT NULL,
+  `episode_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `episode_title` varchar(255) NOT NULL,
   `episode_length` int(11) NOT NULL,
-  `television_id_ep` int(11) NOT NULL
+  `television_id_ep` int(11) NOT NULL,
+  PRIMARY KEY (`episode_id`),
+  FOREIGN KEY (`television_id_ep`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -145,8 +222,9 @@ INSERT INTO `Episodes` (`episode_id`, `episode_title`, `episode_length`, `televi
 --
 
 CREATE TABLE `Genres` (
-  `genre_id` int(11) NOT NULL,
-  `genre_name` varchar(255) NOT NULL
+  `genre_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  `genre_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`genre_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -160,29 +238,7 @@ INSERT INTO `Genres` (`genre_id`, `genre_name`) VALUES
 (4, 'animation'),
 (5, 'crime');
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Movies`
---
-
-CREATE TABLE `Movies` (
-  `movie_id` int(11) NOT NULL,
-  `movie_title` varchar(255) NOT NULL,
-  `movie_length` int(11) NOT NULL,
-  `movie_total_view` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `Movies`
---
-
-INSERT INTO `Movies` (`movie_id`, `movie_title`, `movie_length`, `movie_total_view`) VALUES
-(1, 'The Godfather', 175, 1),
-(2, 'Pulp Fiction', 154, 1),
-(3, 'The Matrix', 136, 0),
-(4, 'Toy Story', 81, 0),
-(5, 'The Godfather Part II', 202, 0);
 
 -- --------------------------------------------------------
 
@@ -191,9 +247,12 @@ INSERT INTO `Movies` (`movie_id`, `movie_title`, `movie_length`, `movie_total_vi
 --
 
 CREATE TABLE `Movies_Actors` (
-  `movie_actor_id` int(11) NOT NULL,
+  `movie_actor_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `actor_id_ma` int(11) NOT NULL,
-  `movie_id_ma` int(11) NOT NULL
+  `movie_id_ma` int(11) NOT NULL,
+  PRIMARY KEY (`movie_actor_id`),
+  FOREIGN KEY (`actor_id_ma`) REFERENCES `Actors` (`actor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`movie_id_ma`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -215,9 +274,12 @@ INSERT INTO `Movies_Actors` (`movie_actor_id`, `actor_id_ma`, `movie_id_ma`) VAL
 --
 
 CREATE TABLE `Movies_Directors` (
-  `movie_director_id` int(11) NOT NULL,
+  `movie_director_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `movie_id_md` int(11) NOT NULL,
-  `director_id_md` int(11) NOT NULL
+  `director_id_md` int(11) NOT NULL,
+  PRIMARY KEY (`movie_director_id`),
+  FOREIGN KEY (`director_id_md`) REFERENCES `Directors` (`director_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`movie_id_md`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -239,9 +301,12 @@ INSERT INTO `Movies_Directors` (`movie_director_id`, `movie_id_md`, `director_id
 --
 
 CREATE TABLE `Movies_Genres` (
-  `movie_genre_id` int(11) NOT NULL,
+  `movie_genre_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `movie_id_mg` int(11) NOT NULL,
-  `genre_id_mg` int(11) NOT NULL
+  `genre_id_mg` int(11) NOT NULL,
+  PRIMARY KEY (`movie_genre_id`),
+  FOREIGN KEY (`genre_id_mg`) REFERENCES `Genres` (`genre_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`movie_id_mg`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -256,30 +321,7 @@ INSERT INTO `Movies_Genres` (`movie_genre_id`, `movie_id_mg`, `genre_id_mg`) VAL
 (5, 5, 3),
 (6, 1, 5);
 
--- --------------------------------------------------------
 
---
--- Table structure for table `Televisions`
---
-
-CREATE TABLE `Televisions` (
-  `television_id` int(11) NOT NULL,
-  `television_title` varchar(255) NOT NULL,
-  `television_total_view` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `Televisions`
---
-
-INSERT INTO `Televisions` (`television_id`, `television_title`, `television_total_view`) VALUES
-(1, 'Planet Earth II', 0),
-(2, 'Band of Brothers', 0),
-(3, 'Chernobyl', 1),
-(4, 'The Last Dance', 0),
-(5, 'Arcane', 0),
-(6, 'Fallout', 0),
-(7, 'Westworld', 0);
 
 -- --------------------------------------------------------
 
@@ -288,9 +330,12 @@ INSERT INTO `Televisions` (`television_id`, `television_title`, `television_tota
 --
 
 CREATE TABLE `Televisions_Actors` (
-  `television_actor_id` int(11) NOT NULL,
+  `television_actor_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `actor_id_ta` int(11) NOT NULL,
-  `television_id_ta` int(11) NOT NULL
+  `television_id_ta` int(11) NOT NULL,
+  PRIMARY KEY (`television_actor_id`),
+  FOREIGN KEY (`actor_id_ta`) REFERENCES `Actors` (`actor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`television_id_ta`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -313,9 +358,12 @@ INSERT INTO `Televisions_Actors` (`television_actor_id`, `actor_id_ta`, `televis
 --
 
 CREATE TABLE `Televisions_Directors` (
-  `television_director_id` int(11) NOT NULL,
+  `television_director_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `director_id_td` int(11) NOT NULL,
-  `television_id_td` int(11) NOT NULL
+  `television_id_td` int(11) NOT NULL,
+  PRIMARY KEY (`television_director_id`),
+  FOREIGN KEY (`director_id_td`) REFERENCES `Directors` (`director_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`television_id_td`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -339,9 +387,12 @@ INSERT INTO `Televisions_Directors` (`television_director_id`, `director_id_td`,
 --
 
 CREATE TABLE `Televisions_Genres` (
-  `television_genre_id` int(11) NOT NULL,
+  `television_genre_id` int(11) NOT NULL UNIQUE AUTO_INCREMENT,
   `genre_id_tg` int(11) NOT NULL,
-  `television_id_tg` int(11) NOT NULL
+  `television_id_tg` int(11) NOT NULL,
+  PRIMARY KEY (`television_genre_id`),
+  FOREIGN KEY (`genre_id_tg`) REFERENCES `Genres` (`genre_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`television_id_tg`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
@@ -357,295 +408,6 @@ INSERT INTO `Televisions_Genres` (`television_genre_id`, `genre_id_tg`, `televis
 (6, 1, 6),
 (7, 1, 5);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Users`
---
-
-CREATE TABLE `Users` (
-  `user_id` int(11) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
-  `user_email` varchar(255) NOT NULL,
-  `user_country` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
-
---
--- Dumping data for table `Users`
---
-
-INSERT INTO `Users` (`user_id`, `user_name`, `user_email`, `user_country`) VALUES
-(1, 'Jason Williams', 'jwill@gmail.com', 'United States'),
-(2, 'Amanda Moore', 'amoore@gmail.com', 'United States'),
-(3, 'Sally Sosa', 'ssosa@gmail.com', 'Mexico'),
-(4, 'Michael Scott', 'mscott@gmail.com', 'Canada'),
-(5, 'Linus Graves', 'lgraves@gmail.com', 'France');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `Actors`
---
-ALTER TABLE `Actors`
-  ADD PRIMARY KEY (`actor_id`),
-  ADD UNIQUE KEY `actor_id_UNIQUE` (`actor_id`);
-
---
--- Indexes for table `Directors`
---
-ALTER TABLE `Directors`
-  ADD PRIMARY KEY (`director_id`),
-  ADD UNIQUE KEY `director_id_UNIQUE` (`director_id`);
-
---
--- Indexes for table `Engagements`
---
-ALTER TABLE `Engagements`
-  ADD PRIMARY KEY (`engagement_id`),
-  ADD UNIQUE KEY `idEngagements_UNIQUE` (`engagement_id`),
-  ADD KEY `fk_Engagements_Users_idx` (`user_id`),
-  ADD KEY `fk_Engagements_Movies1_idx` (`movie_id`),
-  ADD KEY `fk_Engagements_Televisions1_idx` (`television_id`);
-
---
--- Indexes for table `Episodes`
---
-ALTER TABLE `Episodes`
-  ADD PRIMARY KEY (`episode_id`),
-  ADD UNIQUE KEY `episode_id_UNIQUE` (`episode_id`),
-  ADD KEY `fk_Episodes_Televisions1_idx` (`television_id_ep`);
-
---
--- Indexes for table `Genres`
---
-ALTER TABLE `Genres`
-  ADD PRIMARY KEY (`genre_id`),
-  ADD UNIQUE KEY `genre_id_UNIQUE` (`genre_id`);
-
---
--- Indexes for table `Movies`
---
-ALTER TABLE `Movies`
-  ADD PRIMARY KEY (`movie_id`),
-  ADD UNIQUE KEY `movie_id_UNIQUE` (`movie_id`);
-
---
--- Indexes for table `Movies_Actors`
---
-ALTER TABLE `MovCHECK ('rating' >= 0 and 'rating' <= 5)ies_Actors`
-  ADD PRIMARY KEY (`movie_actor_id`),
-  ADD UNIQUE KEY `movie_actor_id_UNIQUE` (`movie_actor_id`),
-  ADD KEY `fk_Actors_has_Movies_Movies1_idx` (`movie_id_ma`),
-  ADD KEY `fk_Actors_has_Movies_Actors1_idx` (`actor_id_ma`);
-
---
--- Indexes for table `Movies_Directors`
---
-ALTER TABLE `Movies_Directors`
-  ADD PRIMARY KEY (`movie_director_id`),
-  ADD UNIQUE KEY `movie_director_id_UNIQUE` (`movie_director_id`),
-  ADD KEY `fk_Movies_has_Directors_Directors1_idx` (`director_id_md`),
-  ADD KEY `fk_Movies_has_Directors_Movies1_idx` (`movie_id_md`);
-
---
--- Indexes for table `Movies_Genres`
---
-ALTER TABLE `Movies_Genres`
-  ADD PRIMARY KEY (`movie_genre_id`),
-  ADD UNIQUE KEY `movie_genre_id_UNIQUE` (`movie_genre_id`),
-  ADD KEY `fk_Movies_has_Genres_Genres1_idx` (`genre_id_mg`),
-  ADD KEY `fk_Movies_has_Genres_Movies1_idx` (`movie_id_mg`);
-
---
--- Indexes for table `Televisions`
---
-ALTER TABLE `Televisions`
-  ADD PRIMARY KEY (`television_id`),
-  ADD UNIQUE KEY `television_id_UNIQUE` (`television_id`);
-
---
--- Indexes for table `Televisions_Actors`
---
-ALTER TABLE `Televisions_Actors`
-  ADD PRIMARY KEY (`television_actor_id`),
-  ADD UNIQUE KEY `television_actor_id_UNIQUE` (`television_actor_id`),
-  ADD KEY `fk_Actors_has_Televisions_Televisions1_idx` (`television_id_ta`),
-  ADD KEY `fk_Actors_has_Televisions_Actors1_idx` (`actor_id_ta`);
-
---
--- Indexes for table `Televisions_Directors`
---
-ALTER TABLE `Televisions_Directors`
-  ADD PRIMARY KEY (`television_director_id`),
-  ADD UNIQUE KEY `television_director_id_UNIQUE` (`television_director_id`),
-  ADD KEY `fk_Directors_has_Televisions_Televisions1_idx` (`television_id_td`),
-  ADD KEY `fk_Directors_has_Televisions_Directors1_idx` (`director_id_td`);
-
---
--- Indexes for table `Televisions_Genres`
---
-ALTER TABLE `Televisions_Genres`
-  ADD PRIMARY KEY (`television_genre_id`),
-  ADD UNIQUE KEY `television_genre_id_UNIQUE` (`television_genre_id`),
-  ADD KEY `fk_Genres_has_Televisions_Televisions1_idx` (`television_id_tg`),
-  ADD KEY `fk_Genres_has_Televisions_Genres1_idx` (`genre_id_tg`);
-
---
--- Indexes for table `Users`
---
-ALTER TABLE `Users`
-  ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_id_UNIQUE` (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Actors`
---
-ALTER TABLE `Actors`
-  MODIFY `actor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `Directors`
---
-ALTER TABLE `Directors`
-  MODIFY `director_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `Engagements`
---
-ALTER TABLE `Engagements`
-  MODIFY `engagement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `Episodes`
---
-ALTER TABLE `Episodes`
-  MODIFY `episode_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `Genres`
---
-ALTER TABLE `Genres`
-  MODIFY `genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `Movies`
---
-ALTER TABLE `Movies`
-  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `Movies_Actors`
---
-ALTER TABLE `Movies_Actors`
-  MODIFY `movie_actor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `Movies_Directors`
---
-ALTER TABLE `Movies_Directors`
-  MODIFY `movie_director_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `Movies_Genres`
---
-ALTER TABLE `Movies_Genres`
-  MODIFY `movie_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `Televisions`
---
-ALTER TABLE `Televisions`
-  MODIFY `television_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `Televisions_Actors`
---
-ALTER TABLE `Televisions_Actors`
-  MODIFY `television_actor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `Televisions_Directors`
---
-ALTER TABLE `Televisions_Directors`
-  MODIFY `television_director_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `Televisions_Genres`
---
-ALTER TABLE `Televisions_Genres`
-  MODIFY `television_genre_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `Users`
---
-ALTER TABLE `Users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `Engagements`
---
-ALTER TABLE `Engagements`
-  ADD CONSTRAINT `fk_Engagements_Movies1` FOREIGN KEY (`movie_id`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Engagements_Televisions1` FOREIGN KEY (`television_id`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Engagements_Users` FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Episodes`
---
-ALTER TABLE `Episodes`
-  ADD CONSTRAINT `fk_Episodes_Televisions1` FOREIGN KEY (`television_id_ep`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Movies_Actors`
---
-ALTER TABLE `Movies_Actors`
-  ADD CONSTRAINT `fk_Actors_has_Movies_Actors1` FOREIGN KEY (`actor_id_ma`) REFERENCES `Actors` (`actor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Actors_has_Movies_Movies1` FOREIGN KEY (`movie_id_ma`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Movies_Directors`
---
-ALTER TABLE `Movies_Directors`
-  ADD CONSTRAINT `fk_Movies_has_Directors_Directors1` FOREIGN KEY (`director_id_md`) REFERENCES `Directors` (`director_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Movies_has_Directors_Movies1` FOREIGN KEY (`movie_id_md`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Movies_Genres`
---
-ALTER TABLE `Movies_Genres`
-  ADD CONSTRAINT `fk_Movies_has_Genres_Genres1` FOREIGN KEY (`genre_id_mg`) REFERENCES `Genres` (`genre_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Movies_has_Genres_Movies1` FOREIGN KEY (`movie_id_mg`) REFERENCES `Movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Televisions_Actors`
---
-ALTER TABLE `Televisions_Actors`
-  ADD CONSTRAINT `fk_Actors_has_Televisions_Actors1` FOREIGN KEY (`actor_id_ta`) REFERENCES `Actors` (`actor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Actors_has_Televisions_Televisions1` FOREIGN KEY (`television_id_ta`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Televisions_Directors`
---
-ALTER TABLE `Televisions_Directors`
-  ADD CONSTRAINT `fk_Directors_has_Televisions_Directors1` FOREIGN KEY (`director_id_td`) REFERENCES `Directors` (`director_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Directors_has_Televisions_Televisions1` FOREIGN KEY (`television_id_td`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `Televisions_Genres`
---
-ALTER TABLE `Televisions_Genres`
-  ADD CONSTRAINT `fk_Genres_has_Televisions_Genres1` FOREIGN KEY (`genre_id_tg`) REFERENCES `Genres` (`genre_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_Genres_has_Televisions_Televisions1` FOREIGN KEY (`television_id_tg`) REFERENCES `Televisions` (`television_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
