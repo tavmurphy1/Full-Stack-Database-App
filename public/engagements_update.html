@@ -29,12 +29,12 @@
             <a href="genres.html">Genres</a>
             <a href="actors.html">Actors</a>
             <a href="directors.html">Directors</a>
-            <a href="movies_genres.html">Movies/Genres</a>
-            <a href="movies_actors.html">Movies/Actors</a>
-            <a href="movies_directors.html">Movies/Directors</a>
-            <a href="televisions_genres.html">Televisions/Genres</a>
-            <a href="televisions_actors.html">Televisions/Actors</a>
-            <a href="televisions_directors.html">Televisions/Directors</a>
+            <a href="movies_genres.html">Movie Genres</a>
+            <a href="movies_actors.html">Movie Actors</a>
+            <a href="movies_directors.html">Movie Directors</a>
+            <a href="televisions_genres.html">Television Genres</a>
+            <a href="televisions_actors.html">Television Actors</a>
+            <a href="televisions_directors.html">Television Directors</a>
         </nav>
     <main>
         <section>
@@ -82,15 +82,17 @@
                         </td>
                         <td>
                             <label for="user_id" >User_ID</label>
-                                <input
-                                    type="int"
-                                    placeholder="user_id"
-                                    required>
+                            <select
+                                name="user_id"
+                                required>
+                                <option value="0">&nbsp;</option>
+                                <option value="1">Jason Williams</option>
+                            </select>
                         </td>
                         <td>
-                            <label for="movie_id">Movie_title</label>
+                            <label for="movie_id">Movie</label>
                             <select
-                                name="television"
+                                name="movie_id"
                                 required>
                                 <option value="0">&nbsp;</option>
                                 <option value="1">The Godfather</option>
@@ -98,7 +100,7 @@
                             
                         </td>
                         <td>
-                            <label for="television_id">TV_title</label>
+                            <label for="television_id">TV Show</label>
                             <select
                                 name="television"
                                 required>

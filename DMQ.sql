@@ -175,39 +175,45 @@ SELECT movie_title FROM Televisions;
 SELECT television_title FROM Televisions;
 
 -- add new engagement
-INSERT INTO `Enagements` (`favorite`, `rating`, `view`, `user_id`, `movie_id`, `television_id`)
+INSERT INTO `Engagements` (`favorite`, `rating`, `view`, `user_id`, `movie_id`, `television_id`)
 VALUES (:engagements_favorite_checkboxInput, :engagements_rating_from_dropdown_Input, :engagements_view_checkboxInput, 
-:engagements_user_idInput, :engagements_movie_title_from_dropdownInput, :engagements_television_title_from_dropdownInput);
+:engagements_user_id_from_dropdownInput, :engagements_movie_title_from_dropdownInput, :engagements_television_title_from_dropdownInput);
 
 -- add new movie
 INSERT INTO `Movies` (`movie_title`, `movie_length`)
 VALUES (:movies_titleInput, :movies_lengthInput);
 
 -- add movie's associated M:N relationships to genres, actors, directors
- INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES (:movie_id_from_insert, :genre_id_from_checkboxInput)
- INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES (:movie_id_from_dropdown_Input, :actor_id_from_checkboxInput)
- INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES (:movie_id_from_dropdown_Input, :director_id_from_checkboxInput);
+ INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES (:movie_id_from_insert_autoincrement, :genre_id_from_checkboxInput)
+ INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES (:movie_id_from_insert_autoincrement, :actor_id_from_checkboxInput)
+ INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES (:movie_id_insert_autoincrement, :director_id_from_checkboxInput);
  
  -- add new television
 INSERT INTO `Televisions` (`television_title`)
 VALUES (:movies_titleInput);
 
 -- add television's associated M:N relationships to genres, actors, directors
- INSERT INTO Televisions_Genres (television_id_tg, genre_id_tg) VALUES (:television_id_from_insert, :genre_id_from_checkboxInput)
- INSERT INTO Televisions_Actors (television_id_ta, actor_id_ma) VALUES (:television_id_from_dropdown_Input, :actor_id_from_checkboxInput)
- INSERT INTO Televisions_Directors (television_id_td, director_id_md) VALUES (:television_id_from_dropdown_Input, :director_id_from_checkboxInput);
+ INSERT INTO Televisions_Genres (television_id_tg, genre_id_tg) VALUES (:television_id_from_insert_autoincrement, :genre_id_from_checkboxInput)
+ INSERT INTO Televisions_Actors (television_id_ta, actor_id_ma) VALUES (:television_id_from_insert_autoincrement, :actor_id_from_checkboxInput)
+ INSERT INTO Televisions_Directors (television_id_td, director_id_md) VALUES (:television_id_from_insert_autoincrement, :director_id_from_checkboxInput);
 
 -- Queries for delete functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
 
--- delete genre
+-- delete genre and M:M relationships with Movies and Televisions
 DELETE FROM `Genres` WHERE genre_id = :genre_ID_selected_from_browse_genres_page
+DELETE FROM `Movies_Genres` WHERE genre_id_mg = :genre_ID_selected_from_browse_genres_page
+DELETE FROM `Televisions_Genres` WHERE genre_id_tg = :genre_ID_selected_from_browse_genres_page
 
--- delete actor
+-- delete actor and M:M relationships with Movies and Televisions
 DELETE FROM `Actors` WHERE actor_id = :actor_ID_selected_from_browse_actors_page
+DELETE FROM `Movies_Actors` WHERE genre_id_ma = :actor_ID_selected_from_browse_actors_page
+DELETE FROM `Televisions_Actors` WHERE genre_id_ta = :actor_ID_selected_from_browse_actors_page
 
--- delete director
+-- delete director and M:M relationships with Movies and Televisions
 DELETE FROM `Directors` WHERE director_id = :director_ID_selected_from_browse_directors_page
+DELETE FROM `Movies_Directors` WHERE genre_id_md = :director_ID_selected_from_browse_directors_page
+DELETE FROM `Televisions_Directors` WHERE genre_id_td = :director_ID_selected_from_browse_directors_page
 
 -- delete episode
 DELETE FROM `Episodes` WHERE episode_id = :episode_ID_selected_from_browse_episodes_page
@@ -215,11 +221,17 @@ DELETE FROM `Episodes` WHERE episode_id = :episode_ID_selected_from_browse_episo
 -- delete engagement
 DELETE FROM `Engagements` WHERE engagement_id = :engagement_ID_selected_from_browse_engagements_page
 
--- delete movies
+-- delete movies and M:M relationships with Genres, Actors, Directors
 DELETE FROM `Movies` WHERE movie_id = :movie_ID_selected_from_browse_movies_page
+DELETE FROM `Movies_Genres` WHERE movie_id_mg = :movie_ID_selected_from_browse_movies_page
+DELETE FROM `Movies_Actors` WHERE movie_id_ma = :movie_ID_selected_from_browse_movies_page
+DELETE FROM `Movies_Directors` WHERE movie_id_md = :movie_ID_selected_from_browse_movies_page
 
--- delete televisions
+-- delete televisions and M:M relationships with Genres, Actors, Directors
 DELETE FROM `Televisions` WHERE television_id = :television_ID_selected_from_browse_televisions_page
+DELETE FROM `Televisions_Genres` WHERE television_id_tg = :television_ID_selected_from_browse_televisions_page
+DELETE FROM `Televisions_Actors` WHERE television_id_ta = :television_ID_selected_from_browse_televisions_page
+DELETE FROM `Televisions_Directors` WHERE television_id_td = :television_ID_selected_from_browse_televisions_page
 
 -- Queries for update functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
