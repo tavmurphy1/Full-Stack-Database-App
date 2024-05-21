@@ -14,7 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
-    "forever": "^4.0.3",
+    "express-handlebars": "^7.1.2",
+    "forever": "^0.14.2",
     "mysql": "^2.18.1"
   }
 }
