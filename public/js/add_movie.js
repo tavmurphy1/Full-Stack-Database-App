@@ -13,14 +13,14 @@ addMovieForm.addEventListener("submit", function (e) {
 
     // Get form fields we need to get data from
     let inputMovieID = document.getElementById("movie_id");
-    let inputMovieLength = document.getElementById("movie_length");
-    let inputMovieTitle = document.getElementById("movie_title");
+    let inputMovieLength = document.getElementById("movie_title");
+    let inputMovieTitle = document.getElementById("movie_length");
     let inputMovieTotalView = document.getElementById("movie_total_view");
 
     // Get the values from the form fields
     let movieidValue = inputMovieID.value;
-    let movielengthValue = inputMovieLength.value;
     let movietitleValue = inputMovieTitle.value;
+    let movielengthValue = inputMovieLength.value;
     let movietotalviewValue = inputMovieTotalView.value;
 
     // Put our data we want to send in a javascript object
@@ -29,7 +29,7 @@ addMovieForm.addEventListener("submit", function (e) {
         movie_length: movielengthValue,
         movie_title: movietitleValue,
         movie_total_view: movietotalviewValue,
-    }
+    };
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
