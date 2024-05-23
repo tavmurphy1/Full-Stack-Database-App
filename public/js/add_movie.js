@@ -12,20 +12,17 @@ addMovieForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputMovieID = document.getElementById("movie_id");
     let inputMovieLength = document.getElementById("movie_title");
     let inputMovieTitle = document.getElementById("movie_length");
     let inputMovieTotalView = document.getElementById("movie_total_view");
 
     // Get the values from the form fields
-    let movieidValue = inputMovieID.value;
     let movietitleValue = inputMovieTitle.value;
     let movielengthValue = inputMovieLength.value;
     let movietotalviewValue = inputMovieTotalView.value;
 
     // Put our data we want to send in a javascript object
     let data = {
-        movie_id: movieidValue,
         movie_length: movielengthValue,
         movie_title: movietitleValue,
         movie_total_view: movietotalviewValue,
@@ -44,7 +41,6 @@ addMovieForm.addEventListener("submit", function (e) {
             addRowToTable(xhttp.response);
 
             // Clear the input fields for another transaction
-            inputMovieID.value = '';
             inputMovieLength.value = '';
             inputMovieTitle.value = '';
             inputMovieTotalView.value = '';
@@ -60,7 +56,7 @@ addMovieForm.addEventListener("submit", function (e) {
 })
 
 // Creates a single row from an Object representing a single record from 
-// bsg_people
+// Movies
 addRowToTable = (data) => {
 
     // Get a reference to the current table on the page and clear it out.
@@ -75,19 +71,16 @@ addRowToTable = (data) => {
 
     // Create a row and 4 cells
     let row = document.createElement("TR");
-    let movieidCell = document.createElement("TD");
-    let movielengthCell = document.createElement("TD");
     let movietitleCell = document.createElement("TD");
+    let movielengthCell = document.createElement("TD");
     let movietotalviewCell = document.createElement("TD");
 
     // Fill the cells with correct data
-    movieidCell.innerText = newRow.movie_id;
     movielengthCell.innerText = newRow.movie_length;
     movietitleCell.innerText = newRow.movie_title;
     movietotalviewCell.innerText = newRow.movie_total_view;
 
     // Add the cells to the row 
-    row.appendChild(movieidCell);
     row.appendChild(movielengthCell);
     row.appendChild(movietitleCell);
     row.appendChild(movietotalviewCell);
