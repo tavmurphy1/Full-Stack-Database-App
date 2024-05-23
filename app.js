@@ -27,7 +27,7 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 // app.js
 app.get('/', function(req, res)
 {  
-    let query1 = "SELECT * FROM 'Movies';";               // Define our query
+    let query1 = "SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view) FROM Movies INNER JOIN Engagement ON Engagements.movie_id = Movies.movie_id group by Movies.movie_id Order by Movies.movie_id;";               // Define our query
 
     db.pool.query(query1, function(error, rows, fields){    // Execute the query
 
@@ -35,7 +35,7 @@ app.get('/', function(req, res)
     })                                                      // an object where 'data' is equal to the 'rows' we
 });
 
-app.post('/add-movie', function(req, res) 
+app.post('/add-movie-ajax', function(req, res) 
 {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -60,7 +60,7 @@ app.post('/add-movie', function(req, res)
     }
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO 'Movies' (movie_id, movie_length, movie_title, movie_total_view) VALUES ('${data.movie_id}', '${data.movie_length}', ${data.movie_title}, ${data.movie_total_view})`;
+    query1 = 'INSERT INTO `Movies` (`movie_title`, `movie_length`) VALUES (:movies_titleInput, :movies_lengthInput);'
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -72,8 +72,9 @@ app.post('/add-movie', function(req, res)
         }
         else
         {
-            // If there was no error, perform a SELECT * on bsg_people
-            query2 = `SELECT * FROM 'Movies';`;
+            // If there was no error, perform a SELECT * on movies
+            query2 = 'SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view) FROM Movies INNER JOIN Engagements ON Engagements.movie_id = Movies.movie_id group by Movies.movie_id Order by Movies.movie_id;';
+
             db.pool.query(query2, function(error, rows, fields){
 
                 // If there was an error on the second query, send a 400
