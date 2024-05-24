@@ -32,13 +32,13 @@ import TelevisionsActorsPage from "./pages/TelevisionsActorsPage";
 import TelevisionsDirectorsPage from "./pages/TelevisionsDirectorsPage";
 
 import ActorsNewPage from "./pages/ActorsNewPage";
-import DirectorsNewPage from "./pages//DirectorsNewPage";
-import EngagementsNewPage from "./pages//EngagementsNewPage";
-import EpisodesNewPage from "./pages//EpisodesNewPage";
-import GenresNewPage from "./pages//GenresNewPage";
-import MoviesNewPage from "./pages//MoviesNewPage";
-import TelevisionsNewPage from "./pages//TelevisionsNewPage";
-import UsersNewPage from "./pages//UsersNewPage";
+import DirectorsNewPage from "./pages/DirectorsNewPage";
+import EngagementsNewPage from "./pages/EngagementsNewPage";
+import EpisodesNewPage from "./pages/EpisodesNewPage";
+import GenresNewPage from "./pages/GenresNewPage";
+import MoviesNewPage from "./pages/MoviesNewPage";
+import TelevisionsNewPage from "./pages/TelevisionsNewPage";
+import UsersNewPage from "./pages/UsersNewPage";
 
 import Navbar from "./components/navbar/NavBar";
 
