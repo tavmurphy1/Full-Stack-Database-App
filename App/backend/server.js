@@ -17,77 +17,10 @@ app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.json());
 
 // API Routes for backend CRUD:
-app.use("/api/people", require("./routes/peopleRoutes"));
+app.use("/api/movies", require("./routes/moviesRoutes.js"));
 
-// define a new GET request with express:
-app.get('/api/movies', async (req, res) => {
-  try {
-    // Await your database queries here
 
-    // IMPLEMENT WHEN ENGAGEMENTS WORKING 
-    //const [results] = await db.pool.query('SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view) FROM Movies INNER JOIN Engagements ON Engagements.movie_id = Movies.movie_id group by Movies.movie_id Order by Movies.movie_id;');
-    const [results] = await db.pool.query('SELECT * FROM Movies;');
 
-    // res.json() automatically stringifies the JavaScript object to JSON
-    res.json(results);
-
-  } catch (error) {
-    // Handle Errors
-    console.error('Database operation failed:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// define a new GET request with express:
-app.get('/api/movies/genres', async (req, res) => {
-  try {
-
-    const [results] = await db.pool.query(
-      'SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID` FROM Movies_Genres INNER JOIN Genres ON Genres.genre_id = Movies_Genres.genre_id_mg INNER JOIN Movies ON Movies.movie_id = Movies_Genres.movie_id_mg Order by Movies.movie_id;');
-
-    // res.json() automatically stringifies the JavaScript object to JSON
-    res.json(results);
-
-  } catch (error) {
-    // Handle Errors
-    console.error('Database operation failed:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// define a new GET request with express:
-app.get('/api/movies/actors', async (req, res) => {
-  try {
-
-    const [results] = await db.pool.query(
-      'SELECT  Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID` FROM Movies_Actors INNER JOIN Actors ON Actors.actor_id = Movies_Actors.actor_id_ma INNER JOIN Movies ON Movies.movie_id = Movies_Actors.movie_id_ma Order by Movies.movie_id;');
-
-    // res.json() automatically stringifies the JavaScript object to JSON
-    res.json(results);
-
-  } catch (error) {
-    // Handle Errors
-    console.error('Database operation failed:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// define a new GET request with express:
-app.get('/api/movies/directors', async (req, res) => {
-  try {
-
-    const [results] = await db.pool.query(
-      'SELECT  Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID` FROM Movies_Directors INNER JOIN Directors ON Directors.director_id = Movies_Directors.director_id_md INNER JOIN Movies ON Movies.movie_id = Movies_Directors.movie_id_md Order by Movies.movie_id;');
-
-    // res.json() automatically stringifies the JavaScript object to JSON
-    res.json(results);
-
-  } catch (error) {
-    // Handle Errors
-    console.error('Database operation failed:', error);
-    res.status(500).send('Server error');
-  }
-});
 
 
 

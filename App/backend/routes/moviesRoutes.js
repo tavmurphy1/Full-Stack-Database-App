@@ -2,16 +2,22 @@ const express = require("express");
 const router = express.Router();
 const {
   getMovies,
-  //getPersonByID,
-  //createPerson,
-  //updatePerson,
-  //deletePerson,
+  getMovieByID,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  getMoviesGenres,
+  getMoviesActors,
+  getMoviesDirectors,
 } = require("../controllers/moviesController");
 
-router.get("/api/movies", getMovies);
-//router.get("/:id", getPersonByID);
-//router.post("/", createPerson);
-//router.put("/:id", updatePerson);
-//router.delete("/:id", deletePerson);
+router.get("/", getMovies);
+router.get("/genres", getMoviesGenres);
+router.get("/actors", getMoviesActors);
+router.get("/directors", getMoviesDirectors);
+router.get("/:id", getMovieByID);
+router.post("/", createMovie);
+router.put("/:id", updateMovie);
+router.delete("/:id", deleteMovie);
 
 module.exports = router;

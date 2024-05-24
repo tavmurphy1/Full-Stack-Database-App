@@ -20,52 +20,6 @@ const getMovies = async (req, res) => {
   }
 };
 
-// define a new GET request with express:
-const getMoviesGenres = async (req, res) => {
-  try {
-    // Select all rows from the "Movies" table
-    const query = 'SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID` FROM Movies_Genres INNER JOIN Genres ON Genres.genre_id = Movies_Genres.genre_id_mg INNER JOIN Movies ON Movies.movie_id = Movies_Genres.movie_id_mg Order by Movies.movie_id;';
-    // Execute the query using the "db" object from the configuration file
-    const [rows] = await db.query(query);
-    // Send back the rows to the client
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error("Error fetching movie genres from the database:", error);
-    res.status(500).json({ error: "Error fetching movies genres" });
-  }
-};
-
-// define a new GET request with express:
-const getMoviesActors = async (req, res) => {
-  try {
-    // Select all rows from the "Movies" table
-    const query = 'SELECT  Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID` FROM Movies_Actors INNER JOIN Actors ON Actors.actor_id = Movies_Actors.actor_id_ma INNER JOIN Movies ON Movies.movie_id = Movies_Actors.movie_id_ma Order by Movies.movie_id;';
-    // Execute the query using the "db" object from the configuration file
-    const [rows] = await db.query(query);
-    // Send back the rows to the client
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error("Error fetching movie actors from the database:", error);
-    res.status(500).json({ error: "Error fetching movies actors" });
-  }
-};
-
-// define a new GET request with express:
-const getMoviesDirectors = async (req, res) => {
-  try {
-    // Select all rows from the "Movies" table
-    const query = 'SELECT  Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID` FROM Movies_Directors INNER JOIN Directors ON Directors.director_id = Movies_Directors.director_id_md INNER JOIN Movies ON Movies.movie_id = Movies_Directors.movie_id_md Order by Movies.movie_id;';
-    // Execute the query using the "db" object from the configuration file
-    const [rows] = await db.query(query);
-    // Send back the rows to the client
-    res.status(200).json(rows);
-  } catch (error) {
-    console.error("Error fetching movie directors from the database:", error);
-    res.status(500).json({ error: "Error fetching movies directors" });
-  }
-};
-
-
 // Returns a single movie by its unique ID from Movies
 const getMovieByID = async (req, res) => {
   try {
@@ -215,7 +169,4 @@ module.exports = {
   createMovie,
   updateMovie,
   deleteMovie,
-  getMoviesGenres,
-  getMoviesActors,
-  getMoviesDirectors,
 };
