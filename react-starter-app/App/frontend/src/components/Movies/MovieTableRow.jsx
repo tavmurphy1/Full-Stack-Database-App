@@ -10,12 +10,12 @@ const TableRow = ({ movie, fetchMovies }) => {
   // Redirect to edit movie page
   const handleEdit = () => {
     // We can access the id (and query the movie) with useParams() in the UpdateMovie component
-    navigate("/movies/edit/" + movie.id, { state: { movie } });
+    navigate("/movies/edit/" + movie.movie_id, { state: { movie } });
   };
 
   const deleteRow = async () => {
     try {
-      const URL = import.meta.env.VITE_API_URL + "movies/" + movie.id;
+      const URL = import.meta.env.VITE_API_URL + "movies/" + movie.movie_id;
       const response = await axios.delete(URL);
       // Ensure that the movie was deleted successfully
       if (response.status === 204) {
@@ -29,8 +29,8 @@ const TableRow = ({ movie, fetchMovies }) => {
   };
 
   return (
-    <tr key={movie.id}>
-      <td>{movie.id}</td>
+    <tr key={movie.movie_id}>
+      <td>{movie.movie_id}</td>
       <td>{movie.movie_title}</td>
       <td>{movie.movie_length}</td>
       <td>{movie.movie_total_view}</td>

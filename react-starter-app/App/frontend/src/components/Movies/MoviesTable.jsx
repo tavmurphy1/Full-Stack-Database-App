@@ -9,6 +9,7 @@ const MoviesTable = () => {
   const fetchMovies = async () => {
     try {
       const URL = import.meta.env.VITE_API_URL + "movies";
+      console.log(URL)
       const response = await axios.get(URL);
       setMovies(response.data);
     } catch (error) {
@@ -43,7 +44,7 @@ const MoviesTable = () => {
           </thead>
           <tbody>
             {movies.map((movie) => (
-              <TableRow key={movie.id} movie={movie} fetchMovies={fetchMovies} />
+              <TableRow key={movie.movie_id} movie={movie} fetchMovies={fetchMovies} />
             ))}
           </tbody>
         </table>

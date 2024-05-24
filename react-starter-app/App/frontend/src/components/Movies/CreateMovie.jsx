@@ -78,6 +78,7 @@ function CreateMovie() {
           value={formData.movie_total_view}
           onChange={handleInputChange}
         />
+        <button type="submit">Create Movie</button>
       </form>
     </>
   );
