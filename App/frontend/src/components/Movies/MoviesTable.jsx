@@ -24,7 +24,7 @@ const MoviesTable = () => {
   const fetchMovieGenreData = async () => {
     try {
       // Construct the URL for the API call
-      const URL = import.meta.env.VITE_API_URL + 'movies' + '/genres';
+      const URL = import.meta.env.VITE_API_URL + 'movies' + '/moviegenres';
       // Use Axios to make the GET request
       const response = await axios.get(URL);
       // Update state with the response data
@@ -40,7 +40,7 @@ const MoviesTable = () => {
   const fetchMovieActorData = async () => {
     try {
       // Construct the URL for the API call
-      const URL = import.meta.env.VITE_API_URL + 'movies' + '/actors';
+      const URL = import.meta.env.VITE_API_URL + 'movies' + '/movieactors';
       // Use Axios to make the GET request
       const response = await axios.get(URL);
       // Update state with the response data
@@ -56,7 +56,7 @@ const MoviesTable = () => {
   const fetchMovieDirectorData = async () => {
     try {
       // Construct the URL for the API call
-      const URL = import.meta.env.VITE_API_URL + 'movies' + '/directors';
+      const URL = import.meta.env.VITE_API_URL + 'movies' + '/moviedirectors';
       // Use Axios to make the GET request
       const response = await axios.get(URL);
       // Update state with the response data

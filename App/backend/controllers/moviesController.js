@@ -84,6 +84,51 @@ const getMovieByID = async (req, res) => {
   }
 };
 
+// define a new GET request with express:
+const getGenres = async (req, res) => {
+  try {
+    // Select all rows from the "Movies" table
+    const query = 'SELECT genre_id, genre_name FROM `Genres`;';
+    // Execute the query using the "db" object from the configuration file
+    const [rows] = await db.query(query);
+    // Send back the rows to the client
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error fetching genres from the database:", error);
+    res.status(500).json({ error: "Error fetching genres" });
+  }
+};
+
+// define a new GET request with express:
+const getActors = async (req, res) => {
+  try {
+    // Select all rows from the "Movies" table
+    const query = 'SELECT actor_id, actor_name FROM `Actors`;';
+    // Execute the query using the "db" object from the configuration file
+    const [rows] = await db.query(query);
+    // Send back the rows to the client
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error fetching actors from the database:", error);
+    res.status(500).json({ error: "Error fetching actors" });
+  }
+};
+
+// define a new GET request with express:
+const getDirectors = async (req, res) => {
+  try {
+    // Select all rows from the "Movies" table
+    const query = 'SELECT director_id, director_name FROM `Directors`;';
+    // Execute the query using the "db" object from the configuration file
+    const [rows] = await db.query(query);
+    // Send back the rows to the client
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error fetching directors from the database:", error);
+    res.status(500).json({ error: "Error fetching directors" });
+  }
+};
+
 // Returns status of creation of new person in bsg_movies
 const createMovie = async (req, res) => {
   try {
@@ -102,6 +147,66 @@ const createMovie = async (req, res) => {
     console.error("Error creating movie:", error);
     // Inform the client of the error
     res.status(500).json({ error: "Error creating movie" });
+  }
+};
+
+// Returns status of creation of new person in bsg_movies
+const createMovieGenre = async (req, res) => {
+  try {
+    const { movie_title, genre_name } = req.body;
+    const query =
+      "INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES ((SELECT movie_id FROM Movies WHERE movie_title = ?), (SELECT genre_id FROM Genres WHERE genre_name = ?))";
+
+    const response = await db.query(query, [
+      movie_title,
+      genre_name
+    ]);
+    res.status(201).json(response);
+  } catch (error) {
+    // Print the error for the dev
+    console.error("Error creating movie genre:", error);
+    // Inform the client of the error
+    res.status(500).json({ error: "Error creating movie genre" });
+  }
+};
+
+// Returns status of creation of new person in bsg_movies
+const createMovieActor = async (req, res) => {
+  try {
+    const { movie_title, actor_name } = req.body;
+    const query =
+      "INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES ((SELECT movie_id FROM Movies WHERE movie_title = ?), (SELECT actor_id FROM Actors WHERE actor_name = ?))";
+
+    const response = await db.query(query, [
+      movie_title,
+      actor_name
+    ]);
+    res.status(201).json(response);
+  } catch (error) {
+    // Print the error for the dev
+    console.error("Error creating movie actor:", error);
+    // Inform the client of the error
+    res.status(500).json({ error: "Error creating movie actor" });
+  }
+};
+
+// Returns status of creation of new person in bsg_movies
+const createMovieDirector = async (req, res) => {
+  try {
+    const { movie_title, director_name } = req.body;
+    const query =
+      "INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES ((SELECT movie_id FROM Movies WHERE movie_title = ?), (SELECT director_id FROM Directors WHERE director_name = ?))";
+
+    const response = await db.query(query, [
+      movie_title,
+      director_name
+    ]);
+    res.status(201).json(response);
+  } catch (error) {
+    // Print the error for the dev
+    console.error("Error creating movie director:", error);
+    // Inform the client of the error
+    res.status(500).json({ error: "Error creating movie director" });
   }
 };
 
@@ -213,9 +318,15 @@ module.exports = {
   getMovies,
   getMovieByID,
   createMovie,
+  createMovieGenre,
+  createMovieActor,
+  createMovieDirector,
   updateMovie,
   deleteMovie,
   getMoviesGenres,
   getMoviesActors,
   getMoviesDirectors,
+  getGenres,
+  getActors,
+  getDirectors,
 };

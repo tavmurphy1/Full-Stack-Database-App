@@ -14,7 +14,7 @@ function Movies() {
             <Route path="/edit/:id" element={<UpdateMovie />} />
             </Routes>
 
-            <Link to="/movies/add">Add New Movie</Link>
+            {<Link to="/movies/add">Add New Movie</Link>}
 
         </div>
     )
