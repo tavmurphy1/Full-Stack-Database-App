@@ -8,8 +8,8 @@ const pool = mysql.createPool({
   waitForConnections: true,
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "9135",
-  database: process.env.DB_DATABASE || "cs340_limpa",
+  password: process.env.DB_PASSWORD || "8951",
+  database: process.env.DB_DATABASE || "cs340_murphtav",
 }).promise();
 
 // Export it for use in our application

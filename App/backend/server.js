@@ -21,10 +21,6 @@ app.use("/api/movies", require("./routes/moviesRoutes.js"));
 
 
 
-
-
-
-
 // Add your Connect DB Activitiy Code Below:
 // ...
 
