@@ -1,7 +1,3 @@
-const cors = require("cors");
-const express = require("express");
-const mysql = require("mysql")
-
 // Load db config
 const db = require("../database/config");
 // Load .env variables
@@ -9,167 +5,205 @@ require("dotenv").config();
 // Util to deep-compare two objects
 const lodash = require("lodash");
 
-const app = express();
-const PORT = process.env.PORT || 8505;
-
-app.use(cors({ credentials: true, origin: "*" }));
-app.use(express.json());
-
-// define a new GET request with express:
-app.get('/api/movies', async (req, res) => {
-    try {
-      // Await your database queries here
-      //await db.pool.query('DROP TABLE IF EXISTS diagnostic;');
-      //await db.pool.query('CREATE TABLE diagnostic(id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(255) NOT NULL);');
-      //await db.pool.query('INSERT INTO diagnostic (text) VALUES ("MySQL is working!")');
-      const [results] = await db.pool.query('SELECT * FROM diagnostic;');
-  
-      // res.json() automatically stringifies the JavaScript object to JSON
-      res.json(results);
-  
-    } catch (error) {
-      // Handle Errors
-      console.error('Database operation failed:', error);
-      res.status(500).send('Server error');
-    }
-  });
-
-// Returns all rows of people in bsg_people
+// Returns all rows of movies in movies
 const getMovies = async (req, res) => {
   try {
-    // Select all rows from the "bsg_people" table
+    // Select all rows from the "Movies" table
     const query = "SELECT * FROM Movies";
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
     res.status(200).json(rows);
   } catch (error) {
-    console.error("Error fetching people from the database:", error);
-    res.status(500).json({ error: "Error fetching people" });
+    console.error("Error fetching movies from the database:", error);
+    res.status(500).json({ error: "Error fetching movies" });
   }
 };
 
-// Returns a single person by their unique ID from bsg_people
-const getPersonByID = async (req, res) => {
+// define a new GET request with express:
+const getMoviesGenres = async (req, res) => {
   try {
-    const personID = req.params.id;
-    const query = "SELECT * FROM bsg_people WHERE id = ?";
-    const [result] = await db.query(query, [personID]);
-    // Check if person was found
-    if (result.length === 0) {
-      return res.status(404).json({ error: "Person not found" });
-    }
-    const person = result[0];
-    res.json(person);
+    // Select all rows from the "Movies" table
+    const query = 'SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID` FROM Movies_Genres INNER JOIN Genres ON Genres.genre_id = Movies_Genres.genre_id_mg INNER JOIN Movies ON Movies.movie_id = Movies_Genres.movie_id_mg Order by Movies.movie_id;';
+    // Execute the query using the "db" object from the configuration file
+    const [rows] = await db.query(query);
+    // Send back the rows to the client
+    res.status(200).json(rows);
   } catch (error) {
-    console.error("Error fetching person from the database:", error);
-    res.status(500).json({ error: "Error fetching person" });
+    console.error("Error fetching movie genres from the database:", error);
+    res.status(500).json({ error: "Error fetching movies genres" });
   }
 };
 
-// Returns status of creation of new person in bsg_people
-const createPerson = async (req, res) => {
+// define a new GET request with express:
+const getMoviesActors = async (req, res) => {
   try {
-    const { fname, lname, homeworld, age } = req.body;
+    // Select all rows from the "Movies" table
+    const query = 'SELECT  Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID` FROM Movies_Actors INNER JOIN Actors ON Actors.actor_id = Movies_Actors.actor_id_ma INNER JOIN Movies ON Movies.movie_id = Movies_Actors.movie_id_ma Order by Movies.movie_id;';
+    // Execute the query using the "db" object from the configuration file
+    const [rows] = await db.query(query);
+    // Send back the rows to the client
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error fetching movie actors from the database:", error);
+    res.status(500).json({ error: "Error fetching movies actors" });
+  }
+};
+
+// define a new GET request with express:
+const getMoviesDirectors = async (req, res) => {
+  try {
+    // Select all rows from the "Movies" table
+    const query = 'SELECT  Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID` FROM Movies_Directors INNER JOIN Directors ON Directors.director_id = Movies_Directors.director_id_md INNER JOIN Movies ON Movies.movie_id = Movies_Directors.movie_id_md Order by Movies.movie_id;';
+    // Execute the query using the "db" object from the configuration file
+    const [rows] = await db.query(query);
+    // Send back the rows to the client
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error("Error fetching movie directors from the database:", error);
+    res.status(500).json({ error: "Error fetching movies directors" });
+  }
+};
+
+
+// Returns a single movie by its unique ID from Movies
+const getMovieByID = async (req, res) => {
+  try {
+    const movieID = req.params.id;
+    const query = "SELECT * FROM Movies WHERE movie_id = ?";
+    const [result] = await db.query(query, [movieID]);
+    // Check if movie was found
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Movie not found" });
+    }
+    const movie = result[0];
+    res.json(movie);
+  } catch (error) {
+    console.error("Error fetching movie from the database:", error);
+    res.status(500).json({ error: "Error fetching movie" });
+  }
+};
+
+// Returns status of creation of new person in bsg_movies
+const createMovie = async (req, res) => {
+  try {
+    const { movie_title, movie_length, movie_total_view } = req.body;
     const query =
-      "INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES (?, ?, ?, ?)";
+      "INSERT INTO Movies (movie_title, movie_length, movie_total_view) VALUES (?, ?, ?)";
 
     const response = await db.query(query, [
-      fname,
-      lname,
-      homeworld === "" ? null : parseInt(homeworld),
-      age,
+      movie_title,
+      movie_length === "" ? null: parseInt(movie_length),
+      movie_total_view === "" ? null : parseInt(movie_total_view)
     ]);
     res.status(201).json(response);
   } catch (error) {
     // Print the error for the dev
-    console.error("Error creating person:", error);
+    console.error("Error creating movie:", error);
     // Inform the client of the error
-    res.status(500).json({ error: "Error creating person" });
+    res.status(500).json({ error: "Error creating movie" });
   }
 };
 
 
-const updatePerson = async (req, res) => {
+const updateMovie = async (req, res) => {
   // Get the person ID
-  const personID = req.params.id;
+  const movieID = req.params.id;
   // Get the person object
-  const newPerson = req.body;
+  const newMovie = req.body;
 
   try {
-    const [data] = await db.query("SELECT * FROM bsg_people WHERE id = ?", [
-      personID,
+    const [data] = await db.query("SELECT * FROM Movies WHERE movie_id = ?", [
+      movieID,
     ]);
 
-    const oldPerson = data[0];
+    const oldMovie = data[0];
 
     // If any attributes are not equal, perform update
-    if (!lodash.isEqual(newPerson, oldPerson)) {
+    if (!lodash.isEqual(newMovie, oldMovie)) {
       const query =
-        "UPDATE bsg_people SET fname=?, lname=?, homeworld=?, age=? WHERE id=?";
-
-      // Homeoworld is NULL-able FK in bsg_people, has to be valid INT FK ID or NULL
-      const hw = newPerson.homeworld === "" ? null : newPerson.homeworld;
+        "UPDATE Movies SET movie_title=?, movie_length=?, movie_total_view=? WHERE movie_id=?";
 
       const values = [
-        newPerson.fname,
-        newPerson.lname,
-        hw,
-        newPerson.age,
-        personID,
+        newMovie.movie_title,
+        newMovie.movie_length,
+        newMovie.movie_total_view,
+        movieID
       ];
 
       // Perform the update
       await db.query(query, values);
       // Inform client of success and return 
-      return res.json({ message: "Person updated successfully." });
+      return res.json({ message: "Movie updated successfully." });
     }
 
-    res.json({ message: "Person details are the same, no update" });
+    res.json({ message: "Movie details are the same, no update" });
   } catch (error) {
-    console.log("Error updating person", error);
+    console.log("Error updating movie", error);
     res
       .status(500)
-      .json({ error: `Error updating the person with id ${personID}` });
+      .json({ error: `Error updating the movie with id ${movieID}` });
   }
 };
 
 // Endpoint to delete a customer from the database
-const deletePerson = async (req, res) => {
-  console.log("Deleting person with id:", req.params.id);
-  const personID = req.params.id;
+const deleteMovie = async (req, res) => {
+  console.log("Deleting movie with id:", req.params.id);
+  const movieID = req.params.id;
 
   try {
     // Ensure the person exitst
     const [isExisting] = await db.query(
-      "SELECT 1 FROM bsg_people WHERE id = ?",
-      [personID]
+      "SELECT 1 FROM Movies WHERE movie_id = ?",
+      [movieID]
     );
 
     // If the person doesn't exist, return an error
     if (isExisting.length === 0) {
-      return res.status(404).send("Person not found");
+      return res.status(404).send("Movie not found");
     }
 
-    // Delete related records from the intersection table (see FK contraints bsg_cert_people)
-    const [response] = await db.query(
-      "DELETE FROM bsg_cert_people WHERE pid = ?",
-      [personID]
+    // Delete related records from the intersection table (see FK contraints bsg_cert_movies)
+    const [response1] = await db.query(
+      "DELETE FROM Movies_Actors WHERE movie_id_ma = ?",
+      [movieID]
     );
 
     console.log(
       "Deleted",
-      response.affectedRows,
-      "rows from bsg_cert_people intersection table"
+      response1.affectedRows,
+      "rows from Movies_Actors intersection table"
     );
 
-    // Delete the person from bsg_people
-    await db.query("DELETE FROM bsg_people WHERE id = ?", [personID]);
+    const [response2] = await db.query(
+      "DELETE FROM Movies_Directors WHERE movie_id_md = ?",
+      [movieID]
+    );
+
+    console.log(
+      "Deleted",
+      response2.affectedRows,
+      "rows from Movies_Directors intersection table"
+    );
+
+    const [response3] = await db.query(
+      "DELETE FROM Movies_Genres WHERE movie_id_mg = ?",
+      [movieID]
+    );
+
+    console.log(
+      "Deleted",
+      response3.affectedRows,
+      "rows from Movies_Genres intersection table"
+    );
+
+    // Delete the movie from Movies
+    await db.query("DELETE FROM Movies WHERE movie_id = ?", [movieID]);
 
     // Return the appropriate status code
-    res.status(204).json({ message: "Person deleted successfully" })
+    res.status(204).json({ message: "Movie deleted successfully" })
   } catch (error) {
-    console.error("Error deleting person from the database:", error);
+    console.error("Error deleting movie from the database:", error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -177,8 +211,11 @@ const deletePerson = async (req, res) => {
 // Export the functions as methods of an object
 module.exports = {
   getMovies,
-  //getPersonByID,
-  //createPerson,
-  //updatePerson,
-  //deletePerson,
+  getMovieByID,
+  createMovie,
+  updateMovie,
+  deleteMovie,
+  getMoviesGenres,
+  getMoviesActors,
+  getMoviesDirectors,
 };

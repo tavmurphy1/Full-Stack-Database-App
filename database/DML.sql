@@ -37,7 +37,7 @@ SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view)
     Order by Movies.movie_id;
 	
 -- get  associated genres, actors, directors for browse movies page
-SELECT  Genres.genre_name AS `genres(s)`
+SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID`
 	FROM Movies_Genres
 		INNER JOIN Genres
         ON Genres.genre_id = Movies_Genres.genre_id_mg
@@ -45,7 +45,7 @@ SELECT  Genres.genre_name AS `genres(s)`
 		ON Movies.movie_id = Movies_Genres.movie_id_mg
 	Order by Movies.movie_id;
     
-SELECT Actors.actor_name AS `actor(s)`
+SELECT Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID`
 FROM Movies_Actors
 		INNER JOIN Actors
         ON Actors.actor_id = Movies_Actors.actor_id_ma
@@ -53,7 +53,7 @@ FROM Movies_Actors
 		ON Movies.movie_id = Movies_Actors.movie_id_ma
 	Order by Movies.movie_id;
     
-SELECT Directors.director_name AS `director(s)`
+SELECT Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID`
 FROM Movies_Directors
 		INNER JOIN Directors
         ON Directors.director_id = Movies_Directors.director_id_md
