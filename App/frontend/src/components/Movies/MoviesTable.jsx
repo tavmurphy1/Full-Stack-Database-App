@@ -74,52 +74,68 @@ const MoviesTable = () => {
 
   let genre = [];
   let movieGenreID = [];
-  
+  let genreCounter = 0;
   movieGenres.map((val, i) => {
+        
         if (i > 0) {if(val.movieID === movieGenreID[i-1]){
-            genre[i-1] = genre[i-1] + ', ' + val.genres}
+            genre[genreCounter-1] = genre[genreCounter-1] + ', ' + val.genres
+            movieGenreID.push(val.movieID)
+          console.log(genre[i-1])}
             else{
                 genre.push(val.genres);
+                console.log(genre)
                 movieGenreID.push(val.movieID);
+                genreCounter += 1
                 }
         }
         else {
             genre.push(val.genres)
             movieGenreID.push(val.movieID)
+            genreCounter += 1
         }
 });
 
 let actor = [];
 let movieActorID = [];
+let actorCounter = 0;
 
 movieActors.map((val, i) => {
       if (i > 0) {if(val.movieID === movieActorID[i-1]){
-          actor[i-1] = actor[i-1] + ', ' + val.actors}
+          actor[actorCounter-1] = actor[actorCounter-1] + ', ' + val.actors
+          movieActorID.push(val.movieID)
+          }
           else{
               actor.push(val.actors);
               movieActorID.push(val.movieID);
+              actorCounter += 1
               }
       }
       else {
           actor.push(val.actors)
           movieActorID.push(val.movieID)
+          actorCounter += 1
       }
 });
 
 let director = [];
 let movieDirectorID = [];
+let directorCounter = 0;
 
 movieDirectors.map((val, i) => {
       if (i > 0) {if(val.movieID === movieDirectorID[i-1]){
-          director[i-1] = director[i-1] + ', ' + val.directors}
+          director[directorCounter-1] = director[directorCounter-1] + ', ' + val.directors
+          movieDirectorID.push(val.movieID)
+          }
           else{
               director.push(val.directors);
               movieDirectorID.push(val.movieID);
+              directorCounter += 1
               }
       }
       else {
           director.push(val.directors)
           movieDirectorID.push(val.movieID)
+          directorCounter += 1
       }
 });
 

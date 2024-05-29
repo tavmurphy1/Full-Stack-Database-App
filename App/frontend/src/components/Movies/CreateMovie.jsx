@@ -5,6 +5,10 @@ import axios from "axios";
 function CreateMovie() {
   const navigate = useNavigate();
 
+  const [genreList, setGenreList] = useState([]);
+  const [actorList, setActorList] = useState([]);
+  const [directorList, setDirectorList] = useState([]);
+
   const [genres, setGenres] = useState([]);
   const [actors, setActors] = useState([]);
   const [directors, setDirectors] = useState([]);
@@ -64,24 +68,6 @@ function CreateMovie() {
       movie_total_view: formData.movie_total_view
     };
 
-    // Create a new movie genre object from the formData
-    const newMovieGenre = {
-      movie_title: formData.movie_title,
-      genre_name: checkboxData.genre_name,
-    };
-
-    // Create a new movie actor object from the formData
-    const newMovieActor = {
-      movie_title: formData.movie_title,
-      actor_name: checkboxData.actor_name,
-    };
-
-    // Create a new movie director object from the formData
-    const newMovieDirector = {
-      movie_title: formData.movie_title,
-      director_name: checkboxData.director_name,
-    };
-
     try {
       const URL = import.meta.env.VITE_API_URL + "movies";
       const response = await axios.post(URL, newMovie);
@@ -95,7 +81,16 @@ function CreateMovie() {
       console.error("Error creating movie:", error);
     }
 
+    await Promise.all(genreList.map(async (val, i) => {
     try {
+      console.log(val)
+      // Create a new movie genre object from the formData
+      const newMovieGenre = {
+      movie_title: formData.movie_title,
+      genre_name: val,
+      };
+      console.log(newMovieGenre)
+
       const URL = import.meta.env.VITE_API_URL + "movies" + "/moviegenre";
       const response = await axios.post(URL, newMovieGenre);
       if (response.status === 201) {
@@ -106,9 +101,17 @@ function CreateMovie() {
     } catch (error) {
       alert("Error creating movie genre");
       console.error("Error creating movie genre:", error);
-    }
+      }
+    }))
 
+    await Promise.all(actorList.map(async (val, i) => {
     try {
+      // Create a new movie actor object from the formData
+      const newMovieActor = {
+      movie_title: formData.movie_title,
+      actor_name: val,
+      };
+
       const URL = import.meta.env.VITE_API_URL + "movies" + "/movieactor";
       const response = await axios.post(URL, newMovieActor);
       if (response.status === 201) {
@@ -119,9 +122,17 @@ function CreateMovie() {
     } catch (error) {
       alert("Error creating movie actor");
       console.error("Error creating movie actor:", error);
-    }
+      }
+    }))
 
+    await Promise.all(directorList.map(async (val, i) => {
     try {
+      // Create a new movie director object from the formData
+      const newMovieDirector = {
+      movie_title: formData.movie_title,
+      director_name: val,
+      };
+
       const URL = import.meta.env.VITE_API_URL + "movies" + "/moviedirector";
       const response = await axios.post(URL, newMovieDirector);
       if (response.status === 201) {
@@ -133,7 +144,8 @@ function CreateMovie() {
     } catch (error) {
       alert("Error creating movie director");
       console.error("Error creating movie director:", error);
-    }
+      }
+    }))
 
     // Reset the form fields
     resetFormFields();
@@ -170,6 +182,40 @@ function CreateMovie() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleCheckboxChangeGenre = (e) => {
+    const { name, value } = e.target;
+    if (e.target.checked){
+    console.log(value);
+    setGenreList(genreList.concat(value));
+    }
+    else {
+      setGenreList(genreList.filter(genre => genre !== value))
+    }
+  };
+  console.log(genreList);
+
+  const handleCheckboxChangeActor = (e) => {
+    const { name, value } = e.target;
+    if (e.target.checked){
+    console.log(value);
+    setActorList(actorList.concat(value));
+    }
+    else {
+      setActorList(actorList.filter(actor => actor !== value))
+    }
+  };
+
+  const handleCheckboxChangeDirector = (e) => {
+    const { name, value } = e.target;
+    if (e.target.checked){
+    console.log(value);
+    setDirectorList(directorList.concat(value));
+    }
+    else {
+      setDirectorList(directorList.filter(director => director !== value))
+    }
   };
 
   useEffect(() => {
@@ -210,7 +256,7 @@ function CreateMovie() {
         <br></br>
               {genres.map((val, i) => (<label key = {val.genre_id}> 
                 {val.genre_name}
-                <input type ="checkbox" name = "genre_name" value={val.genre_name} onChange={handleCheckboxChange}/>
+                <input type ="checkbox" name = "genre_name" value={val.genre_name} onChange={handleCheckboxChangeGenre}/>
                 </label>)
               )
             }
@@ -221,7 +267,7 @@ function CreateMovie() {
         <br></br>
               {actors.map((val, i) => (<label key = {val.actor_id}> 
                 {val.actor_name}
-                <input type ="checkbox" name = "actor_name" value={val.actor_name} onChange={handleCheckboxChange}/>
+                <input type ="checkbox" name = "actor_name" value={val.actor_name} onChange={handleCheckboxChangeActor}/>
                 </label>)
               )
             }
@@ -232,7 +278,7 @@ function CreateMovie() {
         <br></br>
               {directors.map((val, i) => (<label key = {val.director_id}> 
                 {val.director_name}
-                <input type ="checkbox" name = "director_name" value={val.director_name} onChange={handleCheckboxChange}/>
+                <input type ="checkbox" name = "director_name" value={val.director_name} onChange={handleCheckboxChangeDirector}/>
                 </label>)
               )
             }
