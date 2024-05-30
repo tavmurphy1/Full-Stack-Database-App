@@ -38,20 +38,20 @@ function App() {
         <section>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/engagements" element={<EngagementsPage />} />
+            <Route path="/engagements/*" element={<EngagementsPage />} />
             <Route path="/users/*" element={<UsersPage />} />
             <Route path="/movies/*" element={<MoviesPage />} />
             <Route path="/televisions/*" element={<TelevisionsPage />} />
             <Route path="/episodes/*" element={<EpisodesPage />} />
-            <Route path="/genres" element={<GenresPage />} />
-            <Route path="/actors" element={<ActorsPage />} />
-            <Route path="/directors" element={<DirectorsPage />} />
-            <Route path="/movies_genres" element={<MoviesGenresPage />} />
-            <Route path="/movies_actors" element={<MoviesActorsPage />} />
-            <Route path="/movies_directors" element={<MoviesDirectorsPage />} />
-            <Route path="/televisions_genres" element={<TelevisionsGenresPage />} />
-            <Route path="/televisions_actors" element={<TelevisionsActorsPage />} />
-            <Route path="/televisions_directors" element={<TelevisionsDirectorsPage />} />
+            <Route path="/genres/*" element={<GenresPage />} />
+            <Route path="/actors/*" element={<ActorsPage />} />
+            <Route path="/directors/*" element={<DirectorsPage />} />
+            <Route path="/movies_genres/*" element={<MoviesGenresPage />} />
+            <Route path="/movies_actors/*" element={<MoviesActorsPage />} />
+            <Route path="/movies_directors/*" element={<MoviesDirectorsPage />} />
+            <Route path="/televisions_genres/*" element={<TelevisionsGenresPage />} />
+            <Route path="/televisions_actors/*" element={<TelevisionsActorsPage />} />
+            <Route path="/televisions_directors/*" element={<TelevisionsDirectorsPage />} />
             <Route path="/actors_new" element={<ActorsNewPage />} />
             <Route path="/directors_new" element={<DirectorsNewPage />} />
             <Route path="/engagements_new" element={<EngagementsNewPage />} />

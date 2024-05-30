@@ -3,31 +3,29 @@ import { BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const TableRow = ({ user, fetchUsers}) => {
+const TableRow = ({ director, fetchDirectors}) => {
   // Hook that allows us to navigate programmatically
   const navigate = useNavigate();
 
   const deleteRow = async () => {
     try {
-      const URL = import.meta.env.VITE_API_URL + "users/" + user.user_id;
+      const URL = import.meta.env.VITE_API_URL + "directors/" + director.director_id;
       const response = await axios.delete(URL);
-      // Ensure that the user was deleted successfully
+      // Ensure that the director was deleted successfully
       if (response.status === 204) {
-        alert("User deleted successfully");
+        alert("Director deleted successfully");
       }
     } catch (err) {
-      alert(err.response.data.error || "Error deleting user");
+      alert(err.response.data.error || "Error deleting director");
       console.log(err);
     }
-    fetchUsers();
+    fetchDirectors();
   };
 
   return (
-    <tr key={user.user_id}>
-      <td>{user.user_id}</td>
-      <td>{user.user_name}</td>
-      <td>{user.user_email}</td>
-      <td>{user.user_country}</td>
+    <tr key={director.director_id}>
+      <td>{director.director_id}</td>
+      <td>{director.director_name}</td>
       <td>
         <BsTrash onClick={deleteRow} size={25} style={{ cursor: "pointer" }} />
       </td>

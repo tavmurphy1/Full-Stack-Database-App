@@ -1,30 +1,16 @@
-import { React } from 'react';
+import { Routes, Route} from 'react-router-dom';
+import TelevisionsGenresTable from "../components/TelevisionGenres/TelevisionsGenresTable";
 
 function TelevisionsGenres() {
-    return(
-        <>
-            <h2>Television Genres</h2>
-            <article>
-                <table id="televisions_genres">
-                    <thead>
-                        <tr>
-                            <th>television_genre_id</th>
-                            <th>genre</th>
-                            <th>television</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>documentary</td>
-                            <td>Planet Earth II</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-            </article>
 
-        </>
+    return(
+        <div>
+
+            <Routes>
+            <Route path="/" element={<TelevisionsGenresTable />} />
+            </Routes>
+
+        </div>
     )
 }
 export default TelevisionsGenres;

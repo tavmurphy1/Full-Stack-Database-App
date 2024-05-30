@@ -21,9 +21,16 @@ app.use("/api/movies", require("./routes/moviesRoutes.js"));
 app.use("/api/televisions", require("./routes/televisionsRoutes.js"));
 app.use("/api/episodes", require("./routes/episodesRoutes.js"));
 app.use("/api/users", require("./routes/usersRoutes.js"));
-
-
-
+app.use("/api/genres", require("./routes/genresRoutes.js"));
+app.use("/api/actors", require("./routes/actorsRoutes.js"));
+app.use("/api/directors", require("./routes/directorsRoutes.js"));
+app.use("/api/moviegenres", require("./routes/moviesGenresRoutes.js"));
+app.use("/api/movieactors", require("./routes/moviesActorsRoutes.js"));
+app.use("/api/moviedirectors", require("./routes/moviesDirectorsRoutes.js"));
+app.use("/api/televisiongenres", require("./routes/televisionsGenresRoutes.js"));
+app.use("/api/televisionactors", require("./routes/televisionsActorsRoutes.js"));
+app.use("/api/televisiondirectors", require("./routes/televisionsDirectorsRoutes.js"));
+app.use("/api/engagements", require("./routes/engagementsRoutes.js"));
 
 // Add your Connect DB Activitiy Code Below:
 // ...
