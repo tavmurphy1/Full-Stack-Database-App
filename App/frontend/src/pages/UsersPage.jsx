@@ -1,36 +1,20 @@
-import { React } from 'react';
-import { Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
+import CreateUser from "../components/Users/CreateUser";
+import UsersTable from "../components/Users/UsersTable";
 
 function Users() {
+
     return(
-        <>
-            <h2>Users</h2>
-            <article>
-                <table id="episode">
-                    <thead>
-                        <tr>
-                            <th>user_id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Country</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Jason Williams</td>
-                            <td>jwill@gmail.com</td>
-                            <td>United States</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteUsers();">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-            </article>
-            <Link to="/users_new">Add New User</Link>
-        </>
+        <div>
+
+            <Routes>
+            <Route path="/" element={<UsersTable />} />
+            <Route path="/add" element={<CreateUser />} />
+            </Routes>
+
+            {<Link to="/users/add">Add New User</Link>}
+
+        </div>
     )
 }
 export default Users;

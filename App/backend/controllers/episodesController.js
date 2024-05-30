@@ -15,7 +15,7 @@ const getEpisodes = async (req, res) => {
     // Send back the rows to the client
     res.status(200).json(rows);
   } catch (error) {
-    console.error("Error fetching episodess from the database:", error);
+    console.error("Error fetching episodes from the database:", error);
     res.status(500).json({ error: "Error fetching episodes" });
   }
 };
@@ -30,8 +30,8 @@ const getTVShows = async (req, res) => {
     // Send back the rows to the client
     res.status(200).json(rows);
   } catch (error) {
-    console.error("Error fetching TV shows from the database:", error);
-    res.status(500).json({ error: "Error fetching TV shows" });
+    console.error("Error fetching episodes from the database:", error);
+    res.status(500).json({ error: "Error fetching episodes" });
   }
 };
 

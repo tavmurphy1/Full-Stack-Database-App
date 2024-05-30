@@ -20,7 +20,7 @@ app.use(express.json());
 app.use("/api/movies", require("./routes/moviesRoutes.js"));
 app.use("/api/televisions", require("./routes/televisionsRoutes.js"));
 app.use("/api/episodes", require("./routes/episodesRoutes.js"));
-
+app.use("/api/users", require("./routes/usersRoutes.js"));
 
 
 
