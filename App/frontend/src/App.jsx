@@ -41,8 +41,8 @@ function App() {
             <Route path="/engagements" element={<EngagementsPage />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/movies/*" element={<MoviesPage />} />
-            <Route path="/televisions" element={<TelevisionsPage />} />
-            <Route path="/episodes" element={<EpisodesPage />} />
+            <Route path="/televisions/*" element={<TelevisionsPage />} />
+            <Route path="/episodes/*" element={<EpisodesPage />} />
             <Route path="/genres" element={<GenresPage />} />
             <Route path="/actors" element={<ActorsPage />} />
             <Route path="/directors" element={<DirectorsPage />} />

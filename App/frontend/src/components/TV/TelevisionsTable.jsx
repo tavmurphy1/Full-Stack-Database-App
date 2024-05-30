@@ -1,0 +1,175 @@
+import { useState, useEffect } from "react";
+import { RiCreativeCommonsZeroFill } from "react-icons/ri";
+import TableRow from "./TelevisionTableRow";
+import axios from "axios";
+
+const TelevisionsTable = () => {
+  const [televisions, setTelevisions] = useState([]);
+  const [televisionGenres, setTelevisionGenres] = useState([]);
+  const [televisionActors, setTelevisionActors] = useState([]);
+  const [televisionDirectors, setTelevisionDirectors] = useState([]);
+
+  const fetchTelevisions = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "televisions";
+      const response = await axios.get(URL);
+      setTelevisions(response.data);
+    } catch (error) {
+      alert("Error fetching TV shows from the server.");
+      console.error("Error fetching TV shows:", error);
+    }
+  };
+
+  // Define a function to fetch Televisions_Genres data from the API
+  const fetchTelevisionGenreData = async () => {
+    try {
+      // Construct the URL for the API call
+      const URL = import.meta.env.VITE_API_URL + 'televisions' + '/televisiongenres';
+      // Use Axios to make the GET request
+      const response = await axios.get(URL);
+      // Update state with the response data
+      setTelevisionGenres(response.data);
+    } catch (error) {
+      // Handle any errors that occur during the fetch operation
+      console.error('Error fetching TelevisionGenre data:', error);
+      alert('Error fetching TelevisionGenre data from the server.');
+    }
+  };
+
+  // Define a function to fetch Televisions_Actors data from the API
+  const fetchTelevisionActorData = async () => {
+    try {
+      // Construct the URL for the API call
+      const URL = import.meta.env.VITE_API_URL + 'televisions' + '/televisionactors';
+      // Use Axios to make the GET request
+      const response = await axios.get(URL);
+      // Update state with the response data
+      setTelevisionActors(response.data);
+    } catch (error) {
+      // Handle any errors that occur during the fetch operation
+      console.error('Error fetching TelevisionActor data:', error);
+      alert('Error fetching TelevisionActor data from the server.');
+    }
+  };
+
+  // Define a function to fetch Televisions_Directors data from the API
+  const fetchTelevisionDirectorData = async () => {
+    try {
+      // Construct the URL for the API call
+      const URL = import.meta.env.VITE_API_URL + 'televisions' + '/televisiondirectors';
+      // Use Axios to make the GET request
+      const response = await axios.get(URL);
+      // Update state with the response data
+      setTelevisionDirectors(response.data);
+    } catch (error) {
+      // Handle any errors that occur during the fetch operation
+      console.error('Error fetching TelevisionDirector data:', error);
+      alert('Error fetching TelevisionDirector data from the server.');
+    }
+  };
+
+  useEffect(() => {
+    fetchTelevisions(), fetchTelevisionGenreData(), fetchTelevisionActorData(), fetchTelevisionDirectorData();
+  }, []);
+
+  let genre = [];
+  let televisionGenreID = [];
+  let genreCounter = 0;
+  televisionGenres.map((val, i) => {
+        
+        if (i > 0) {if(val.televisionID === televisionGenreID[i-1]){
+            genre[genreCounter-1] = genre[genreCounter-1] + ', ' + val.genres
+            televisionGenreID.push(val.televisionID)
+          console.log(genre[i-1])}
+            else{
+                genre.push(val.genres);
+                console.log(genre)
+                televisionGenreID.push(val.televisionID);
+                genreCounter += 1
+                }
+        }
+        else {
+            genre.push(val.genres)
+            televisionGenreID.push(val.televisionID)
+            genreCounter += 1
+        }
+});
+
+let actor = [];
+let televisionActorID = [];
+let actorCounter = 0;
+
+televisionActors.map((val, i) => {
+      if (i > 0) {if(val.televisionID === televisionActorID[i-1]){
+          actor[actorCounter-1] = actor[actorCounter-1] + ', ' + val.actors
+          televisionActorID.push(val.televisionID)
+          }
+          else{
+              actor.push(val.actors);
+              televisionActorID.push(val.televisionID);
+              actorCounter += 1
+              }
+      }
+      else {
+          actor.push(val.actors)
+          televisionActorID.push(val.televisionID)
+          actorCounter += 1
+      }
+});
+
+let director = [];
+let televisionDirectorID = [];
+let directorCounter = 0;
+
+televisionDirectors.map((val, i) => {
+      if (i > 0) {if(val.televisionID === televisionDirectorID[i-1]){
+          director[directorCounter-1] = director[directorCounter-1] + ', ' + val.directors
+          televisionDirectorID.push(val.televisionID)
+          }
+          else{
+              director.push(val.directors);
+              televisionDirectorID.push(val.televisionID);
+              directorCounter += 1
+              }
+      }
+      else {
+          director.push(val.directors)
+          televisionDirectorID.push(val.televisionID)
+          directorCounter += 1
+      }
+});
+
+  return (
+    <div>
+      <h2>TV Shows</h2>
+      {televisions.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No TV shows found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Total Views</th>
+              <th>genre(s)</th>
+              <th>actor(s)</th>
+              <th>director(s)</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {televisions.map((television, i) => (
+              <TableRow key={television.television_id} television={television} fetchTelevisions={fetchTelevisions} fetchTelevisionGenreData={genre[i]} fetchTelevisionActorData={actor[i]} fetchTelevisionDirectorData={director[i]}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+};
+
+export default TelevisionsTable;

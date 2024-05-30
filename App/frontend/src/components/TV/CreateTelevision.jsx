@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateMovie() {
+function CreateTelevision() {
   const navigate = useNavigate();
 
   const [genreList, setGenreList] = useState([]);
@@ -19,7 +19,7 @@ function CreateMovie() {
 
   const fetchGenres = async () => {
     try {
-      const URL = import.meta.env.VITE_API_URL + "movies" + "/genres";
+      const URL = import.meta.env.VITE_API_URL + "televisions" + "/genres";
       const response = await axios.get(URL);
       setGenres(response.data);
     } catch (error) {
@@ -30,7 +30,7 @@ function CreateMovie() {
 
   const fetchActors = async () => {
     try {
-      const URL = import.meta.env.VITE_API_URL + "movies" + "/actors";
+      const URL = import.meta.env.VITE_API_URL + "televisions" + "/actors";
       const response = await axios.get(URL);
       setActors(response.data);
     } catch (error) {
@@ -41,7 +41,7 @@ function CreateMovie() {
 
   const fetchDirectors = async () => {
     try {
-      const URL = import.meta.env.VITE_API_URL + "movies" + "/directors";
+      const URL = import.meta.env.VITE_API_URL + "televisions" + "/directors";
       const response = await axios.get(URL);
       setDirectors(response.data);
     } catch (error) {
@@ -51,9 +51,8 @@ function CreateMovie() {
   };
 
   const [formData, setFormData] = useState({
-    movie_title: "",
-    movie_length: "",
-    movie_total_view: ""
+    television_title: "",
+    television_total_view: ""
   });
   
   const handleSubmit = async (e) => {
@@ -63,89 +62,89 @@ function CreateMovie() {
     if(genreCheckboxCount.checkboxValid === true && actorCheckboxCount.checkboxValid === true && directorCheckboxCount.checkboxValid === true )
       {
 
-    // Create a new movie object from the formData
-    const newMovie = {
-      movie_title: formData.movie_title,
-      movie_length: formData.movie_length,
-      movie_total_view: formData.movie_total_view
+    // Create a new television object from the formData
+    const newTelevision = {
+      television_title: formData.television_title,
+      television_total_view: formData.television_total_view
     };
 
     try {
-      const URL = import.meta.env.VITE_API_URL + "movies";
-      const response = await axios.post(URL, newMovie);
+      const URL = import.meta.env.VITE_API_URL + "televisions";
+      const response = await axios.post(URL, newTelevision);
       if (response.status === 201) {
-        alert("Movie was created");
+        alert("TV show was created");
       } else {
-        alert("Error creating movie");
+        alert("Error creating TV show");
       }
     } catch (error) {
-      alert("Error creating movie");
-      console.error("Error creating movie:", error);
+      alert("Error creating TV show");
+      console.error("Error creating TV show:", error);
     }
+    
 
     await Promise.all(genreList.map(async (val, i) => {
     try {
       console.log(val)
-      // Create a new movie genre object from the formData
-      const newMovieGenre = {
-      movie_title: formData.movie_title,
+      // Create a new television genre object from the formData
+      const newTelevisionGenre = {
+      television_title: formData.television_title,
       genre_name: val,
       };
-      console.log(newMovieGenre)
+      console.log(newTelevisionGenre)
 
-      const URL = import.meta.env.VITE_API_URL + "movies" + "/moviegenre";
-      const response = await axios.post(URL, newMovieGenre);
+      const URL = import.meta.env.VITE_API_URL + "televisions" + "/televisiongenre";
+      const response = await axios.post(URL, newTelevisionGenre);
       if (response.status === 201) {
-        alert("Movie Genre was created");
+        alert("Television Genre was created");
       } else {
-        alert("Error creating movie genre");
+        alert("Error creating television genre");
       }
     } catch (error) {
-      alert("Error creating movie genre");
-      console.error("Error creating movie genre:", error);
+      alert("Error creating television genre");
+      console.error("Error creating television genre:", error);
       }
     }))
 
     await Promise.all(actorList.map(async (val, i) => {
     try {
-      // Create a new movie actor object from the formData
-      const newMovieActor = {
-      movie_title: formData.movie_title,
+      // Create a new television actor object from the formData
+      const newTelevisionActor = {
+      television_title: formData.television_title,
       actor_name: val,
       };
 
-      const URL = import.meta.env.VITE_API_URL + "movies" + "/movieactor";
-      const response = await axios.post(URL, newMovieActor);
+      const URL = import.meta.env.VITE_API_URL + "televisions" + "/televisionactor";
+      const response = await axios.post(URL, newTelevisionActor);
       if (response.status === 201) {
-        alert("Movie Actor was created");
+        alert("Television Actor was created");
       } else {
-        alert("Error creating movie actor");
+        alert("Error creating television actor");
       }
     } catch (error) {
-      alert("Error creating movie actor");
-      console.error("Error creating movie actor:", error);
+      alert("Error creating television actor");
+      console.error("Error creating television actor:", error);
       }
     }))
 
     await Promise.all(directorList.map(async (val, i) => {
     try {
-      // Create a new movie director object from the formData
-      const newMovieDirector = {
-      movie_title: formData.movie_title,
+      // Create a new television director object from the formData
+      const newTelevisionDirector = {
+      television_title: formData.television_title,
       director_name: val,
       };
 
-      const URL = import.meta.env.VITE_API_URL + "movies" + "/moviedirector";
-      const response = await axios.post(URL, newMovieDirector);
+      const URL = import.meta.env.VITE_API_URL + "televisions" + "/televisiondirector";
+      const response = await axios.post(URL, newTelevisionDirector);
       if (response.status === 201) {
-        alert("Movie Director was created");
-        navigate("/movies");
+        alert("Television Director was created");
+        navigate("/televisions");
       } else {
-        alert("Error creating movie director");
+        alert("Error creating television director");
       }
     } catch (error) {
-      alert("Error creating movie director");
-      console.error("Error creating movie director:", error);
+      alert("Error creating television director");
+      console.error("Error creating television director:", error);
       }
     }))
 
@@ -157,9 +156,8 @@ function CreateMovie() {
 
   const resetFormFields = () => {
     setFormData({
-      movie_title: "",
-      movie_length: "",
-      movie_total_view: ""
+      television_title: "",
+      television_total_view: ""
     });
   };
 
@@ -217,27 +215,21 @@ function CreateMovie() {
 
   return (
     <>
-      <h2>Create Movie</h2>
+      <h2>Create TV Show</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="movie_title">Title</label>
+        <label htmlFor="television_title">Title</label>
         <input
           type="text"
-          name="movie_title"
-          defaultValue={formData.movie_title}
+          name="television_title"
+          defaultValue={formData.television_title}
           onChange={handleInputChange}
         />
-        <label htmlFor="movie_length">Length</label>
+
+        <label htmlFor="television_total_view">Total Views</label>
         <input
           type="number"
-          name="movie_length"
-          defaultValue={formData.movie_length}
-          onChange={handleInputChange}
-        />
-        <label htmlFor="movie_total_view">Total Views</label>
-        <input
-          type="number"
-          name="movie_total_view"
-          value={formData.movie_total_view}
+          name="television_total_view"
+          value={formData.television_total_view}
           onChange={handleInputChange}
         />
         
@@ -276,10 +268,10 @@ function CreateMovie() {
             }
         <br></br>
         <br></br>
-        <button type="submit">Create Movie</button>
+        <button type="submit">Create TV show</button>
       </form>
     </>
   );
 }
 
-export default CreateMovie;
+export default CreateTelevision;

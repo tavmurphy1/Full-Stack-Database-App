@@ -18,8 +18,8 @@ app.use(express.json());
 
 // API Routes for backend CRUD:
 app.use("/api/movies", require("./routes/moviesRoutes.js"));
-
-
+app.use("/api/televisions", require("./routes/televisionsRoutes.js"));
+app.use("/api/episodes", require("./routes/episodesRoutes.js"));
 
 
 
