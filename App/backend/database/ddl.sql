@@ -1,5 +1,5 @@
 -- Authors: CS340 Group 101 Team Binary: Tavner Murphy and Patrick Lim
--- Step 3 DDL
+-- Step 5 DDL
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,7 +44,8 @@ INSERT INTO `Actors` (`actor_id`, `actor_name`) VALUES
 (8, 'Keanu Reeves'),
 (9, 'Tom Hanks'),
 (10, 'Tim Allen'),
-(11, 'Walter Goggins');
+(11, 'Walter Goggins'),
+(12, 'Evan Rachel Wood');
 
 -- --------------------------------------------------------
 
@@ -213,7 +214,8 @@ INSERT INTO `Episodes` (`episode_id`, `episode_title`, `episode_length`, `televi
 (4, 'Please Remain Calm', 58, 3),
 (5, 'Episode I', 50, 4),
 (6, 'Welcome to the Playground', 43, 5),
-(7, 'The End', 74, 6);
+(7, 'The End', 74, 6),
+(8, 'The Original', 68, 7);
 
 -- --------------------------------------------------------
 
@@ -349,7 +351,8 @@ INSERT INTO `Televisions_Actors` (`television_actor_id`, `actor_id_ta`, `televis
 (4, 4, 4),
 (5, 5, 5),
 (6, 5, 6),
-(7, 11, 6);
+(7, 11, 6),
+(8, 12, 7);
 
 -- --------------------------------------------------------
 
@@ -406,7 +409,8 @@ INSERT INTO `Televisions_Genres` (`television_genre_id`, `genre_id_tg`, `televis
 (4, 2, 4),
 (5, 4, 5),
 (6, 1, 6),
-(7, 1, 5);
+(7, 1, 5),
+(8, 3, 7);
 
 
 SET FOREIGN_KEY_CHECKS=1;
