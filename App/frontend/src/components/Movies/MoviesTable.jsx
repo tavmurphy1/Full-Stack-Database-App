@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { RiCreativeCommonsZeroFill } from "react-icons/ri";
 import TableRow from "./MovieTableRow";
+import MGTableRow from "./MoviesGenresTableRow";
+import MATableRow from "./MoviesActorsTableRow";
+import MDTableRow from "./MoviesDirectorsTableRow";
 import axios from "axios";
 
 const MoviesTable = () => {
@@ -8,6 +11,9 @@ const MoviesTable = () => {
   const [movieGenres, setMovieGenres] = useState([]);
   const [movieActors, setMovieActors] = useState([]);
   const [movieDirectors, setMovieDirectors] = useState([]);
+  const [moviesGenres, setMoviesGenres] = useState([]);
+  const [moviesActors, setMoviesActors] = useState([]);
+  const [moviesDirectors, setMoviesDirectors] = useState([]);
 
   const fetchMovies = async () => {
     try {
@@ -68,8 +74,41 @@ const MoviesTable = () => {
     }
   };
 
+  const fetchMoviesGenres = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "moviegenres";
+      const response = await axios.get(URL);
+      setMoviesGenres(response.data);
+    } catch (error) {
+      alert("Error fetching movie genres from the server.");
+      console.error("Error fetching movie genres:", error);
+    }
+  };
+
+  const fetchMoviesDirectors = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "moviedirectors";
+      const response = await axios.get(URL);
+      setMoviesDirectors(response.data);
+    } catch (error) {
+      alert("Error fetching movie director from the server.");
+      console.error("Error fetching movie director:", error);
+    }
+  };
+
+  const fetchMoviesActors = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "movieactors";
+      const response = await axios.get(URL);
+      setMoviesActors(response.data);
+    } catch (error) {
+      alert("Error fetching movie actor from the server.");
+      console.error("Error fetching movie actor:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchMovies(), fetchMovieGenreData(), fetchMovieActorData(), fetchMovieDirectorData();
+    fetchMovies(), fetchMovieGenreData(), fetchMovieActorData(), fetchMovieDirectorData(), fetchMoviesGenres(), fetchMoviesDirectors(), fetchMoviesActors();
   }, []);
 
   let genre = [];
@@ -139,6 +178,12 @@ movieDirectors.map((val, i) => {
       }
 });
 
+const [toggle, setToggle] = useState(true);
+
+const handleClick = () => {
+  setToggle(!toggle);
+};
+
   return (
     <div>
       <h2>Movies</h2>
@@ -169,7 +214,85 @@ movieDirectors.map((val, i) => {
           </tbody>
         </table>
       )}
+      <br></br>
+      <button onClick={handleClick} >
+          Show Intersection Tables</button>
+
+      {toggle ? <></> : (
+      <div>
+      <h2>Movie Genres</h2>
+      
+      {moviesGenres.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No movie genres found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>genre</th>
+              <th>movie</th>
+            </tr>
+          </thead>
+          <tbody>
+            {moviesGenres.map((moviesGenres, i) => (
+              <MGTableRow key={moviesGenres.movie_genre_id} moviesGenres={moviesGenres}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+        
+      <h2>Movie Actors</h2>
+      {moviesActors.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No movie actors found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>actor</th>
+              <th>movie</th>
+            </tr>
+          </thead>
+          <tbody>
+            {moviesActors.map((moviesActors, i) => (
+              <MATableRow key={moviesActors.movie_actor_id} moviesActors={moviesActors}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      <h2>Movie Directors</h2>
+      {moviesDirectors.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No movie directors found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>director</th>
+              <th>movie</th>
+            </tr>
+          </thead>
+          <tbody>
+            {moviesDirectors.map((moviesDirectors, i) => (
+              <MDTableRow key={moviesDirectors.movie_director_id} moviesDirectors={moviesDirectors}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+      </div>)}
+
     </div>
+    
   );
 };
 

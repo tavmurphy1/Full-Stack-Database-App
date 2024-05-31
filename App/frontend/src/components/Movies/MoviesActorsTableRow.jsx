@@ -3,16 +3,16 @@ import { BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const MGTableRow = ({ moviesGenres }) => {
+const MATableRow = ({ moviesActors }) => {
   // Hook that allows us to navigate programmatically
 
   return (
-    <tr key={moviesGenres.movie_genre_id}>
-      <td>{moviesGenres.movie_genre_id}</td>
-      <td>{moviesGenres.genre}</td>
-      <td>{moviesGenres.movie}</td>
+    <tr key={moviesActors.movie_actor_id}>
+      <td>{moviesActors.movie_actor_id}</td>
+      <td>{moviesActors.actor}</td>
+      <td>{moviesActors.movie}</td>
     </tr>
   );
 };
 
-export default MGTableRow;
+export default MATableRow;

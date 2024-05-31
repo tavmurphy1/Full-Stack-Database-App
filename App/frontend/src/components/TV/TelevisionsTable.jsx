@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { RiCreativeCommonsZeroFill } from "react-icons/ri";
 import TableRow from "./TelevisionTableRow";
+import TGTableRow from "./TelevisionsGenresTableRow";
+import TATableRow from "./TelevisionsActorsTableRow";
+import TDTableRow from "./TelevisionsDirectorsTableRow";
 import axios from "axios";
 
 const TelevisionsTable = () => {
@@ -8,6 +11,9 @@ const TelevisionsTable = () => {
   const [televisionGenres, setTelevisionGenres] = useState([]);
   const [televisionActors, setTelevisionActors] = useState([]);
   const [televisionDirectors, setTelevisionDirectors] = useState([]);
+  const [televisionsActors, setTelevisionsActors] = useState([]);
+  const [televisionsGenres, setTelevisionsGenres] = useState([]);
+  const [televisionsDirectors, setTelevisionsDirectors] = useState([]);
 
   const fetchTelevisions = async () => {
     try {
@@ -68,8 +74,41 @@ const TelevisionsTable = () => {
     }
   };
 
+  const fetchTelevisionsActors = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "televisionactors";
+      const response = await axios.get(URL);
+      setTelevisionsActors(response.data);
+    } catch (error) {
+      alert("Error fetching television actors from the server.");
+      console.error("Error fetching television actors:", error);
+    }
+  };
+
+  const fetchTelevisionsGenres = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "televisiongenres";
+      const response = await axios.get(URL);
+      setTelevisionsGenres(response.data);
+    } catch (error) {
+      alert("Error fetching television genres from the server.");
+      console.error("Error fetching television genres:", error);
+    }
+  };
+
+  const fetchTelevisionsDirectors = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "televisiondirectors";
+      const response = await axios.get(URL);
+      setTelevisionsDirectors(response.data);
+    } catch (error) {
+      alert("Error fetching television directors from the server.");
+      console.error("Error fetching television directors:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchTelevisions(), fetchTelevisionGenreData(), fetchTelevisionActorData(), fetchTelevisionDirectorData();
+    fetchTelevisions(), fetchTelevisionGenreData(), fetchTelevisionActorData(), fetchTelevisionDirectorData(), fetchTelevisionsActors(), fetchTelevisionsGenres(), fetchTelevisionsDirectors();
   }, []);
 
   let genre = [];
@@ -139,6 +178,12 @@ televisionDirectors.map((val, i) => {
       }
 });
 
+const [toggle, setToggle] = useState(true);
+
+const handleClick = () => {
+  setToggle(!toggle);
+};
+
   return (
     <div>
       <h2>TV Shows</h2>
@@ -168,6 +213,83 @@ televisionDirectors.map((val, i) => {
           </tbody>
         </table>
       )}
+
+      <br></br>
+      <button onClick={handleClick} >
+          Show Intersection Tables</button>
+      {toggle ? <></> : (
+      <div>
+
+      <h2>Television Genres</h2>
+      {televisionsGenres.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No television genres found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>genre</th>
+              <th>TV show</th>
+            </tr>
+          </thead>
+          <tbody>
+            {televisionsGenres.map((televisionsGenres, i) => (
+              <TGTableRow key={televisionsGenres.television_genre_id} televisionsGenres={televisionsGenres}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      <h2>Television Actors</h2>
+      {televisionsActors.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No television actors found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>actor</th>
+              <th>TV show</th>
+            </tr>
+          </thead>
+          <tbody>
+            {televisionsActors.map((televisionsActors, i) => (
+              <TATableRow key={televisionsActors.television_actor_id} televisionsActors={televisionsActors}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      <h2>Television Directors</h2>
+      {televisionsDirectors.length === 0 ? (
+        <div>
+          <RiCreativeCommonsZeroFill size={70} color="#ccc" />
+          <p>No television directors found.</p>
+        </div>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>director</th>
+              <th>TV show</th>
+            </tr>
+          </thead>
+          <tbody>
+            {televisionsDirectors.map((televisionsDirectors, i) => (
+              <TDTableRow key={televisionsDirectors.television_director_id} televisionsDirectors={televisionsDirectors}/>
+            ))}
+          </tbody>
+        </table>
+      )}
+      </div>)}
+
     </div>
   );
 };

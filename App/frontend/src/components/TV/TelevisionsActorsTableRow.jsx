@@ -3,7 +3,7 @@ import { BsTrash } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const TATableRow = ({ televisionsActors }) => {
+const TableRow = ({ televisionsActors }) => {
   // Hook that allows us to navigate programmatically
 
   return (
@@ -15,4 +15,4 @@ const TATableRow = ({ televisionsActors }) => {
   );
 };
 
-export default TATableRow;
+export default TableRow;

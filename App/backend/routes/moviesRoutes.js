@@ -8,6 +8,7 @@ const {
   createMovieActor,
   createMovieDirector,
   updateMovie,
+  updateMovieGenre,
   deleteMovie,
   getMoviesGenres,
   getMoviesActors,
@@ -30,6 +31,7 @@ router.post("/moviegenre", createMovieGenre);
 router.post("/movieactor", createMovieActor);
 router.post("/moviedirector", createMovieDirector);
 router.put("/:id", updateMovie);
+router.put("/moviegenres/:id", updateMovieGenre);
 router.delete("/:id", deleteMovie);
 
 module.exports = router;

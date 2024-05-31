@@ -24,7 +24,7 @@ const getMovies = async (req, res) => {
 const getMoviesGenres = async (req, res) => {
   try {
     // Select all rows from the "Movies" table
-    const query = 'SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID` FROM Movies_Genres INNER JOIN Genres ON Genres.genre_id = Movies_Genres.genre_id_mg INNER JOIN Movies ON Movies.movie_id = Movies_Genres.movie_id_mg Order by Movies.movie_id;';
+    const query = 'SELECT  Movies_Genres.movie_genre_id, Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID` FROM Movies_Genres INNER JOIN Genres ON Genres.genre_id = Movies_Genres.genre_id_mg INNER JOIN Movies ON Movies.movie_id = Movies_Genres.movie_id_mg Order by Movies.movie_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -39,7 +39,7 @@ const getMoviesGenres = async (req, res) => {
 const getMoviesActors = async (req, res) => {
   try {
     // Select all rows from the "Movies" table
-    const query = 'SELECT  Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID` FROM Movies_Actors INNER JOIN Actors ON Actors.actor_id = Movies_Actors.actor_id_ma INNER JOIN Movies ON Movies.movie_id = Movies_Actors.movie_id_ma Order by Movies.movie_id;';
+    const query = 'SELECT  Movies_Actors.movie_actor_id, Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID` FROM Movies_Actors INNER JOIN Actors ON Actors.actor_id = Movies_Actors.actor_id_ma INNER JOIN Movies ON Movies.movie_id = Movies_Actors.movie_id_ma Order by Movies.movie_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -54,7 +54,7 @@ const getMoviesActors = async (req, res) => {
 const getMoviesDirectors = async (req, res) => {
   try {
     // Select all rows from the "Movies" table
-    const query = 'SELECT  Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID` FROM Movies_Directors INNER JOIN Directors ON Directors.director_id = Movies_Directors.director_id_md INNER JOIN Movies ON Movies.movie_id = Movies_Directors.movie_id_md Order by Movies.movie_id;';
+    const query = 'SELECT  Movies_Directors.movie_director_id, Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID` FROM Movies_Directors INNER JOIN Directors ON Directors.director_id = Movies_Directors.director_id_md INNER JOIN Movies ON Movies.movie_id = Movies_Directors.movie_id_md Order by Movies.movie_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -251,6 +251,45 @@ const updateMovie = async (req, res) => {
   }
 };
 
+const updateMovieGenre = async (req, res) => {
+  // Get the person ID
+  const movieGenreID = req.params.id;
+  // Get the person object
+  const newMovieGenre = req.body;
+
+  try {
+    const [data] = await db.query("SELECT * FROM Movies_Genres WHERE movie_genre_id = ?", [
+      movieGenreID,
+    ]);
+
+    const oldMovieGenre = data[0];
+
+    // If any attributes are not equal, perform update
+    if (!lodash.isEqual(newMovieGenre, oldMovieGenre)) {
+      const query =
+        "UPDATE Movies_Genres SET movie_id_mg=?, genre_id_mg=? WHERE movie_genre_id=?";
+
+      const values = [
+        newMovieGenre.movie_id_mg,
+        newMovieGenre.genre_id_mg,
+        movieGenreID
+      ];
+
+      // Perform the update
+      await db.query(query, values);
+      // Inform client of success and return 
+      return res.json({ message: "Movie updated successfully." });
+    }
+
+    res.json({ message: "Movie details are the same, no update" });
+  } catch (error) {
+    console.log("Error updating movie", error);
+    res
+      .status(500)
+      .json({ error: `Error updating the movie with id ${movieID}` });
+  }
+};
+
 // Endpoint to delete a customer from the database
 const deleteMovie = async (req, res) => {
   console.log("Deleting movie with id:", req.params.id);
@@ -322,6 +361,7 @@ module.exports = {
   createMovieActor,
   createMovieDirector,
   updateMovie,
+  updateMovieGenre,
   deleteMovie,
   getMoviesGenres,
   getMoviesActors,
