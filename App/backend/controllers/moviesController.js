@@ -155,10 +155,9 @@ const createMovieGenre = async (req, res) => {
   try {
     const { movie_title, genre_name } = req.body;
     const query =
-      "INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES ((SELECT movie_id FROM Movies WHERE movie_title = ?), (SELECT genre_id FROM Genres WHERE genre_name = ?))";
+      "INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES ((SELECT max(movie_id) FROM Movies), (SELECT genre_id FROM Genres WHERE genre_name = ?))";
 
     const response = await db.query(query, [
-      movie_title,
       genre_name
     ]);
     res.status(201).json(response);
@@ -175,10 +174,9 @@ const createMovieActor = async (req, res) => {
   try {
     const { movie_title, actor_name } = req.body;
     const query =
-      "INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES ((SELECT movie_id FROM Movies WHERE movie_title = ?), (SELECT actor_id FROM Actors WHERE actor_name = ?))";
+      "INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES ((SELECT max(movie_id) FROM Movies), (SELECT actor_id FROM Actors WHERE actor_name = ?))";
 
     const response = await db.query(query, [
-      movie_title,
       actor_name
     ]);
     res.status(201).json(response);
@@ -195,10 +193,9 @@ const createMovieDirector = async (req, res) => {
   try {
     const { movie_title, director_name } = req.body;
     const query =
-      "INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES ((SELECT movie_id FROM Movies WHERE movie_title = ?), (SELECT director_id FROM Directors WHERE director_name = ?))";
+      "INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES ((SELECT max(movie_id) FROM Movies), (SELECT director_id FROM Directors WHERE director_name = ?))";
 
     const response = await db.query(query, [
-      movie_title,
       director_name
     ]);
     res.status(201).json(response);

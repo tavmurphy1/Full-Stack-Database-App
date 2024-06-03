@@ -154,10 +154,9 @@ const createTelevisionGenre = async (req, res) => {
   try {
     const { television_title, genre_name } = req.body;
     const query =
-      "INSERT INTO Televisions_Genres (television_id_tg, genre_id_tg) VALUES ((SELECT television_id FROM Televisions WHERE television_title = ?), (SELECT genre_id FROM Genres WHERE genre_name = ?))";
+      "INSERT INTO Televisions_Genres (television_id_tg, genre_id_tg) VALUES ((SELECT max(television_id) FROM Televisions), (SELECT genre_id FROM Genres WHERE genre_name = ?))";
 
     const response = await db.query(query, [
-      television_title,
       genre_name
     ]);
     res.status(201).json(response);
@@ -174,10 +173,9 @@ const createTelevisionActor = async (req, res) => {
   try {
     const { television_title, actor_name } = req.body;
     const query =
-      "INSERT INTO Televisions_Actors (television_id_ta, actor_id_ta) VALUES ((SELECT television_id FROM Televisions WHERE television_title = ?), (SELECT actor_id FROM Actors WHERE actor_name = ?))";
+      "INSERT INTO Televisions_Actors (television_id_ta, actor_id_ta) VALUES ((SELECT max(television_id) FROM Televisions), (SELECT actor_id FROM Actors WHERE actor_name = ?))";
 
     const response = await db.query(query, [
-      television_title,
       actor_name
     ]);
     res.status(201).json(response);
@@ -194,10 +192,9 @@ const createTelevisionDirector = async (req, res) => {
   try {
     const { television_title, director_name } = req.body;
     const query =
-      "INSERT INTO Televisions_Directors (television_id_td, director_id_td) VALUES ((SELECT television_id FROM Televisions WHERE television_title = ?), (SELECT director_id FROM Directors WHERE director_name = ?))";
+      "INSERT INTO Televisions_Directors (television_id_td, director_id_td) VALUES ((SELECT max(television_id) FROM Televisions), (SELECT director_id FROM Directors WHERE director_name = ?))";
 
     const response = await db.query(query, [
-      television_title,
       director_name
     ]);
     res.status(201).json(response);
