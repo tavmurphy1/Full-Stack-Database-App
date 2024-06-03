@@ -153,7 +153,7 @@ const createMovie = async (req, res) => {
 // Returns status of creation of new person in bsg_movies
 const createMovieGenre = async (req, res) => {
   try {
-    const { movie_title, genre_name } = req.body;
+    const { genre_name } = req.body;
     const query =
       "INSERT INTO Movies_Genres (movie_id_mg, genre_id_mg) VALUES ((SELECT max(movie_id) FROM Movies), (SELECT genre_id FROM Genres WHERE genre_name = ?))";
 
@@ -172,7 +172,7 @@ const createMovieGenre = async (req, res) => {
 // Returns status of creation of new person in bsg_movies
 const createMovieActor = async (req, res) => {
   try {
-    const { movie_title, actor_name } = req.body;
+    const { actor_name } = req.body;
     const query =
       "INSERT INTO Movies_Actors (movie_id_ma, actor_id_ma) VALUES ((SELECT max(movie_id) FROM Movies), (SELECT actor_id FROM Actors WHERE actor_name = ?))";
 
@@ -191,7 +191,7 @@ const createMovieActor = async (req, res) => {
 // Returns status of creation of new person in bsg_movies
 const createMovieDirector = async (req, res) => {
   try {
-    const { movie_title, director_name } = req.body;
+    const { director_name } = req.body;
     const query =
       "INSERT INTO Movies_Directors (movie_id_md, director_id_md) VALUES ((SELECT max(movie_id) FROM Movies), (SELECT director_id FROM Directors WHERE director_name = ?))";
 
