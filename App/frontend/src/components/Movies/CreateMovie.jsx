@@ -85,13 +85,11 @@ function CreateMovie() {
 
     await Promise.all(genreList.map(async (val, i) => {
     try {
-      console.log(val)
       // Create a new movie genre object from the formData
       const newMovieGenre = {
       movie_title: formData.movie_title,
       genre_name: val,
       };
-      console.log(newMovieGenre)
 
       const URL = import.meta.env.VITE_API_URL + "movies" + "/moviegenre";
       const response = await axios.post(URL, newMovieGenre);

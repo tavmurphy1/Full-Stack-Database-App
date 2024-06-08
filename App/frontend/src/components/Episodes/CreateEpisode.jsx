@@ -23,8 +23,6 @@ function CreateEpisode() {
     episode_length: "",
     television_id_ep: "",
   });
-  
-console.log(formData)
 
   const handleSubmit = async (e) => {
     // Prevent page reload
@@ -90,7 +88,6 @@ console.log(formData)
     fetchTVShows();
   }, []);
 
-  console.log(TVShows)
   return (
     <>
       <h2>Create Episode</h2>

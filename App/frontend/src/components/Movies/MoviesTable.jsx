@@ -118,11 +118,9 @@ const MoviesTable = () => {
         
         if (i > 0) {if(val.movieID === movieGenreID[i-1]){
             genre[genreCounter-1] = genre[genreCounter-1] + ', ' + val.genres
-            movieGenreID.push(val.movieID)
-          console.log(genre[i-1])}
+            movieGenreID.push(val.movieID)}
             else{
                 genre.push(val.genres);
-                console.log(genre)
                 movieGenreID.push(val.movieID);
                 genreCounter += 1
                 }
@@ -209,7 +207,7 @@ const handleClick = () => {
           </thead>
           <tbody>
             {movies.map((movie, i) => (
-              <TableRow key={movie.movie_id} movie={movie} fetchMovies={fetchMovies} fetchMovieGenreData={genre[i]} fetchMovieActorData={actor[i]} fetchMovieDirectorData={director[i]}/>
+              <TableRow key={movie.movie_id} movie={movie} fetchMovies={fetchMovies} fetchMovieGenreData={genre[i]} fetchMovieActorData={actor[i]} fetchMovieDirectorData={director[i]} fetchMoviesGenres={fetchMoviesGenres} fetchMoviesDirectors={fetchMoviesDirectors} fetchMoviesActors={fetchMoviesActors}/>
             ))}
           </tbody>
         </table>

@@ -9,37 +9,202 @@ const UpdateMovie = () => {
   const location = useLocation();
   const prevMovie = location.state.movie;
 
-  const [genreList, setGenreList] = useState([]);
-  const [actorList, setActorList] = useState([]);
-  const [directorList, setDirectorList] = useState([]);
-
   const [genres, setGenres] = useState([]);
   const [actors, setActors] = useState([]);
   const [directors, setDirectors] = useState([]);
 
-  const [movieGenres, setMovieGenres] = useState([]);
-  const [movieActors, setMovieActors] = useState([]);
-  const [movieDirectors, setMovieDirectors] = useState([]);
-  
-  let movieGenresIDList = []
-  movieGenres.map((val, i) => {
-  if (val.movieID === prevMovie.movie_id)
-    {movieGenresIDList.push(val.movie_genre_id);}
-  })
-  let genresIDLength = movieGenresIDList.length
-  
-  console.log(movieGenresIDList);
-  console.log(genresIDLength);
+  const [genresChecked, setGenresChecked] = useState({
+    genres: [],
+    checkboxes: []
+  });
 
-  const [genreCheckboxCount, setGenreCheckboxCount] = useState({checkboxCount: genresIDLength, checkboxValid: false});
-  const [actorCheckboxCount, setActorCheckboxCount] = useState({checkboxCount: 0, checkboxValid: false});
-  const [directorCheckboxCount, setDirectorCheckboxCount] = useState({checkboxCount: 0, checkboxValid: false});
+  const [actorsChecked, setActorsChecked] = useState({
+    actors: [],
+    checkboxes: []
+  });
 
+  const [directorsChecked, setDirectorsChecked] = useState({
+    directors: [],
+    checkboxes: []
+  });
+
+  const [movieGenresIDList, setMovieGenresIDList] = useState([]);
+  const [movieActorsIDList, setMovieActorsIDList] = useState([]);
+  const [movieDirectorsIDList, setMovieDirectorsIDList] = useState([]);
+
+
+  const [genreCheckboxCount, setGenreCheckboxCount] = useState();
+  const [actorCheckboxCount, setActorCheckboxCount] = useState();
+  const [directorCheckboxCount, setDirectorCheckboxCount] = useState();
+  
+  const fetchMovieGenreIDs = async (response) => {
+    let movieGenresIDList = []
+    response.map((val, i) => {
+    if (val.movieID === prevMovie.movie_id)
+      {movieGenresIDList.push(val.movie_genre_id);}
+    })
+    setMovieGenresIDList(() => (
+      movieGenresIDList
+    ))
+  };
+
+  
+  let genresList = [];
+  const fetchGenreCheckboxes = async (response) => {
+    
+      response.map( (val, i) => {
+      genresList.push(val.genre_name);
+    });
+    
+    setGenresChecked((prevGenresChecked) => ({
+      ...prevGenresChecked,
+      genres: genresList
+    }))
+  };
+
+  const fetchGenreCheckboxesBool = async (response) => {
+    let checkboxesList = [];
+    let checked = 0;
+    let countList = 0;
+      genresList.map( (val, i) => {
+        response.map( (val2, i2) => {
+        if(prevMovie.movie_id === val2.movieID && val2.genres === val)
+          {checkboxesList.push(true);
+            checked = 1;
+            countList += 1;
+          }
+      
+    });
+    
+    if(checked !== 1){checkboxesList.push(false);}
+    else{ checked = 0;};
+    });
+    
+    setGenresChecked((prevGenresChecked) => ({
+      ...prevGenresChecked,
+      checkboxes: checkboxesList
+    }))
+
+    setGenreCheckboxCount(
+      countList
+    )
+
+    
+
+  };
+ 
+  const fetchMovieActorIDs = async (response) => {
+    let movieActorsIDList = []
+    response.map((val, i) => {
+    if (val.movieID === prevMovie.movie_id)
+      {movieActorsIDList.push(val.movie_actor_id);}
+    })
+    setMovieActorsIDList(() => (
+      movieActorsIDList
+    ))
+  };
+
+  
+  let actorsList = [];
+  const fetchActorsCheckboxes = async (response) => {
+    
+      response.map( (val, i) => {
+      actorsList.push(val.actor_name);
+    });
+    
+    setActorsChecked((prevActorsChecked) => ({
+      ...prevActorsChecked,
+      actors: actorsList
+    }))
+  };
+
+  const fetchActorCheckboxesBool = async (response) => {
+    let checkboxesList = [];
+    let checked = 0;
+    let countList = 0;
+      actorsList.map( (val, i) => {
+        response.map( (val2, i2) => {
+        if(prevMovie.movie_id === val2.movieID && val2.actors === val)
+          {checkboxesList.push(true);
+            checked = 1;
+            countList += 1;
+          }
+      
+    });
+    
+    if(checked !== 1){checkboxesList.push(false);}
+    else{ checked = 0;};
+    });
+    
+    setActorsChecked((prevActorsChecked) => ({
+      ...prevActorsChecked,
+      checkboxes: checkboxesList
+    }))
+
+    setActorCheckboxCount(
+      countList
+    )
+  };
+  
+  const fetchMovieDirectorIDs = async (response) => {
+    let movieDirectorsIDList = []
+    response.map((val, i) => {
+    if (val.movieID === prevMovie.movie_id)
+      {movieDirectorsIDList.push(val.movie_director_id);}
+    })
+    setMovieDirectorsIDList(() => (
+      movieDirectorsIDList
+    ))
+  };
+
+  
+  let directorsList = [];
+  const fetchDirectorCheckboxes = async (response) => {
+    
+      response.map( (val, i) => {
+        directorsList.push(val.director_name);
+    });
+    
+    setDirectorsChecked((prevDirectorsChecked) => ({
+      ...prevDirectorsChecked,
+      directors: directorsList
+    }))
+  };
+
+  const fetchDirectorCheckboxesBool = async (response) => {
+    let checkboxesList = [];
+    let checked = 0;
+    let countList = 0;
+    directorsList.map( (val, i) => {
+        response.map( (val2, i2) => {
+        if(prevMovie.movie_id === val2.movieID && val2.directors === val)
+          {checkboxesList.push(true);
+            checked = 1;
+            countList += 1;
+          }
+      
+    });
+    
+    if(checked !== 1){checkboxesList.push(false);}
+    else{ checked = 0;};
+    });
+    
+    setDirectorsChecked((prevDirectorsChecked) => ({
+      ...prevDirectorsChecked,
+      checkboxes: checkboxesList
+    }))
+
+    setDirectorCheckboxCount(
+      countList
+    )
+  };
+  
   const fetchGenres = async () => {
     try {
       const URL = import.meta.env.VITE_API_URL + "movies" + "/genres";
       const response = await axios.get(URL);
       setGenres(response.data);
+      fetchGenreCheckboxes(response.data);
     } catch (error) {
       alert("Error fetching genres from the server.");
       console.error("Error fetching genres:", error);
@@ -51,6 +216,7 @@ const UpdateMovie = () => {
       const URL = import.meta.env.VITE_API_URL + "movies" + "/actors";
       const response = await axios.get(URL);
       setActors(response.data);
+      fetchActorsCheckboxes(response.data);
     } catch (error) {
       alert("Error fetching actors from the server.");
       console.error("Error fetching actors:", error);
@@ -62,6 +228,7 @@ const UpdateMovie = () => {
       const URL = import.meta.env.VITE_API_URL + "movies" + "/directors";
       const response = await axios.get(URL);
       setDirectors(response.data);
+      fetchDirectorCheckboxes(response.data);
     } catch (error) {
       alert("Error fetching directors from the server.");
       console.error("Error fetching directors:", error);
@@ -76,7 +243,8 @@ const UpdateMovie = () => {
       // Use Axios to make the GET request
       const response = await axios.get(URL);
       // Update state with the response data
-      setMovieGenres(response.data);
+      fetchGenreCheckboxesBool(response.data);
+      fetchMovieGenreIDs(response.data);
     } catch (error) {
       // Handle any errors that occur during the fetch operation
       console.error('Error fetching MovieGenre data:', error);
@@ -92,7 +260,8 @@ const UpdateMovie = () => {
       // Use Axios to make the GET request
       const response = await axios.get(URL);
       // Update state with the response data
-      setMovieActors(response.data);
+      fetchActorCheckboxesBool(response.data);
+      fetchMovieActorIDs(response.data);
     } catch (error) {
       // Handle any errors that occur during the fetch operation
       console.error('Error fetching MovieActor data:', error);
@@ -108,14 +277,15 @@ const UpdateMovie = () => {
       // Use Axios to make the GET request
       const response = await axios.get(URL);
       // Update state with the response data
-      setMovieDirectors(response.data);
+      fetchDirectorCheckboxesBool(response.data);
+      fetchMovieDirectorIDs(response.data);
     } catch (error) {
       // Handle any errors that occur during the fetch operation
       console.error('Error fetching MovieDirector data:', error);
       alert('Error fetching MovieDirector data from the server.');
     }
   };
-
+  
   const [formData, setFormData] = useState({
     movie_title: prevMovie.movie_title || '',
     movie_length: prevMovie.movie_length || '',
@@ -137,7 +307,7 @@ const UpdateMovie = () => {
       movie_length: prevMovie.movie_length || '',
       movie_total_view: prevMovie.movie_total_view || ''
     })) {
-      alert("No changes made.");
+      alert("No changes made to movie details.");
       return false;
     }
     return true
@@ -147,6 +317,10 @@ const UpdateMovie = () => {
     // Stop default form behavior which is to reload the page
     event.preventDefault();
     // Check if formData is equal to prevMovie
+    if (genreCheckboxCount !== movieGenresIDList.length){alert("Error: Must pick same number of genres to update."); return}
+    if (actorCheckboxCount !== movieActorsIDList.length){alert("Error: Must pick same number of actors to update."); return}
+    if (directorCheckboxCount !== movieDirectorsIDList.length){alert("Error: Must pick same number of directors to update."); return}
+    
     if (isUpdate()){
       try {
         const URL = import.meta.env.VITE_API_URL + "movies/" + id;
@@ -155,51 +329,221 @@ const UpdateMovie = () => {
           alert("Error updating Movie");
         } else {
           alert(response.data.message);
-          // Redirect to movies page
-          navigate("/movies");
+          if(genreCheckboxCount === movieGenresIDList.length && actorCheckboxCount === movieActorsIDList.length && directorCheckboxCount === movieDirectorsIDList.length){    
+            // Redirect to movies page
+            navigate("/movies");}
         }
       } catch (err) {
         console.log("Error updating Movie:", err);
       }
     }
+    
+    else{
+
+    await Promise.all(movieGenresIDList.map(async (val, i) => {
+
+      let genreIdList = [];
+      genresChecked.checkboxes.map(async (val2, i2) => {
+        if(val2 === true){genreIdList.push(genres[i2].genre_id)}
+      });
+
+      let genreData = {
+        movie_id_mg: prevMovie.movie_id,
+        genre_id_mg: genreIdList[i]
+      };
+      
+    try {
+      const URL = import.meta.env.VITE_API_URL + "movies/" + "moviegenres/" + val;
+      const response = await axios.put(URL, genreData);
+      if (response.status !== 200) {
+        alert("Error updating Movie Genre(s)");
+      } else {
+        alert(response.data.message);
+      }
+    } catch (err) {
+      console.log("Error updating Movie genre(s):", err);
+    }
+    }))
+
+  await Promise.all(movieActorsIDList.map(async (val, i) => {
+
+    let actorIdList = [];
+    actorsChecked.checkboxes.map(async (val2, i2) => {
+      if(val2 === true){actorIdList.push(actors[i2].actor_id)}
+    });
+
+    let actorData = {
+      movie_id_ma: prevMovie.movie_id,
+      actor_id_ma: actorIdList[i]
+    };
+    
+  try {
+    const URL = import.meta.env.VITE_API_URL + "movies/" + "movieactors/" + val;
+    const response = await axios.put(URL, actorData);
+    if (response.status !== 200) {
+      alert("Error updating Movie Actor(s)");
+    } else {
+      alert(response.data.message);
+    }
+  } catch (err) {
+    console.log("Error updating Movie actor(s):", err);
+  }
+  }))
+
+  await Promise.all(movieDirectorsIDList.map(async (val, i) => {
+
+  let directorIdList = [];
+  directorsChecked.checkboxes.map(async (val2, i2) => {
+    if(val2 === true){directorIdList.push(directors[i2].director_id)}
+  });
+
+  let directorData = {
+    movie_id_md: prevMovie.movie_id,
+    director_id_md: directorIdList[i]
   };
+  
+  try {
+  const URL = import.meta.env.VITE_API_URL + "movies/" + "moviedirectors/" + val;
+  const response = await axios.put(URL, directorData);
+  if (response.status !== 200) {
+    alert("Error updating Movie Director(s)");
+  } else {
+    alert(response.data.message);
+    // Redirect to movies page
+    navigate("/movies");
+  }
+  } catch (err) {
+  console.log("Error updating Movie director(s):", err);
+  }
+  }))
+
+  }
+  };
+
 
   const handleCheckboxChangeGenre = (e) => {
     const { name, value } = e.target;
     if (e.target.checked){
-    setGenreCheckboxCount({checkboxCount: genreCheckboxCount.checkboxCount + 1, checkboxValid: true})
-    setGenreList(genreList.concat(value));
+    let nextCount = genreCheckboxCount + 1; 
+    setGenreCheckboxCount(() => (
+      nextCount));
+
+    let checkboxesList = [];
+    genresChecked.genres.map( (val, i) => {
+      if (val === e.target.value){
+        checkboxesList.push(!genresChecked.checkboxes[i]);
+      }
+      else{
+        checkboxesList.push(genresChecked.checkboxes[i])
+      };
+    });
+    setGenresChecked((prevGenresChecked) => ({
+      ...prevGenresChecked,
+      checkboxes: checkboxesList
+    }))
     }
     else {
-      setGenreCheckboxCount({checkboxCount: genreCheckboxCount.checkboxCount - 1, checkboxValid: true})
-      if (genreCheckboxCount.checkboxCount !== movieGenresIDList.length){setGenreCheckboxCount({checkboxCount: genreCheckboxCount.checkboxCount = genreCheckboxCount.checkboxCount, checkboxValid: false})}
-      setGenreList(genreList.filter(genre => genre !== value))
+      let nextCount = genreCheckboxCount - 1; 
+      setGenreCheckboxCount(() => (
+      nextCount));
+
+      let checkboxesList = [];
+      genresChecked.genres.map( (val, i) => {
+        if (val === e.target.value){
+          checkboxesList.push(!genresChecked.checkboxes[i]);
+        }
+        else{
+          checkboxesList.push(genresChecked.checkboxes[i])
+        };
+      });
+      setGenresChecked((prevGenresChecked) => ({
+        ...prevGenresChecked,
+        checkboxes: checkboxesList
+      }))
     }
   };
-  console.log(genreCheckboxCount)
+  
   const handleCheckboxChangeActor = (e) => {
     const { name, value } = e.target;
     if (e.target.checked){
-    setActorCheckboxCount({checkboxCount: actorCheckboxCount.checkboxCount + 1, checkboxValid: true})
-    setActorList(actorList.concat(value));
+    let nextCount = actorCheckboxCount + 1; 
+    setActorCheckboxCount(() => (
+      nextCount));
+
+    let checkboxesList = [];
+    actorsChecked.actors.map( (val, i) => {
+      if (val === e.target.value){
+        checkboxesList.push(!actorsChecked.checkboxes[i]);
+      }
+      else{
+        checkboxesList.push(actorsChecked.checkboxes[i])
+      };
+    });
+    setActorsChecked((prevActorsChecked) => ({
+      ...prevActorsChecked,
+      checkboxes: checkboxesList
+    }))
     }
     else {
-      setActorCheckboxCount({checkboxCount: actorCheckboxCount.checkboxCount - 1, checkboxValid: true})
-      if (actorCheckboxCount.checkboxCount < 2){setActorCheckboxCount({checkboxCount: actorCheckboxCount.checkboxCount = 0, checkboxValid: false})}
-      setActorList(actorList.filter(actor => actor !== value))
+      let nextCount = actorCheckboxCount - 1; 
+      setActorCheckboxCount(() => (
+      nextCount));
+
+      let checkboxesList = [];
+      actorsChecked.actors.map( (val, i) => {
+        if (val === e.target.value){
+          checkboxesList.push(!actorsChecked.checkboxes[i]);
+        }
+        else{
+          checkboxesList.push(actorsChecked.checkboxes[i])
+        };
+      });
+      setActorsChecked((prevActorsChecked) => ({
+        ...prevActorsChecked,
+        checkboxes: checkboxesList
+      }))
     }
   };
 
   const handleCheckboxChangeDirector = (e) => {
     const { name, value } = e.target;
     if (e.target.checked){
-    setDirectorCheckboxCount({checkboxCount: directorCheckboxCount.checkboxCount + 1, checkboxValid: true})
-    setDirectorList(directorList.concat(value));
+    let nextCount = directorCheckboxCount + 1;
+    setDirectorCheckboxCount(() => (
+      nextCount));
+
+    let checkboxesList = [];
+    directorsChecked.directors.map( (val, i) => {
+      if (val === e.target.value){
+        checkboxesList.push(!directorsChecked.checkboxes[i]);
+      }
+      else{
+        checkboxesList.push(directorsChecked.checkboxes[i])
+      };
+    });
+    setDirectorsChecked((prevDirectorsChecked) => ({
+      ...prevDirectorsChecked,
+      checkboxes: checkboxesList
+    }))
     }
     else {
-      setDirectorCheckboxCount({checkboxCount: directorCheckboxCount.checkboxCount - 1, checkboxValid: true})
-      if (directorCheckboxCount.checkboxCount < 2){setDirectorCheckboxCount({checkboxCount: directorCheckboxCount.checkboxCount = 0, checkboxValid: false})}
-      setDirectorList(directorList.filter(director => director !== value))
+      let nextCount = directorCheckboxCount - 1;
+      setDirectorCheckboxCount(() => (
+      nextCount));
+
+      let checkboxesList = [];
+      directorsChecked.directors.map( (val, i) => {
+        if (val === e.target.value){
+          checkboxesList.push(!directorsChecked.checkboxes[i]);
+        }
+        else{
+          checkboxesList.push(directorsChecked.checkboxes[i])
+        };
+      });
+      setDirectorsChecked((prevDirectorsChecked) => ({
+        ...prevDirectorsChecked,
+        checkboxes: checkboxesList
+      }))
     }
   };
 
@@ -207,29 +551,24 @@ const UpdateMovie = () => {
     fetchGenres(), fetchActors(), fetchDirectors(), fetchMovieGenreData(), fetchMovieActorData(), fetchMovieDirectorData();
   }, []);
 
-  function checkedG(name) {
-    let temp = 0 
-    movieGenres.map((val, i) => {if(prevMovie.movie_id === val.movieID && val.genres === name){temp = true}}); 
-    if(temp === true){return (true)}
-    return false
-  }
+  useEffect(() => {
 
-  function checkedA(name) {
-    let temp = 0 
-    movieActors.map((val, i) => {if(prevMovie.movie_id === val.movieID && val.actors === name){temp = true}}); 
-    
-    if(temp === true){return (true)}
-    return false
-  }
+    if(genresChecked.checkboxes.length === 0){fetchMovieGenreData()};
+  
+  }, []);
 
-  function checkedD(name) {
-    let temp = 0 
-    movieDirectors.map((val, i) => {if(prevMovie.movie_id === val.movieID && val.directors === name){temp = true}}); 
-    
-    if(temp === true){return (true)}
-    return false
-  }
+  useEffect(() => {
 
+    if(actorsChecked.checkboxes.length === 0){fetchMovieActorData()};
+  
+  }, []);
+
+  useEffect(() => {
+
+    if(directorsChecked.checkboxes.length === 0){fetchMovieDirectorData()};
+  
+  }, []);
+  
   return (
     <div>
       <h2>Update Movie</h2>
@@ -273,7 +612,7 @@ const UpdateMovie = () => {
               {genres.map((val, i) => (<label key = {val.genre_id}> 
               
                 {val.genre_name}
-                <input type ="checkbox" name = "genre_name" value={val.genre_name} defaultChecked = {checkedG(val.genre_name)} onChange={handleCheckboxChangeGenre}/>
+                <input type ="checkbox" name = "genre_name" value={val.genre_name} checked = {genresChecked.checkboxes[i] || ""} onChange={handleCheckboxChangeGenre}/>
                 </label>)
               )
             }
@@ -284,7 +623,7 @@ const UpdateMovie = () => {
         <br></br>
               {actors.map((val, i) => (<label key = {val.actor_id}> 
                 {val.actor_name}
-                <input type ="checkbox" name = "actor_name" value={val.actor_name} defaultChecked = {checkedA(val.actor_name)} onChange={handleCheckboxChangeActor}/>
+                <input type ="checkbox" name = "actor_name" value={val.actor_name} checked = {actorsChecked.checkboxes[i] || ""} onChange={handleCheckboxChangeActor}/>
                 </label>)
               )
             }
@@ -295,7 +634,7 @@ const UpdateMovie = () => {
         <br></br>
               {directors.map((val, i) => (<label key = {val.director_id}> 
                 {val.director_name}
-                <input type ="checkbox" name = "director_name" value={val.director_name} defaultChecked = {checkedD(val.director_name)} onChange={handleCheckboxChangeDirector}/>
+                <input type ="checkbox" name = "director_name" value={val.director_name} checked = {directorsChecked.checkboxes[i] || ""} onChange={handleCheckboxChangeDirector}/>
                 </label>)
               )
             }

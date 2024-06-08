@@ -23,8 +23,8 @@ const getTelevisions = async (req, res) => {
 // define a new GET request with express:
 const getTelevisionsGenres = async (req, res) => {
   try {
-    // Select all rows from the "Movies" table
-    const query = 'SELECT  Genres.genre_name AS `genres`, Televisions_Genres.television_id_tg AS `televisionID` FROM Televisions_Genres INNER JOIN Genres ON Genres.genre_id = Televisions_Genres.genre_id_tg INNER JOIN Televisions ON Televisions.television_id = Televisions_Genres.television_id_tg Order by Televisions.television_id;';
+    // Select all rows from the "Televisions_Genres" table
+    const query = 'SELECT  Televisions_Genres.television_genre_id, Genres.genre_name AS `genres`, Televisions_Genres.television_id_tg AS `televisionID` FROM Televisions_Genres INNER JOIN Genres ON Genres.genre_id = Televisions_Genres.genre_id_tg INNER JOIN Televisions ON Televisions.television_id = Televisions_Genres.television_id_tg Order by Televisions.television_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -38,8 +38,8 @@ const getTelevisionsGenres = async (req, res) => {
 // define a new GET request with express:
 const getTelevisionsActors = async (req, res) => {
   try {
-    // Select all rows from the "Movies" table
-    const query = 'SELECT  Actors.actor_name AS `actors`, Televisions_Actors.television_id_ta AS `televisionID` FROM Televisions_Actors INNER JOIN Actors ON Actors.actor_id = Televisions_Actors.actor_id_ta INNER JOIN Televisions ON Televisions.television_id = Televisions_Actors.television_id_ta Order by Televisions.television_id;';
+    // Select all rows from the "Televisions_Actors" table
+    const query = 'SELECT  Televisions_Actors.television_actor_id, Televisions_Actors.television_actor_id, Actors.actor_name AS `actors`, Televisions_Actors.television_id_ta AS `televisionID` FROM Televisions_Actors INNER JOIN Actors ON Actors.actor_id = Televisions_Actors.actor_id_ta INNER JOIN Televisions ON Televisions.television_id = Televisions_Actors.television_id_ta Order by Televisions.television_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -53,8 +53,8 @@ const getTelevisionsActors = async (req, res) => {
 // define a new GET request with express:
 const getTelevisionsDirectors = async (req, res) => {
   try {
-    // Select all rows from the "Movies" table
-    const query = 'SELECT  Directors.director_name AS `directors`, Televisions_Directors.television_id_td AS `televisionID` FROM Televisions_Directors INNER JOIN Directors ON Directors.director_id = Televisions_Directors.director_id_td INNER JOIN Televisions ON Televisions.television_id = Televisions_Directors.television_id_td Order by Televisions.television_id;';
+    // Select all rows from the "Televisions_Directors" table
+    const query = 'SELECT  Televisions_Directors.television_director_id, Directors.director_name AS `directors`, Televisions_Directors.television_id_td AS `televisionID` FROM Televisions_Directors INNER JOIN Directors ON Directors.director_id = Televisions_Directors.director_id_td INNER JOIN Televisions ON Televisions.television_id = Televisions_Directors.television_id_td Order by Televisions.television_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -208,9 +208,9 @@ const createTelevisionDirector = async (req, res) => {
 
 
 const updateTelevision = async (req, res) => {
-  // Get the person ID
+  // Get the television ID
   const televisionID = req.params.id;
-  // Get the person object
+  // Get the television object
   const newTelevision = req.body;
 
   try {
@@ -243,6 +243,126 @@ const updateTelevision = async (req, res) => {
     res
       .status(500)
       .json({ error: `Error updating the tv show with id ${televisionID}` });
+  }
+};
+
+const updateTelevisionGenre = async (req, res) => {
+  // Get the television genre ID
+  const televisionGenreID = req.params.id;
+  // Get the television genre object
+  const newTelevisionGenre1 = req.body;
+  const newTelevisionGenre2 = {television_genre_id: parseInt(televisionGenreID), television_id_tg: newTelevisionGenre1.television_id_tg, genre_id_tg: newTelevisionGenre1.genre_id_tg};
+
+  try {
+    const [data] = await db.query("SELECT * FROM Televisions_Genres WHERE television_genre_id = ?", [
+      televisionGenreID,
+    ]);
+
+    const oldTelevisionGenre = data[0];
+
+    // If any attributes are not equal, perform update
+    if (!lodash.isEqual(newTelevisionGenre2, oldTelevisionGenre)) {
+      const query =
+        "UPDATE Televisions_Genres SET television_id_tg=?, genre_id_tg=? WHERE television_genre_id=?";
+
+      const values = [
+        newTelevisionGenre2.television_id_tg,
+        newTelevisionGenre2.genre_id_tg,
+        televisionGenreID
+      ];
+
+      // Perform the update
+      await db.query(query, values);
+      // Inform client of success and return 
+      return res.json({ message: "Television Genres updated successfully." });
+    }
+
+    res.json({ message: "Television Genre details are the same, no update" });
+  } catch (error) {
+    console.log("Error updating television genre", error);
+    res
+      .status(500)
+      .json({ error: `Error updating the television genre with id ${televisionGenreID}` });
+  }
+};
+
+const updateTelevisionActor = async (req, res) => {
+  // Get the television actor ID
+  const televisionActorID = req.params.id;
+  // Get the television actor object
+  const newTelevisionActor1 = req.body;
+  const newTelevisionActor2 = {television_actor_id: parseInt(televisionActorID), television_id_ta: newTelevisionActor1.television_id_ta, actor_id_ta: newTelevisionActor1.actor_id_ta};
+
+  try {
+    const [data] = await db.query("SELECT * FROM Televisions_Actors WHERE television_actor_id = ?", [
+      televisionActorID,
+    ]);
+
+    const oldTelevisionActor = data[0];
+
+    // If any attributes are not equal, perform update
+    if (!lodash.isEqual(newTelevisionActor2, oldTelevisionActor)) {
+      const query =
+        "UPDATE Televisions_Actors SET television_id_ta=?, actor_id_ta=? WHERE television_actor_id=?";
+
+      const values = [
+        newTelevisionActor2.television_id_ta,
+        newTelevisionActor2.actor_id_ta,
+        televisionActorID
+      ];
+
+      // Perform the update
+      await db.query(query, values);
+      // Inform client of success and return 
+      return res.json({ message: "Television Actors updated successfully." });
+    }
+
+    res.json({ message: "Television Actor details are the same, no update" });
+  } catch (error) {
+    console.log("Error updating television actor", error);
+    res
+      .status(500)
+      .json({ error: `Error updating the television actor with id ${televisionActorID}` });
+  }
+};
+
+const updateTelevisionDirector = async (req, res) => {
+  // Get the television director ID
+  const televisionDirectorID = req.params.id;
+  // Get the television director object
+  const newTelevisionDirector1 = req.body;
+  const newTelevisionDirector2 = {television_director_id: parseInt(televisionDirectorID), television_id_td: newTelevisionDirector1.television_id_td, director_id_td: newTelevisionDirector1.director_id_td};
+
+  try {
+    const [data] = await db.query("SELECT * FROM Televisions_Directors WHERE television_director_id = ?", [
+      televisionDirectorID,
+    ]);
+
+    const oldTelevisionDirector = data[0];
+
+    // If any attributes are not equal, perform update
+    if (!lodash.isEqual(newTelevisionDirector2, oldTelevisionDirector)) {
+      const query =
+        "UPDATE Televisions_Directors SET television_id_td=?, director_id_td=? WHERE television_director_id=?";
+
+      const values = [
+        newTelevisionDirector2.television_id_td,
+        newTelevisionDirector2.director_id_td,
+        televisionDirectorID
+      ];
+
+      // Perform the update
+      await db.query(query, values);
+      // Inform client of success and return 
+      return res.json({ message: "Television Directors updated successfully." });
+    }
+
+    res.json({ message: "Television Director details are the same, no update" });
+  } catch (error) {
+    console.log("Error updating television director", error);
+    res
+      .status(500)
+      .json({ error: `Error updating the television director with id ${televisionDirectorID}` });
   }
 };
 
@@ -317,6 +437,9 @@ module.exports = {
   createTelevisionActor,
   createTelevisionDirector,
   updateTelevision,
+  updateTelevisionGenre,
+  updateTelevisionActor,
+  updateTelevisionDirector,
   deleteTelevision,
   getTelevisionsGenres,
   getTelevisionsActors,

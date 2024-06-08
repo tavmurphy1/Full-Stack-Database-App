@@ -66,7 +66,9 @@ function CreateEngagement() {
     };
 
     if(newEngagement.movie_id !== "" && newEngagement.television_id !== ""){
-      alert("Cannot select both a movie and TV show.")}
+      alert("Cannot select both a movie and TV show.");
+    }
+      else{
     if(newEngagement.user_id === ""){
       alert("Must select a user.")}
     else{
@@ -86,6 +88,7 @@ function CreateEngagement() {
   }
     // Reset the form fields
     resetFormFields();
+  }
   };
 
   const resetFormFields = () => {

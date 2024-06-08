@@ -90,7 +90,6 @@ function CreateTelevision() {
       television_title: formData.television_title,
       genre_name: val,
       };
-      console.log(newTelevisionGenre)
 
       const URL = import.meta.env.VITE_API_URL + "televisions" + "/televisiongenre";
       const response = await axios.post(URL, newTelevisionGenre);

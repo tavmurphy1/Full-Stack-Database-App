@@ -5,6 +5,8 @@ import axios from "axios";
 
 const GenresTable = () => {
   const [genres, setGenres] = useState([]);
+  const [moviesGenres, setMoviesGenres] = useState([]);
+  const [televisionsGenres, setTelevisionsGenres] = useState([]);
 
   const fetchGenres = async () => {
     try {
@@ -17,8 +19,30 @@ const GenresTable = () => {
     }
   };
 
+  const fetchMoviesGenres = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "moviegenres";
+      const response = await axios.get(URL);
+      setMoviesGenres(response.data);
+    } catch (error) {
+      alert("Error fetching movie genres from the server.");
+      console.error("Error fetching movie genres:", error);
+    }
+  };
+
+  const fetchTelevisionsGenres = async () => {
+    try {
+      const URL = import.meta.env.VITE_API_URL + "televisiongenres";
+      const response = await axios.get(URL);
+      setTelevisionsGenres(response.data);
+    } catch (error) {
+      alert("Error fetching television genres from the server.");
+      console.error("Error fetching television genres:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchGenres();
+    fetchGenres(), fetchMoviesGenres(), fetchTelevisionsGenres();
   }, []);
 
   return (
@@ -39,7 +63,7 @@ const GenresTable = () => {
           </thead>
           <tbody>
             {genres.map((genre, i) => (
-              <TableRow key={genre.genre_id} genre={genre} fetchGenres={fetchGenres}/>
+              <TableRow key={genre.genre_id} genre={genre} fetchGenres={fetchGenres} moviesGenres={moviesGenres} televisionsGenres={televisionsGenres}/>
             ))}
           </tbody>
         </table>

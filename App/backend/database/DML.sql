@@ -45,7 +45,7 @@ SELECT  Movies_Genres.movie_genre_id, Genres.genre_name AS `genres`, Movies_Genr
 		ON Movies.movie_id = Movies_Genres.movie_id_mg
 	Order by Movies.movie_id;
     
-SELECT Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID`
+SELECT Movies_Actors.movie_actor_id, Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID`
 FROM Movies_Actors
 		INNER JOIN Actors
         ON Actors.actor_id = Movies_Actors.actor_id_ma
@@ -53,7 +53,7 @@ FROM Movies_Actors
 		ON Movies.movie_id = Movies_Actors.movie_id_ma
 	Order by Movies.movie_id;
     
-SELECT Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID`
+SELECT Movies_Directors.movie_director_id, Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID`
 FROM Movies_Directors
 		INNER JOIN Directors
         ON Directors.director_id = Movies_Directors.director_id_md

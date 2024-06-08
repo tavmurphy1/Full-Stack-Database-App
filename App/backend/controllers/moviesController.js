@@ -38,7 +38,7 @@ const getMoviesGenres = async (req, res) => {
 // define a new GET request with express:
 const getMoviesActors = async (req, res) => {
   try {
-    // Select all rows from the "Movies" table
+    // Select all rows from the "Movies_Actors" table
     const query = 'SELECT  Movies_Actors.movie_actor_id, Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID` FROM Movies_Actors INNER JOIN Actors ON Actors.actor_id = Movies_Actors.actor_id_ma INNER JOIN Movies ON Movies.movie_id = Movies_Actors.movie_id_ma Order by Movies.movie_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
@@ -53,7 +53,7 @@ const getMoviesActors = async (req, res) => {
 // define a new GET request with express:
 const getMoviesDirectors = async (req, res) => {
   try {
-    // Select all rows from the "Movies" table
+    // Select all rows from the "Movies_Directors" table
     const query = 'SELECT  Movies_Directors.movie_director_id, Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID` FROM Movies_Directors INNER JOIN Directors ON Directors.director_id = Movies_Directors.director_id_md INNER JOIN Movies ON Movies.movie_id = Movies_Directors.movie_id_md Order by Movies.movie_id;';
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
@@ -209,9 +209,9 @@ const createMovieDirector = async (req, res) => {
 
 
 const updateMovie = async (req, res) => {
-  // Get the person ID
+  // Get the movie ID
   const movieID = req.params.id;
-  // Get the person object
+  // Get the movie object
   const newMovie = req.body;
 
   try {
@@ -220,7 +220,7 @@ const updateMovie = async (req, res) => {
     ]);
 
     const oldMovie = data[0];
-
+    
     // If any attributes are not equal, perform update
     if (!lodash.isEqual(newMovie, oldMovie)) {
       const query =
@@ -249,10 +249,11 @@ const updateMovie = async (req, res) => {
 };
 
 const updateMovieGenre = async (req, res) => {
-  // Get the person ID
+  // Get the movie genre ID
   const movieGenreID = req.params.id;
-  // Get the person object
-  const newMovieGenre = req.body;
+  // Get the movie genre object
+  const newMovieGenre1 = req.body;
+  const newMovieGenre2 = {movie_genre_id: parseInt(movieGenreID), movie_id_mg: newMovieGenre1.movie_id_mg, genre_id_mg: newMovieGenre1.genre_id_mg};
 
   try {
     const [data] = await db.query("SELECT * FROM Movies_Genres WHERE movie_genre_id = ?", [
@@ -260,30 +261,110 @@ const updateMovieGenre = async (req, res) => {
     ]);
 
     const oldMovieGenre = data[0];
-
+    
     // If any attributes are not equal, perform update
-    if (!lodash.isEqual(newMovieGenre, oldMovieGenre)) {
+    if (!lodash.isEqual(newMovieGenre2, oldMovieGenre)) {
       const query =
         "UPDATE Movies_Genres SET movie_id_mg=?, genre_id_mg=? WHERE movie_genre_id=?";
 
       const values = [
-        newMovieGenre.movie_id_mg,
-        newMovieGenre.genre_id_mg,
+        newMovieGenre2.movie_id_mg,
+        newMovieGenre2.genre_id_mg,
         movieGenreID
       ];
 
       // Perform the update
       await db.query(query, values);
       // Inform client of success and return 
-      return res.json({ message: "Movie updated successfully." });
+      return res.json({ message: "Movie Genres updated successfully." });
     }
 
-    res.json({ message: "Movie details are the same, no update" });
+    res.json({ message: "Movie Genre details are the same, no update" });
   } catch (error) {
-    console.log("Error updating movie", error);
+    console.log("Error updating movie genre", error);
     res
       .status(500)
-      .json({ error: `Error updating the movie with id ${movieID}` });
+      .json({ error: `Error updating the movie genre with id ${movieGenreID}` });
+  }
+};
+
+const updateMovieActor = async (req, res) => {
+  // Get the movie actor ID
+  const movieActorID = req.params.id;
+  // Get the movie actor object
+  const newMovieActor1 = req.body;
+  const newMovieActor2 = {movie_actor_id: parseInt(movieActorID), movie_id_ma: newMovieActor1.movie_id_ma, actor_id_ma: newMovieActor1.actor_id_ma};
+
+  try {
+    const [data] = await db.query("SELECT * FROM Movies_Actors WHERE movie_actor_id = ?", [
+      movieActorID,
+    ]);
+
+    const oldMovieActor = data[0];
+
+    // If any attributes are not equal, perform update
+    if (!lodash.isEqual(newMovieActor2, oldMovieActor)) {
+      const query =
+        "UPDATE Movies_Actors SET movie_id_ma=?, actor_id_ma=? WHERE movie_actor_id=?";
+
+      const values = [
+        newMovieActor2.movie_id_ma,
+        newMovieActor2.actor_id_ma,
+        movieActorID
+      ];
+
+      // Perform the update
+      await db.query(query, values);
+      // Inform client of success and return 
+      return res.json({ message: "Movie Actors updated successfully." });
+    }
+
+    res.json({ message: "Movie Actor details are the same, no update" });
+  } catch (error) {
+    console.log("Error updating movie actor", error);
+    res
+      .status(500)
+      .json({ error: `Error updating the movie actor with id ${movieActorID}` });
+  }
+};
+
+const updateMovieDirector = async (req, res) => {
+  // Get the movie director ID
+  const movieDirectorID = req.params.id;
+  // Get the movie director object
+  const newMovieDirector1 = req.body;
+  const newMovieDirector2 = {movie_director_id: parseInt(movieDirectorID), movie_id_md: newMovieDirector1.movie_id_md, director_id_md: newMovieDirector1.director_id_md};
+
+  try {
+    const [data] = await db.query("SELECT * FROM Movies_Directors WHERE movie_director_id = ?", [
+      movieDirectorID,
+    ]);
+
+    const oldMovieDirector = data[0];
+
+    // If any attributes are not equal, perform update
+    if (!lodash.isEqual(newMovieDirector2, oldMovieDirector)) {
+      const query =
+        "UPDATE Movies_Directors SET movie_id_md=?, director_id_md=? WHERE movie_director_id=?";
+
+      const values = [
+        newMovieDirector2.movie_id_md,
+        newMovieDirector2.director_id_md,
+        movieDirectorID
+      ];
+
+      // Perform the update
+      await db.query(query, values);
+      // Inform client of success and return 
+      return res.json({ message: "Movie Directors updated successfully." });
+    }
+
+    res.json({ message: "Movie Director details are the same, no update" });
+  } catch (error) {
+    console.log("Error updating movie director", error);
+    res
+      .status(500)
+      .json({ error: `Error updating the movie director with id ${movieDirectorID}` });
   }
 };
 
@@ -359,6 +440,8 @@ module.exports = {
   createMovieDirector,
   updateMovie,
   updateMovieGenre,
+  updateMovieActor,
+  updateMovieDirector,
   deleteMovie,
   getMoviesGenres,
   getMoviesActors,

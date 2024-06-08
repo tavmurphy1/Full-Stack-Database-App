@@ -4,7 +4,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const TableRow = ({ television, fetchTelevisions, fetchTelevisionGenreData, fetchTelevisionActorData, fetchTelevisionDirectorData }) => {
+const TableRow = ({ television, fetchTelevisions, fetchTelevisionGenreData, fetchTelevisionActorData, fetchTelevisionDirectorData, fetchTelevisionsGenres, fetchTelevisionsDirectors, fetchTelevisionsActors }) => {
   // Hook that allows us to navigate programmatically
   const navigate = useNavigate();
   // Redirect to edit television page
@@ -25,7 +25,7 @@ const TableRow = ({ television, fetchTelevisions, fetchTelevisionGenreData, fetc
       alert(err.response.data.error || "Error deleting TV show");
       console.log(err);
     }
-    fetchTelevisions();
+    fetchTelevisions(), fetchTelevisionsGenres(), fetchTelevisionsDirectors(), fetchTelevisionsActors();
   };
 
   return (

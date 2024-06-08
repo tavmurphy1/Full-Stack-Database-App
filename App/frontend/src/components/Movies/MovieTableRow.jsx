@@ -4,7 +4,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const TableRow = ({ movie, fetchMovies, fetchMovieGenreData, fetchMovieActorData, fetchMovieDirectorData }) => {
+const TableRow = ({ movie, fetchMovies, fetchMovieGenreData, fetchMovieActorData, fetchMovieDirectorData, fetchMoviesGenres, fetchMoviesDirectors, fetchMoviesActors }) => {
   // Hook that allows us to navigate programmatically
   const navigate = useNavigate();
   // Redirect to edit movie page
@@ -25,7 +25,7 @@ const TableRow = ({ movie, fetchMovies, fetchMovieGenreData, fetchMovieActorData
       alert(err.response.data.error || "Error deleting movie");
       console.log(err);
     }
-    fetchMovies();
+    fetchMovies(), fetchMoviesGenres(), fetchMoviesDirectors(), fetchMoviesActors();
   };
 
   return (

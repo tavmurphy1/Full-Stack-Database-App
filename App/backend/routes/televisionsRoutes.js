@@ -8,6 +8,9 @@ const {
   createTelevisionActor,
   createTelevisionDirector,
   updateTelevision,
+  updateTelevisionGenre,
+  updateTelevisionActor,
+  updateTelevisionDirector,
   deleteTelevision,
   getTelevisionsGenres,
   getTelevisionsActors,
@@ -30,6 +33,9 @@ router.post("/televisiongenre", createTelevisionGenre);
 router.post("/televisionactor", createTelevisionActor);
 router.post("/televisiondirector", createTelevisionDirector);
 router.put("/:id", updateTelevision);
+router.put("/televisiongenres/:id", updateTelevisionGenre);
+router.put("/televisionactors/:id", updateTelevisionActor);
+router.put("/televisiondirectors/:id", updateTelevisionDirector);
 router.delete("/:id", deleteTelevision);
 
 module.exports = router;
