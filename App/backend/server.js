@@ -32,14 +32,6 @@ app.use("/api/televisionactors", require("./routes/televisionsActorsRoutes.js"))
 app.use("/api/televisiondirectors", require("./routes/televisionsDirectorsRoutes.js"));
 app.use("/api/engagements", require("./routes/engagementsRoutes.js"));
 
-// Add your Connect DB Activitiy Code Below:
-// ...
-
-
-// ...
-// End Connect DB Activity Code.
-
-
 app.listen(PORT, () => {
   // Change this text to whatever FLIP server you're on
   console.log(`Server running:  http://classwork.engr.oregonstate.edu:${PORT}...`);

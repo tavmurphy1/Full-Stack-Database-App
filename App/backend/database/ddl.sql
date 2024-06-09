@@ -96,7 +96,7 @@ CREATE TABLE `Movies` (
 --
 
 INSERT INTO `Movies` (`movie_id`, `movie_title`, `movie_length`, `movie_total_view`) VALUES
-(1, 'The Godfather', 175, 1),
+(1, 'The Godfather', 175, 2),
 (2, 'Pulp Fiction', 154, 1),
 (3, 'The Matrix', 136, 0),
 (4, 'Toy Story', 81, 0),
@@ -120,7 +120,7 @@ CREATE TABLE `Televisions` (
 --
 
 INSERT INTO `Televisions` (`television_id`, `television_title`, `television_total_view`) VALUES
-(1, 'Planet Earth II', 0),
+(1, 'Planet Earth II', 2),
 (2, 'Band of Brothers', 0),
 (3, 'Chernobyl', 1),
 (4, 'The Last Dance', 0),
