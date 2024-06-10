@@ -1,37 +1,27 @@
-import { React } from 'react';
-import { Link } from 'react-router-dom';
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of routes and imports to match our project's mySQL Episodes table.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
+import { Routes, Route, Link } from 'react-router-dom';
+import CreateEpisode from "../components/Episodes/CreateEpisode";
+import EpisodesTable from "../components/Episodes/EpisodesTable";
 
 function Episodes() {
-    return(
-        <>
-            <h2>Episodes</h2>
-            <article>
-                <table id="episode">
-                    <thead>
-                        <tr>
-                            <th>episode_id</th>
-                            <th>Episode</th>
-                            <th>Length</th>
-                            <th>TV Show</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Islands</td>
-                            <td>51</td>
-                            <td>Planet Earth II</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteEpisode();">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-            </article>
-            <Link to="/episodes_new">Add New Episode</Link>
 
-        </>
+    return(
+        <div>
+
+            <Routes>
+            <Route path="/" element={<EpisodesTable />} />
+            <Route path="/add" element={<CreateEpisode />} />
+            </Routes>
+
+            {<Link to="/episodes/add">Add New Episode</Link>}
+
+        </div>
     )
 }
 export default Episodes;

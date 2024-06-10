@@ -37,7 +37,7 @@ SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view)
     Order by Movies.movie_id;
 	
 -- get  associated genres, actors, directors for browse movies page
-SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID`
+SELECT  Movies_Genres.movie_genre_id, Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID`
 	FROM Movies_Genres
 		INNER JOIN Genres
         ON Genres.genre_id = Movies_Genres.genre_id_mg
@@ -45,7 +45,7 @@ SELECT  Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID`
 		ON Movies.movie_id = Movies_Genres.movie_id_mg
 	Order by Movies.movie_id;
     
-SELECT Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID`
+SELECT Movies_Actors.movie_actor_id, Actors.actor_name AS `actors`, Movies_Actors.movie_id_ma AS `movieID`
 FROM Movies_Actors
 		INNER JOIN Actors
         ON Actors.actor_id = Movies_Actors.actor_id_ma
@@ -53,7 +53,7 @@ FROM Movies_Actors
 		ON Movies.movie_id = Movies_Actors.movie_id_ma
 	Order by Movies.movie_id;
     
-SELECT Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID`
+SELECT Movies_Directors.movie_director_id, Directors.director_name AS `directors`, Movies_Directors.movie_id_md AS `movieID`
 FROM Movies_Directors
 		INNER JOIN Directors
         ON Directors.director_id = Movies_Directors.director_id_md
@@ -70,7 +70,7 @@ SELECT Televisions.television_id, television_title, sum(Engagements.view)
     Order by Televisions.television_id;
 	
 -- get  associated genres, actors, directors for browse televisions page
-SELECT  Genres.genre_name AS `genres(s)`
+SELECT  Genres.genre_name AS `genres`, Televisions_Genres.television_id_tg AS `televisionID`
 	FROM Televisions_Genres
 		INNER JOIN Genres
         ON Genres.genre_id = Televisions_Genres.genre_id_tg
@@ -78,7 +78,7 @@ SELECT  Genres.genre_name AS `genres(s)`
 		ON Televisions.television_id = Televisions_Genres.television_id_tg
 	Order by Televisions.television_id;
     
-SELECT Actors.actor_name AS `actor(s)`
+SELECT Actors.actor_name AS `actors`, Televisions_Actors.television_id_ta AS `televisionID`
 FROM Televisions_Actors
 		INNER JOIN Actors
         ON Actors.actor_id = Televisions_Actors.actor_id_ta
@@ -86,7 +86,7 @@ FROM Televisions_Actors
 		ON Televisions.television_id = Televisions_Actors.television_id_ta
 	Order by Televisions.television_id;
     
-SELECT Directors.director_name AS `director(s)`
+SELECT Directors.director_name AS `directors`, Televisions_Directors.television_id_td AS `televisionID`
 FROM Televisions_Directors
 		INNER JOIN Directors
         ON Directors.director_id = Televisions_Directors.director_id_td
@@ -252,6 +252,44 @@ UPDATE Engagements
         user_id = :engagements_user_idInput, 
         movie_title = :engagements_movie_title_from_dropdownInput,
         television_title = :engagements_television_title_from_dropdownInput
-	WHERE engagement_id = :engagement_id_from_update_submission
-        
+	WHERE engagement_id = :engagement_id_from_update_submission;
+    
+-- update a movie based on submission of the Update movie
+SELECT * FROM Movies WHERE movie_id = :movie_ID_selected_from_browse_movies_page;
 
+UPDATE Movies SET movie_title=:movie_title_Input, movie_length=:movie_length_Input, movie_total_view=:movie_total_view_Input WHERE movie_id=movie_ID_selected_from_browse_movies_page;
+
+-- update movie genres based on submission of the Update movie
+SELECT * FROM Movies_Genres WHERE movie_genre_id = :movie_genre_ID_selected_from_browse_movies_page;
+
+UPDATE Movies_Genres SET movie_id_mg=:movie_id_mg_selected_from_update_movies_page, genre_id_mg=:genre_id_mg_selected_from_update_movies_page WHERE movie_genre_id=:movie_genre_ID_selected_from_browse_movies_page;
+
+-- update movie actors based on submission of the Update movie
+SELECT * FROM Movies_Actors WHERE movie_actor_id = :movie_actor_ID_selected_from_browse_movies_page;
+
+UPDATE Movies_Actors SET movie_id_ma=:movie_id_ma_selected_from_update_movies_page, actor_id_ma=:actor_id_ma_selected_from_update_movies_page WHERE movie_actor_id=:movie_actor_ID_selected_from_browse_movies_page;
+
+-- update movie directors based on submission of the Update movie
+SELECT * FROM Movies_Directors WHERE movie_director_id = :movie_director_ID_selected_from_browse_movies_page;
+
+UPDATE Movies_Directors SET movie_id_md=:movie_id_md_selected_from_update_movies_page, director_id_md=:director_id_md_selected_from_update_movies_page WHERE movie_director_id=:movie_director_ID_selected_from_browse_movies_page;
+
+-- update a tv show based on submission of the Update tv show
+SELECT * FROM Televisions WHERE television_id = :television_ID_selected_from_browse_televisions_page;
+
+UPDATE Televisions SET television_title=:television_title_Input, television_total_view=:television_total_view_Input WHERE television_id=:television_ID_selected_from_browse_televisions_page;
+
+-- update tv genres based on submission of the Update tv show
+SELECT * FROM Televisions_Genres WHERE television_genre_id = :television_genre_ID_selected_from_browse_televisions_page;
+
+UPDATE Televisions_Genres SET television_id_tg=:television_id_tg_selected_from_update_televisions_page, genre_id_tg=:genre_id_tg_selected_from_update_televisions_page WHERE television_genre_id=:television_genre_ID_selected_from_browse_televisions_page;
+
+-- update tv actors based on submission of the Update tv show
+SELECT * FROM Televisions_Actors WHERE television_actor_id = :television_actor_ID_selected_from_browse_televisions_page;
+
+UPDATE Televisions_Actors SET television_id_ta=:television_id_ta_selected_from_update_televisions_page, actor_id_ta=:actor_id_ta_selected_from_update_televisions_page WHERE television_actor_id=:television_actor_ID_selected_from_browse_televisions_page;
+
+-- update tv directors based on submission of the Update tv show
+SELECT * FROM Televisions_Directors WHERE television_director_id = :television_director_ID_selected_from_browse_televisions_page;
+
+UPDATE Televisions_Directors SET television_id_td=:television_id_td_selected_from_update_televisions_page, director_id_td=:director_id_td_selected_from_update_televisions_page WHERE television_director_id=:television_director_ID_selected_from_browse_televisions_page;

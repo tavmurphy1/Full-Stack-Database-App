@@ -1,10 +1,17 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of table elements to match our project's mySQL Movies table.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 import axios from "axios";
 import { BsTrash } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const TableRow = ({ movie, fetchMovies, fetchMovieGenreData, fetchMovieActorData, fetchMovieDirectorData }) => {
+const TableRow = ({ movie, fetchMovies, fetchMovieGenreData, fetchMovieActorData, fetchMovieDirectorData, fetchMoviesGenres, fetchMoviesDirectors, fetchMoviesActors }) => {
   // Hook that allows us to navigate programmatically
   const navigate = useNavigate();
   // Redirect to edit movie page
@@ -25,7 +32,7 @@ const TableRow = ({ movie, fetchMovies, fetchMovieGenreData, fetchMovieActorData
       alert(err.response.data.error || "Error deleting movie");
       console.log(err);
     }
-    fetchMovies();
+    fetchMovies(), fetchMoviesGenres(), fetchMoviesDirectors(), fetchMoviesActors();
   };
 
   return (
