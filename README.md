@@ -32,4 +32,4 @@ http://classwork.engr.oregonstate.edu:3004/movies
 
 
 ## Google Doc containing Outline, ERD, Schema, Sample Data:
-(https://docs.google.com/document/d/1um3DqSHVjYdfITHf0ffZoJGj2jYH7rvVXEdp9MX1GWY/edit?usp=sharing)
+https://docs.google.com/document/d/1um3DqSHVjYdfITHf0ffZoJGj2jYH7rvVXEdp9MX1GWY/edit?usp=sharing
