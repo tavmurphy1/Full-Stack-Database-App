@@ -14,7 +14,9 @@ Tavner Murphy
 
 **Date:** 05/23/2024
  
-**All code for this app is adapted from react-starter-app at source URL:** 
+All code for this app is adapted from react-starter-app at the source url.
+
+**source URL:**
  https://github.com/osu-cs340-ecampus/react-starter-app
 
 **Source Authors:** 
