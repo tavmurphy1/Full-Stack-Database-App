@@ -1,3 +1,11 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of functions and table elements to match our project's mySQL Engagements table.
+// Fetch requests have been customized in order to create dropdown lists for Users, Movies, and TV Shows.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

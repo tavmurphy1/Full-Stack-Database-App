@@ -1,3 +1,12 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of functions and table elements to match our project's mySQL Movies table.
+// Dynamically created checkboxes have been implemented with our own code. Restrictions have been coded so that users have to select at least 1 genre, actor, and director to associate with a movie.
+// We also wrote our own code to dynamically send multiple POST requests to create relationships with genres, actors, or directors in intersection tables.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";

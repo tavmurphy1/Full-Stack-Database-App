@@ -1,17 +1,15 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of table elements to match our project's mySQL Engagements table.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 import axios from "axios";
 import { BsTrash } from "react-icons/bs";
-import { BiEditAlt } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const TableRow = ({ engagement, fetchEngagements }) => {
-  // Hook that allows us to navigate programmatically
-  const navigate = useNavigate();
-  // Redirect to edit engagement page
-  //const handleEdit = () => {
-    // We can access the id (and query the engagement) with useParams() in the UpdateEngagement component
-    //navigate("/engagements/edit/" + engagement.engagement_id, { state: { engagement } });
-  //};
 
   const deleteRow = async () => {
     try {
@@ -27,10 +25,6 @@ const TableRow = ({ engagement, fetchEngagements }) => {
     }
     fetchEngagements();
   };
-
-  //<td>
-  //<BiEditAlt onClick={handleEdit} size={25} style={{ cursor: "pointer" }} />
-  //</td>
 
   return (
     <tr key={engagement.engagement_id}>

@@ -1,3 +1,10 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. Only console log changed.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 // reactServer.cjs
 // Uses common javascript to serve the react build folder (/dist)
 
@@ -21,5 +28,5 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   // Change this text to whatever FLIP server you're on
-  console.log(`Server running:  http://flip3.engr.oregonstate.edu:${PORT}...`);
+  console.log(`Server running:  http://classwork.engr.oregonstate.edu:${PORT}...`);
 });

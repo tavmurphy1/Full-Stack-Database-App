@@ -1,3 +1,13 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of functions and table elements to match our project's mySQL Televisions table.
+// Dynamically created checkboxes have been implemented with our own code. Checkboxes are pre-checked based on old M:M relationships from intersection tables.
+// We also wrote our own code to dynamically send multiple PUT requests to update relationships with genres, actors, or directors in intersection tables.
+// Users are restricted to select only the same amount of existing genres, actors, or directors in order to update the correct M:M relationships.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
