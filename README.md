@@ -1,6 +1,8 @@
 # Reelhouse Web App
-Frontend: React/Vite
+## Frontend: React/Vite
+
 Backend: Express/Node + MySQL
+
 2024 Patrick Lim and Tavner Murphy
 
 # Citation for our 'Reelhouse' React/Vite + Express/Node + MySQL App:
