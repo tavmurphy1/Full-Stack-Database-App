@@ -284,8 +284,7 @@ const UpdateTelevision = () => {
   };
 
   const [formData, setFormData] = useState({
-    television_title: prevTelevision.television_title || '',
-    television_total_view: prevTelevision.television_total_view || ''
+    television_title: prevTelevision.television_title || ''
   });
 
   const handleInputChange = (event) => {
@@ -299,8 +298,7 @@ const UpdateTelevision = () => {
   function isUpdate(){
     // Check if formData is equal to prevTelevision
     if (JSON.stringify(formData) === JSON.stringify({
-      television_title: prevTelevision.television_title || '',
-      television_total_view: prevTelevision.television_total_view || ''
+      television_title: prevTelevision.television_title || ''
     })) {
       alert("No changes made to TV show details.");
       return false;
@@ -576,16 +574,6 @@ const UpdateTelevision = () => {
             onChange={handleInputChange}
             required
             defaultValue={prevTelevision.television_title}
-          />
-        </div>
-        <div>
-          <label>Total Views:</label>
-          <input
-            type="number"
-            name="television_total_view"
-            onChange={handleInputChange}
-            required
-            defaultValue={prevTelevision.television_total_view}
           />
         </div>
 

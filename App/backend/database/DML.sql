@@ -29,12 +29,9 @@ SELECT engagement_id, favorite, rating, view, user_id, Movies.movie_title AS mov
         ON Engagements.television_id = Televisions.television_id;
         
 -- get all Movies for browse movies page
-SELECT Movies.movie_id, movie_title, movie_length, sum(Engagements.view)
-	FROM Movies
-		INNER JOIN Engagements
-        ON Engagements.movie_id = Movies.movie_id
-    group by Movies.movie_id
-    Order by Movies.movie_id;
+SELECT Movies.movie_id, movie_title, movie_length, 
+COALESCE((SELECT sum(Engagements.view) 
+	FROM Engagements WHERE Engagements.movie_id = Movies.movie_id), 0) AS 'movie_total_view' FROM Movies;
 	
 -- get  associated genres, actors, directors for browse movies page
 SELECT  Movies_Genres.movie_genre_id, Genres.genre_name AS `genres`, Movies_Genres.movie_id_mg AS `movieID`
@@ -62,12 +59,9 @@ FROM Movies_Directors
 	Order by Movies.movie_id;
     
 -- get all Television shows for browse televisions page
-SELECT Televisions.television_id, television_title, sum(Engagements.view)
-	FROM Televisions
-		INNER JOIN Engagements
-        ON Engagements.television_id = Televisions.television_id
-    group by Televisions.television_id
-    Order by Televisions.television_id;
+SELECT Televisions.television_id, television_title, 
+COALESCE((SELECT sum(Engagements.view) 
+	FROM Engagements WHERE Engagements.television_id = Televisions.television_id), 0) AS 'television_total_view' FROM Televisions;
 	
 -- get  associated genres, actors, directors for browse televisions page
 SELECT  Genres.genre_name AS `genres`, Televisions_Genres.television_id_tg AS `televisionID`
@@ -257,7 +251,7 @@ UPDATE Engagements
 -- update a movie based on submission of the Update movie
 SELECT * FROM Movies WHERE movie_id = :movie_ID_selected_from_browse_movies_page;
 
-UPDATE Movies SET movie_title=:movie_title_Input, movie_length=:movie_length_Input, movie_total_view=:movie_total_view_Input WHERE movie_id=movie_ID_selected_from_browse_movies_page;
+UPDATE Movies SET movie_title=:movie_title_Input, movie_length=:movie_length_Input WHERE movie_id=movie_ID_selected_from_browse_movies_page;
 
 -- update movie genres based on submission of the Update movie
 SELECT * FROM Movies_Genres WHERE movie_genre_id = :movie_genre_ID_selected_from_browse_movies_page;
@@ -277,7 +271,7 @@ UPDATE Movies_Directors SET movie_id_md=:movie_id_md_selected_from_update_movies
 -- update a tv show based on submission of the Update tv show
 SELECT * FROM Televisions WHERE television_id = :television_ID_selected_from_browse_televisions_page;
 
-UPDATE Televisions SET television_title=:television_title_Input, television_total_view=:television_total_view_Input WHERE television_id=:television_ID_selected_from_browse_televisions_page;
+UPDATE Televisions SET television_title=:television_title_Input WHERE television_id=:television_ID_selected_from_browse_televisions_page;
 
 -- update tv genres based on submission of the Update tv show
 SELECT * FROM Televisions_Genres WHERE television_genre_id = :television_genre_ID_selected_from_browse_televisions_page;

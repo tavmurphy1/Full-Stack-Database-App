@@ -52,8 +52,7 @@ function CreateMovie() {
 
   const [formData, setFormData] = useState({
     movie_title: "",
-    movie_length: "",
-    movie_total_view: ""
+    movie_length: ""
   });
   
   const handleSubmit = async (e) => {
@@ -66,8 +65,7 @@ function CreateMovie() {
     // Create a new movie object from the formData
     const newMovie = {
       movie_title: formData.movie_title,
-      movie_length: formData.movie_length,
-      movie_total_view: formData.movie_total_view
+      movie_length: formData.movie_length
     };
 
     try {
@@ -156,8 +154,7 @@ function CreateMovie() {
   const resetFormFields = () => {
     setFormData({
       movie_title: "",
-      movie_length: "",
-      movie_total_view: ""
+      movie_length: ""
     });
   };
 
@@ -229,13 +226,6 @@ function CreateMovie() {
           type="number"
           name="movie_length"
           defaultValue={formData.movie_length}
-          onChange={handleInputChange}
-        />
-        <label htmlFor="movie_total_view">Total Views</label>
-        <input
-          type="number"
-          name="movie_total_view"
-          value={formData.movie_total_view}
           onChange={handleInputChange}
         />
         

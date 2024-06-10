@@ -9,7 +9,7 @@ const lodash = require("lodash");
 const getMovies = async (req, res) => {
   try {
     // Select all rows from the "Movies" table
-    const query = "SELECT * FROM Movies";
+    const query = "SELECT Movies.movie_id, movie_title, movie_length, COALESCE((SELECT sum(Engagements.view) FROM Engagements WHERE Engagements.movie_id = Movies.movie_id), 0) AS 'movie_total_view' FROM Movies";
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -132,14 +132,13 @@ const getDirectors = async (req, res) => {
 // Returns status of creation of new person in bsg_movies
 const createMovie = async (req, res) => {
   try {
-    const { movie_title, movie_length, movie_total_view } = req.body;
+    const { movie_title, movie_length } = req.body;
     const query =
-      "INSERT INTO Movies (movie_title, movie_length, movie_total_view) VALUES (?, ?, ?)";
+      "INSERT INTO Movies (movie_title, movie_length) VALUES (?, ?)";
 
     const response = await db.query(query, [
       movie_title,
-      movie_length === "" ? null: parseInt(movie_length),
-      movie_total_view === "" ? null : parseInt(movie_total_view)
+      movie_length === "" ? null: parseInt(movie_length)
     ]);
     res.status(201).json(response);
   } catch (error) {
@@ -224,12 +223,11 @@ const updateMovie = async (req, res) => {
     // If any attributes are not equal, perform update
     if (!lodash.isEqual(newMovie, oldMovie)) {
       const query =
-        "UPDATE Movies SET movie_title=?, movie_length=?, movie_total_view=? WHERE movie_id=?";
+        "UPDATE Movies SET movie_title=?, movie_length=? WHERE movie_id=?";
 
       const values = [
         newMovie.movie_title,
         newMovie.movie_length,
-        newMovie.movie_total_view,
         movieID
       ];
 

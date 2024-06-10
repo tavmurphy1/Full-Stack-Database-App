@@ -288,8 +288,7 @@ const UpdateMovie = () => {
   
   const [formData, setFormData] = useState({
     movie_title: prevMovie.movie_title || '',
-    movie_length: prevMovie.movie_length || '',
-    movie_total_view: prevMovie.movie_total_view || ''
+    movie_length: prevMovie.movie_length || ''
   });
 
   const handleInputChange = (event) => {
@@ -304,8 +303,7 @@ const UpdateMovie = () => {
     // Check if formData is equal to prevMovie
     if (JSON.stringify(formData) === JSON.stringify({
       movie_title: prevMovie.movie_title || '',
-      movie_length: prevMovie.movie_length || '',
-      movie_total_view: prevMovie.movie_total_view || ''
+      movie_length: prevMovie.movie_length || ''
     })) {
       alert("No changes made to movie details.");
       return false;
@@ -591,16 +589,6 @@ const UpdateMovie = () => {
             onChange={handleInputChange}
             required
             defaultValue={prevMovie.movie_length}
-          />
-        </div>
-        <div>
-          <label>Total Views:</label>
-          <input
-            type="number"
-            name="movie_total_view"
-            onChange={handleInputChange}
-            required
-            defaultValue={prevMovie.movie_total_view}
           />
         </div>
 

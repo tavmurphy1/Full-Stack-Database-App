@@ -1,5 +1,5 @@
 -- Authors: CS340 Group 101 Team Binary: Tavner Murphy and Patrick Lim
--- Step 5 DDL
+-- Step 6 DDL
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;

@@ -9,7 +9,7 @@ const lodash = require("lodash");
 const getTelevisions = async (req, res) => {
   try {
     // Select all rows from the "Televisions" table
-    const query = "SELECT * FROM Televisions";
+    const query = "SELECT Televisions.television_id, television_title, COALESCE((SELECT sum(Engagements.view) FROM Engagements WHERE Engagements.television_id = Televisions.television_id), 0) AS 'television_total_view' FROM Televisions";
     // Execute the query using the "db" object from the configuration file
     const [rows] = await db.query(query);
     // Send back the rows to the client
@@ -132,13 +132,12 @@ const getDirectors = async (req, res) => {
 // Returns status of creation of new person in bsg_movies
 const createTelevision = async (req, res) => {
   try {
-    const { television_title, television_total_view } = req.body;
+    const { television_title } = req.body;
     const query =
-      "INSERT INTO Televisions (television_title, television_total_view) VALUES (?, ?)";
+      "INSERT INTO Televisions (television_title) VALUES (?)";
 
     const response = await db.query(query, [
-      television_title,
-      television_total_view === "" ? null : parseInt(television_total_view)
+      television_title
     ]);
     res.status(201).json(response);
   } catch (error) {
@@ -223,11 +222,10 @@ const updateTelevision = async (req, res) => {
     // If any attributes are not equal, perform update
     if (!lodash.isEqual(newTelevision, oldTelevision)) {
       const query =
-        "UPDATE Televisions SET television_title=?, television_total_view=? WHERE television_id=?";
+        "UPDATE Televisions SET television_title=? WHERE television_id=?";
 
       const values = [
         newTelevision.television_title,
-        newTelevision.television_total_view,
         televisionID
       ];
 

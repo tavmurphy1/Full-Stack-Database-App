@@ -51,8 +51,7 @@ function CreateTelevision() {
   };
 
   const [formData, setFormData] = useState({
-    television_title: "",
-    television_total_view: ""
+    television_title: ""
   });
   
   const handleSubmit = async (e) => {
@@ -64,8 +63,7 @@ function CreateTelevision() {
 
     // Create a new television object from the formData
     const newTelevision = {
-      television_title: formData.television_title,
-      television_total_view: formData.television_total_view
+      television_title: formData.television_title
     };
 
     try {
@@ -155,8 +153,7 @@ function CreateTelevision() {
 
   const resetFormFields = () => {
     setFormData({
-      television_title: "",
-      television_total_view: ""
+      television_title: ""
     });
   };
 
@@ -221,14 +218,6 @@ function CreateTelevision() {
           type="text"
           name="television_title"
           defaultValue={formData.television_title}
-          onChange={handleInputChange}
-        />
-
-        <label htmlFor="television_total_view">Total Views</label>
-        <input
-          type="number"
-          name="television_total_view"
-          value={formData.television_total_view}
           onChange={handleInputChange}
         />
         
