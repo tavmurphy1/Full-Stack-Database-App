@@ -229,24 +229,6 @@ DELETE FROM `Televisions_Directors` WHERE television_id_td = :television_ID_sele
 
 -- Queries for update functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
-
--- update an engagement based on submission of the Update engagement
-SELECT engagement_id, favorite, rating, view, user_id, Movies.movie_title AS movie_title, Televisions.television_title AS television_title
-	FROM Engagements
-		LEFT JOIN Movies
-        ON Engagements.movie_id = Movies.movie_id 
-		LEFT JOIN Televisions
-        ON Engagements.television_id = Televisions.television_id
-	WHERE engagement_id = :engagement_ID_selected_from_browse_engagements_page;
-    
-UPDATE Engagements 
-	SET favorite = :engagements_favorite_checkboxInput, 
-		rating = :engagements_rating_from_dropdown_Input,
-        view = :engagements_view_checkboxInput, 
-        user_id = :engagements_user_idInput, 
-        movie_title = :engagements_movie_title_from_dropdownInput,
-        television_title = :engagements_television_title_from_dropdownInput
-	WHERE engagement_id = :engagement_id_from_update_submission;
     
 -- update a movie based on submission of the Update movie
 SELECT * FROM Movies WHERE movie_id = :movie_ID_selected_from_browse_movies_page;
