@@ -17,7 +17,7 @@ Tavner Murphy
 **All code for this app is adapted from react-starter-app at source URL:** 
 https://github.com/osu-cs340-ecampus/react-starter-app
 
-** Source Authors:** Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte.
+**Source Authors:** Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte.
 
 
 ## Project Overview
