@@ -10,7 +10,7 @@ Express/Node + MySQL
 Patrick Lim and
 Tavner Murphy
 
-**Citation for our 'Reelhouse' React/Vite + Express/Node + MySQL App:**
+## Citation:
 
 **Date:** 05/23/2024
  
