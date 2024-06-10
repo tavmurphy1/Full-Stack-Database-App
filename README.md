@@ -1,9 +1,9 @@
 # Reelhouse Web App
 
-## **Frontend:** 
+**Frontend:** 
 React/Vite
 
-## **Backend:** 
+**Backend:** 
 Express/Node + MySQL
 
 ## **Authors:**
