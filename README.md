@@ -1,15 +1,15 @@
 # Reelhouse Web App
-# Frontend: React/Vite
-# Backend: Express/Node + MySQL
-# 2024 Patrick Lim and Tavner Murphy
+Frontend: React/Vite
+Backend: Express/Node + MySQL
+2024 Patrick Lim and Tavner Murphy
 
 # Citation for our 'Reelhouse' React/Vite + Express/Node + MySQL App:
-# Date: 05/23/2024
-# All code for frontend and backend for this app was adapted from react-starter-app:
-# Source URL: http://www.oregonstate.edu/mysource
+ Date: 05/23/2024
+ All code for frontend and backend for this app was adapted from react-starter-app:
+ Source URL: http://www.oregonstate.edu/mysource
 https://github.com/osu-cs340-ecampus/react-starter-app
-# Source Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry
-# and Dr. Danielle Safonte.
+ Source Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry
+ and Dr. Danielle Safonte.
 
 
 # Project Overview
