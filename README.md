@@ -7,7 +7,7 @@ React/Vite
 Express/Node + MySQL
 
 ## **Authors:**
-Patrick Lim
+Patrick Lim and
 Tavner Murphy
 
 ## Citation for our 'Reelhouse' React/Vite + Express/Node + MySQL App:
