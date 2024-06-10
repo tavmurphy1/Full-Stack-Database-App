@@ -1,9 +1,12 @@
 # Reelhouse Web App
 
-**Frontend:** React/Vite
+## **Frontend:** 
+React/Vite
 
-**Backend:** Express/Node + MySQL
+## **Backend:** 
+Express/Node + MySQL
 
+## **Authors:**
 Patrick Lim
 Tavner Murphy
 
