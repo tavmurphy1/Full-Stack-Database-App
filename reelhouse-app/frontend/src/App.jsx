@@ -1,3 +1,4 @@
+<<<<<<< HEAD:reelhouse-app/frontend/src/App.jsx
 /*
 Reelhouse App
 Copyright 2024 Patrick Lim and Tavner Murphy
@@ -12,6 +13,14 @@ under the supervision of Dr. Michael Curry and Dr. Danielle Safonte.
 */
 
 
+=======
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of routes and imports to match our project's mySQL tables.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+>>>>>>> main:App/frontend/src/App.jsx
 
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
@@ -24,6 +33,7 @@ import EpisodesPage from "./pages/EpisodesPage";
 import GenresPage from "./pages/GenresPage";
 import ActorsPage from "./pages/ActorsPage";
 import DirectorsPage from "./pages/DirectorsPage";
+<<<<<<< HEAD:reelhouse-app/frontend/src/App.jsx
 import MoviesGenresPage from "./pages/MoviesGenresPage";
 import MoviesActorsPage from "./pages/MoviesActorsPage";
 import MoviesDirectorsPage from "./pages/MoviesDirectorsPage";
@@ -39,6 +49,8 @@ import GenresNewPage from "./pages/GenresNewPage";
 import MoviesNewPage from "./pages/MoviesNewPage";
 import TelevisionsNewPage from "./pages/TelevisionsNewPage";
 import UsersNewPage from "./pages/UsersNewPage";
+=======
+>>>>>>> main:App/frontend/src/App.jsx
 
 import Navbar from "./components/navbar/NavBar";
 
@@ -53,28 +65,14 @@ function App() {
         <section>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/engagements" element={<EngagementsPage />} />
-            <Route path="/users" element={<UsersPage />} />
+            <Route path="/engagements/*" element={<EngagementsPage />} />
+            <Route path="/users/*" element={<UsersPage />} />
             <Route path="/movies/*" element={<MoviesPage />} />
-            <Route path="/televisions" element={<TelevisionsPage />} />
-            <Route path="/episodes" element={<EpisodesPage />} />
-            <Route path="/genres" element={<GenresPage />} />
-            <Route path="/actors" element={<ActorsPage />} />
-            <Route path="/directors" element={<DirectorsPage />} />
-            <Route path="/movies_genres" element={<MoviesGenresPage />} />
-            <Route path="/movies_actors" element={<MoviesActorsPage />} />
-            <Route path="/movies_directors" element={<MoviesDirectorsPage />} />
-            <Route path="/televisions_genres" element={<TelevisionsGenresPage />} />
-            <Route path="/televisions_actors" element={<TelevisionsActorsPage />} />
-            <Route path="/televisions_directors" element={<TelevisionsDirectorsPage />} />
-            <Route path="/actors_new" element={<ActorsNewPage />} />
-            <Route path="/directors_new" element={<DirectorsNewPage />} />
-            <Route path="/engagements_new" element={<EngagementsNewPage />} />
-            <Route path="/episodes_new" element={<EpisodesNewPage />} />
-            <Route path="/genres_new" element={<GenresNewPage />} />
-            <Route path="/movies_new" element={<MoviesNewPage />} />
-            <Route path="/televisions_new" element={<TelevisionsNewPage />} />
-            <Route path="/users_new" element={<UsersNewPage />} />
+            <Route path="/televisions/*" element={<TelevisionsPage />} />
+            <Route path="/episodes/*" element={<EpisodesPage />} />
+            <Route path="/genres/*" element={<GenresPage />} />
+            <Route path="/actors/*" element={<ActorsPage />} />
+            <Route path="/directors/*" element={<DirectorsPage />} />
           </Routes>
         </section>
       </main>

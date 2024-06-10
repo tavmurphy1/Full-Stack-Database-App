@@ -1,60 +1,27 @@
-import { React } from 'react';
-import { Link } from 'react-router-dom';
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of routes and imports to match our project's mySQL Genres table.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
+import { Routes, Route, Link } from 'react-router-dom';
+import CreateGenre from "../components/Genres/CreateGenre";
+import GenresTable from "../components/Genres/GenresTable";
 
 function Genres() {
-    return(
-        <>
-            <h2>Genres</h2>
-            <article>
-                <table id="genres">
-                    <thead>
-                        <tr>
-                            <th>genre_id</th>
-                            <th>Genre</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>action</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>documentary</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>drama</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>animation</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>crime</td>
-                            <td>
-                                <button type="submit" onClick= "return deleteGenre();">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <Link to="/genres_new">Add New Genre</Link>
 
-        </>
+    return(
+        <div>
+
+            <Routes>
+            <Route path="/" element={<GenresTable />} />
+            <Route path="/add" element={<CreateGenre />} />
+            </Routes>
+
+            {<Link to="/genres/add">Add New Genre</Link>}
+
+        </div>
     )
 }
 export default Genres;

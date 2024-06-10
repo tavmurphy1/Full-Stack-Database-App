@@ -1,3 +1,10 @@
+//Citation for the following file:
+// Date: 5/22/2024
+// Adapted from react-starter-app provided in OSU CS340
+// The original file was used as a template. It was modified to fit our project by changing names of links to match our project's mySQL tables.
+// Source URL: https://github.com/osu-cs340-ecampus/react-starter-app
+// Authors: Devin Daniels and Zachary Maes under the supervision of Dr. Michael Curry and Dr. Danielle Safonte
+
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -12,12 +19,7 @@ const Navbar = () => {
             <Link to="/genres">Genres</Link>
             <Link to="/actors">Actors</Link>
             <Link to="/directors">Directors</Link>
-            <Link to="/movies_genres">Movie Genres</Link>
-            <Link to="/movies_actors">Movie Actors</Link>
-            <Link to="/movies_directors">Movie Directors</Link>
-            <Link to="/televisions_genres">Television Genres</Link>
-            <Link to="/televisions_actors">Television Actors</Link>
-            <Link to="/televisions_directors">Television Directors</Link>
+
       </nav>
   );
 };
