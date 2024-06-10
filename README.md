@@ -1,5 +1,5 @@
 # Reelhouse Web App
-## Frontend: React/Vite
+### Frontend: React/Vite
 
 Backend: Express/Node + MySQL
 
